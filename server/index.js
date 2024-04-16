@@ -4,7 +4,7 @@ const { response } = require("express");
 
 const pool = require("./db");
 
-const port = process.env.PORT || 5005;
+const port = process.env.PORT || 5000;
 
 const app = express();
 app.use(express.json());
