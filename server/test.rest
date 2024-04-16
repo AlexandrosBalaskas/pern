@@ -1,0 +1,21 @@
+POST http://localhost:13000/
+Content-Type: application/json
+
+{
+    "name": "nikps",
+    "location": "six stree5t"
+}
+
+###
+
+GET http://localhost:13000/setup
+
+
+###
+GET http://localhost:13000/months
+
+
+###
+GET http://localhost:13000/schools
+
+
