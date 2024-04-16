@@ -9,12 +9,12 @@ const port = process.env.PORT || 5005;
 const app = express();
 app.use(express.json());
 
-app.get("/months", (req, res) => {
+app.get("/api/months", (req, res) => {
   const months = ["Jan", "Feb", "Mar"];
   return res.end("months");
 });
 
-app.get("/schools", async (req, res) => {
+app.get("/api/schools", async (req, res) => {
   try {
     const data = await pool.query("SELECT * FROM restu");
     res.status(200).send({ childern: data.rows });
@@ -24,7 +24,7 @@ app.get("/schools", async (req, res) => {
   }
 });
 
-app.post("/add", async (req, res) => {
+app.post("/api/add", async (req, res) => {
   console.log(req.body);
   const { name, location } = req.body;
   try {
@@ -39,7 +39,7 @@ app.post("/add", async (req, res) => {
   }
 });
 
-app.get("/setup", async (req, res) => {
+app.get("/api/setup", async (req, res) => {
   try {
     await pool.query(
       "CREATE TABLE schools (id SERIAL PRIMARY KEY, name VARCHAR(100), address VARCHAR(100))"
