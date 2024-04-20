@@ -2,15 +2,19 @@ import React, { useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import api from "./axiosConfig";
+import { useKeycloak } from "@react-keycloak/web";
 
 function App() {
+  const { keycloak } = useKeycloak();
   useEffect(() => {
     api.get("/months").then((response) => {
       console.log(response, "respone");
       return response;
     });
   }, []);
-
+  const logout = () => {
+    keycloak.logout();
+  };
   const addme = () => {
     api({
       method: "post", //you can set what request you want to be
@@ -46,6 +50,7 @@ function App() {
         <button onClick={addme}>ADD</button>
         <button onClick={schools}>SCHOOLS</button>
         <button onClick={setupone}>SETUP</button>
+        <button onClick={logout}>LOGOUT</button>
       </header>
     </div>
   );
