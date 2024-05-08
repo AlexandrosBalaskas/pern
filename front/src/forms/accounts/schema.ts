@@ -1,0 +1,22 @@
+export const schema = {
+  type: "object",
+  properties: {
+    accountName: { type: "string" },
+    website: { type: "string" },
+    type: { type: "string" },
+    description: { type: "string" },
+    parentAccount: { type: "string" },
+    accountOwner: { type: "string" },
+    phone: { type: "string" },
+    billingStreet: { type: "string" },
+    billingPostalCode: { type: "string" },
+    billingCity: { type: "string" },
+    billingCountry: { type: "string" },
+    billingState: { type: "string" },
+    shippingStreet: { type: "string" },
+    shippingPostalCode: { type: "string" },
+    shippingCity: { type: "string" },
+    shippingCountry: { type: "string" },
+    shippingState: { type: "string" },
+  },
+};

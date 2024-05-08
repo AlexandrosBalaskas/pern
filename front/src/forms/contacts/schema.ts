@@ -1,0 +1,20 @@
+export const schema = {
+  type: "object",
+  properties: {
+    salutation: { type: "string" },
+    firstName: { type: "string" },
+    lastName: { type: "string" },
+    accountName: { type: "string" },
+    title: { type: "string" },
+    reportsTo: { type: "string" },
+    description: { type: "string" },
+    contactOwner: { type: "string" },
+    phone: { type: "string" },
+    email: { type: "string" },
+    mailingStreet: { type: "string" },
+    postalCode: { type: "string" },
+    mailingCity: { type: "string" },
+    mailingCountry: { type: "string" },
+    mailingState: { type: "string" },
+  },
+};

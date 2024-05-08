@@ -1,0 +1,48 @@
+export type GenericSelectProps = {
+  options: Array<{ code: string; label: string }>;
+  disabledOptions?: (string | boolean | number)[];
+  id: string;
+  ariaDescription?: string;
+  value: string | Array<string>;
+  disabled?: boolean;
+  readonly?: boolean;
+  required?: boolean;
+  multiple?: boolean;
+  selectAll?: boolean;
+  autofocus?: boolean;
+  label: string;
+  children?: Array<JSX.Element> | JSX.Element;
+  inputProps?: any;
+  onChange?: (string) => void;
+  onBlur?: (e) => void;
+  onFocus?: () => void;
+  errors?: null | JSX.Element;
+  valid?: boolean;
+  clearable?: boolean;
+  widthSize?: "xs" | "sm" | "md" | "lg" | "xl";
+  fullWidth?: boolean;
+  helpText?: string;
+  loading?: boolean;
+};
+
+export type FormWidgetProps = {
+  schema: AnyType;
+  uiSchema: AnyType;
+  id: string;
+  componentName: string;
+  disabled?: boolean;
+  readonly?: boolean;
+  required?: boolean;
+  autofocus?: boolean;
+  label: string;
+  onBlur?: (event) => void;
+  onFocus?: (event) => void;
+  warnOnChange?: (value) => void;
+  inputProps?: AnyType;
+  value: AnyType;
+  onChange: (value) => void;
+  options: FormWidgetOptions;
+  serverErrors?: Array<string>;
+  diffs?: Array<string>;
+  formContext: FormContextSchema;
+};
