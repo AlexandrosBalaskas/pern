@@ -54,7 +54,7 @@ export const DynamicPage = () => {
       pageId={pageId}
       submitButton={
         <Grid item xs={12}>
-          <Tooltip title={translate("submitButtonAriaLabel")}>
+          {/* <Tooltip title={translate("submitButtonAriaLabel")}>
             <AppButton
               type="button"
               id={`${pageId}-form-btn`}
@@ -62,7 +62,7 @@ export const DynamicPage = () => {
               label={translate("submit")}
               onClick={onClick}
             />
-          </Tooltip>
+          </Tooltip> */}
         </Grid>
       }
     ></DynamicForm>
