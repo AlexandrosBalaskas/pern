@@ -6,7 +6,7 @@ function App() {
   const addme = () => {
     api({
       method: "post", //you can set what request you want to be
-      url: "/accounts",
+      url: "/schools",
       data: {
         accountName: "asafdfs",
         website: "six stree5t",
@@ -27,7 +27,7 @@ function App() {
   const schools = () => {
     api({
       method: "get", //you can set what request you want to be
-      url: "/accounts",
+      url: "/schools",
       params: { filters: "" },
       headers: {
         "Content-Type": "application/json",
