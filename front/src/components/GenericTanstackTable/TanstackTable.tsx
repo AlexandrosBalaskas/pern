@@ -13,17 +13,17 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import useTable from "../../store/table/useTable";
-import useDrawer from "../../store/drawer/useDrawer";
 import AppIconButton from "../AppIconButton/AppIconButton";
 import { Assets } from "../Assets/Assets";
 import MenuActionButton from "../ActionButtons/MenuButton";
 import FiltersContainer from "../Filters/FiltersContainer";
 import { TanstackTablePagination } from "./TanstackTablePagination";
+import api from "../../axiosConfig";
 
 const TanstackTable = ({ pageId, columns, filtering, rowButtons }: any) => {
   const arr: any = [];
   const [isCall, setIsCall] = useState(false);
+  const [data, setData] = useState(arr);
   const [sorting, setSorting] = useState(arr);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
@@ -33,22 +33,11 @@ const TanstackTable = ({ pageId, columns, filtering, rowButtons }: any) => {
 
   const parentId = "Tanstack";
 
-  const { criteria, loadTable, initTable, data, count } = useTable(pageId);
-  console.log(data, "data");
-
   const { groups } = rowButtons;
-
-  const { open, openDrawer, closeDrawer } = useDrawer(
-    `${parentId}_${pageId}_filters-panel`
-  );
 
   const finalActions = useMemo(() => {
     return groups;
   }, [groups]);
-
-  useEffect(() => {
-    initTable({ loading: false });
-  }, [pageId]);
 
   const sort = useMemo(() => {
     return sorting.length
@@ -64,19 +53,22 @@ const TanstackTable = ({ pageId, columns, filtering, rowButtons }: any) => {
   }, [pagination]);
 
   useEffect(() => {
-    loadTable({
-      params: {
-        ...sort,
-        ...finalPagination,
-        filters: JSON.stringify(criteria),
+    api({
+      method: "get", //you can set what request you want to be
+      url: "/accounts",
+      params: { filters: "" },
+      headers: {
+        "Content-Type": "application/json",
       },
-      tableId: pageId,
-      pageId,
+    }).then((response) => {
+      console.log(response);
+      setData(response?.data?.data);
+      return response;
     });
-  }, [sort, finalPagination, criteria, isCall]);
+  }, []);
 
   const table = useReactTable({
-    data: data,
+    data,
     state: {
       sorting,
       pagination,
@@ -90,7 +82,7 @@ const TanstackTable = ({ pageId, columns, filtering, rowButtons }: any) => {
     sortDescFirst: false,
     onSortingChange: setSorting,
     manualSorting: true,
-    pageCount: count ? (Math.ceil(count / 10) * 10) / pagination.pageSize : 0,
+    pageCount: 0,
     manualPagination: true,
     onPaginationChange: setPagination,
     manualFiltering: true,
@@ -99,9 +91,7 @@ const TanstackTable = ({ pageId, columns, filtering, rowButtons }: any) => {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  const toggleFilters = useCallback(() => {
-    open ? closeDrawer() : openDrawer();
-  }, [open, openDrawer, closeDrawer]);
+  const toggleFilters = () => {};
 
   const onCall = () => {
     setIsCall(!isCall);
@@ -191,7 +181,7 @@ const TanstackTable = ({ pageId, columns, filtering, rowButtons }: any) => {
         </Table>
         <TanstackTablePagination
           table={table}
-          count={count}
+          count={0}
           pagination={pagination}
           pageId={pageId}
         />

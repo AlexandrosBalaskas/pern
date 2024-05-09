@@ -1,7 +1,5 @@
 import React, { useCallback, useState } from "react";
 import { FiltersProps } from "./Filters.d";
-import useTable from "../../store/table/useTable";
-import useDrawer from "../../store/drawer/useDrawer";
 // import { DynamicForm } from "../DynamicForm";
 
 const Filters = ({
@@ -12,27 +10,7 @@ const Filters = ({
   onClose,
   closeOnClear = true,
 }: FiltersProps) => {
-  const { clearCriteria, applyCriteria, setFilterData, triggerRefresh } =
-    useTable(id);
-  const { closeDrawer } = useDrawer(`${parentId}_${id}_filters-panel`);
   const [formData, setFormData] = useState({});
-
-  const applyFilters = useCallback(() => {
-    if (Object.keys(formData).length === 0) {
-      triggerRefresh();
-    } else {
-      applyCriteria(formData);
-    }
-    onClose && onClose();
-    closeDrawer();
-  }, [formData, closeDrawer]);
-
-  const clearFilters = useCallback(() => {
-    setFormData({});
-    clearCriteria();
-    closeOnClear && onClose && onClose();
-    closeOnClear && closeDrawer();
-  }, [closeDrawer]);
 
   return (
     <></>

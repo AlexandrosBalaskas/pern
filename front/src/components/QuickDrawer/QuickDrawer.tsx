@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { Box, Divider, Drawer, Theme, Typography } from "@mui/material";
-import useDrawer from "../../store/drawer/useDrawer";
 import AppIconButton from "../AppIconButton/AppIconButton";
 import { Assets } from "../Assets/Assets";
 import { makeStyles } from "@mui/styles";
@@ -43,51 +42,11 @@ const QuickDrawer = ({
 }) => {
   const styles = useStyles();
 
-  const { open, closeDrawer } = useDrawer(drawerId);
-
   const isPersistent = useMemo(() => {
     return variant === "persistent";
   }, [variant]);
 
-  return (
-    <Drawer
-      open={open}
-      onClose={onClose}
-      anchor="right"
-      variant={variant}
-      ModalProps={{
-        keepMounted: !isPersistent,
-      }}
-    >
-      <Box
-        className={styles.container}
-        style={{ minWidth: "30vw", maxWidth: "30vw" }}
-      >
-        <Box className={styles.header}>
-          <Typography variant="h6" color="primary">
-            {title}
-          </Typography>
-          <AppIconButton
-            id={closeButtonId}
-            label={"close"}
-            onClick={() => {
-              closeDrawer();
-              onClose && onClose();
-            }}
-            icon={
-              <Assets
-                input="icons"
-                name="Close"
-                props={{ className: "primary" }}
-              />
-            }
-          />
-        </Box>
-        <Divider />
-        <Box className={styles.content}>{children}</Box>
-      </Box>
-    </Drawer>
-  );
+  return <></>;
 };
 
 export default QuickDrawer;
