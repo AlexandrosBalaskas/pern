@@ -5,7 +5,7 @@ const pool = require("../db");
 
 router.get("/api/accounts", async (req, res) => {
   const { current_page, pageSize } = req.query;
-  const filters = (Object.keys(JSON.parse(req.query?.filters)) || [])
+  const filters = []
     .map((key, index) => {
       let par = index === 0 ? "WHERE" : "AND";
       return `${par} ${key} = '${JSON.parse(req.query.filters)[key]}'`;

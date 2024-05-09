@@ -26,17 +26,17 @@ app.use(priceBooksRouter);
 app.use(casesRouter);
 
 app.get("/api/schools", async (req, res) => {
-  const { current_page, pageSize } = req.query;
-  const filters = (Object.keys(JSON.parse(req.query?.filters)) || [])
-    .map((key, index) => {
-      let par = index === 0 ? "WHERE" : "AND";
-      return `${par} ${key} = '${JSON.parse(req.query.filters)[key]}'`;
-    })
-    .join(" ");
-  const order = req.query?.sort
-    ? `ORDER BY ${req.query?.sort?.split(":")?.join(" ")}`
-    : "";
   try {
+    const { current_page, pageSize } = req.query;
+    const filters = Object.keys([])
+      .map((key, index) => {
+        let par = index === 0 ? "WHERE" : "AND";
+        return `${par} ${key} = '${JSON.parse(req.query.filters)[key]}'`;
+      })
+      .join(" ");
+    const order = req.query?.sort
+      ? `ORDER BY ${req.query?.sort?.split(":")?.join(" ")}`
+      : "";
     const data = await pool.query(
       `SELECT * FROM schoolss ${filters} ${order} LIMIT ${
         pageSize || 10
