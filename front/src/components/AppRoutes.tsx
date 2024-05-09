@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Initial } from "./Initial";
 import { InitialTwo } from "./InitialTwo";
-import { DynamicTable } from "./DynamicTable";
 
 function AppRoutes() {
   return (
