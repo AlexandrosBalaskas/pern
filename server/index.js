@@ -24,6 +24,11 @@ app.use(productsRouter);
 app.use(quickTextsRouter);
 app.use(priceBooksRouter);
 app.use(casesRouter);
+app.use(express.static(__dirname));
+
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
 
 app.get("/api/schools", async (req, res) => {
   const { current_page, pageSize } = req.query;
