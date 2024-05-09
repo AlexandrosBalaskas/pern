@@ -1,0 +1,9 @@
+export const DTE_FORM = "schools";
+export const CONTACTS = "contacts";
+export const ACCOUNTS = "accounts";
+export const LEADS = "leads";
+export const OPORTUNITIES = "oportunities";
+export const PRODUCTS = "products";
+export const CASES = "cases";
+export const PRICEBOOKS = "priceBooks";
+export const QUICKTEXTS = "quickTexts";

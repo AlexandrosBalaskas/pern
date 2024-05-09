@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import api from "./axiosConfig";
+import AppRoutes from "./components/AppRoutes";
 
 function App() {
   const addme = () => {
@@ -40,12 +41,10 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img className="App-logo" alt="logo" />
-        <button onClick={addme}>ADD</button>
-        <button onClick={schools}>SCHOOLS</button>
-        <button onClick={setupone}>SETUP</button>
-      </header>
+      <button onClick={addme}>ADD</button>
+      <button onClick={schools}>SCHOOLS</button>
+      <button onClick={setupone}>SETUP</button>
+      <AppRoutes></AppRoutes>
     </div>
   );
 }
