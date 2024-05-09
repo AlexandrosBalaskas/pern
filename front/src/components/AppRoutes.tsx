@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Initial } from "./Initial";
+import { InitialTwo } from "./InitialTwo";
 import { DynamicTable } from "./DynamicTable";
 
 function AppRoutes() {
@@ -8,7 +9,7 @@ function AppRoutes() {
       <Route path="" element={<Initial />} />
       <Route path="/" element={<Initial />} />
       <Route path="/home" element={<Initial />} />
-      <Route path="/page/:category/list" element={<DynamicTable />} />
+      <Route path="/page/:category/list" element={<InitialTwo />} />
     </Routes>
   );
 }
