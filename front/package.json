@@ -54,7 +54,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "PUBLIC_URL=/wp-content/reactpress/apps/APP-NAME/build react-scripts build",
+    "build": "PUBLIC_URL=/wp-content/reactpress/apps/pern-app/build react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "mock": "nodemon json-server/start.js"
