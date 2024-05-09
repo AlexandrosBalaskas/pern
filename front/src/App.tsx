@@ -44,6 +44,7 @@ function App() {
       <button onClick={addme}>ADD</button>
       <button onClick={schools}>SCHOOLS</button>
       <button onClick={setupone}>SETUP</button>
+      <AppRoutes></AppRoutes>
     </div>
   );
 }
