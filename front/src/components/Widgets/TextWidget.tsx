@@ -2,7 +2,7 @@ import AppTextField from "../AppTextField/AppTextField";
 import useFormField from "../../hooks/useFormField";
 
 const TextWidget = (props: any) => {
-  const { label, id, disabled, onChange } = props;
+  const { label, id, disabled } = props;
   const { value, setFieldValue } = useFormField(id);
   return (
     <AppTextField

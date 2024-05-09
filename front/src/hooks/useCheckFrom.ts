@@ -8,7 +8,7 @@ const useCheckFrom = (widgetId: string, from: any) => {
   const value = useFormData(widgetId, source);
   const check = useMemo(() => {
     return isValueCorrect(value, checkWhen, operator);
-  }, [value]);
+  }, [value, checkWhen, operator]);
 
   return { check };
 };

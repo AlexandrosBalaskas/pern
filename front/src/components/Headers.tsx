@@ -1,6 +1,6 @@
 import React from "react";
 import PopoverMenu from "./Popover/Menu";
-import { Avatar, Theme } from "@mui/material";
+import { Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useTranslation } from "react-i18next";
 import { Assets } from "./Assets/Assets";

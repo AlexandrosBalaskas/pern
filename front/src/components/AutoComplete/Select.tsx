@@ -37,7 +37,7 @@ const GenericSelect = ({
 
   const onChangeCallback = React.useCallback(onChange, [onChange]);
 
-  const onFocusCallback = useCallback(() => onFocus && onFocus(), []);
+  const onFocusCallback = useCallback(() => onFocus && onFocus(), [onFocus]);
 
   return (
     <AutoComplete

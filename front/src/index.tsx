@@ -15,8 +15,6 @@ import initTheme, {
   getExternalThemeOverrides,
 } from "./themes/theme";
 import { ThemeProvider } from "@mui/material";
-import { ReactKeycloakProvider } from "@react-keycloak/web";
-import keycloak from "./keycloak";
 i18next.init({
   interpolation: { escapeValue: false }, // React already does escaping
   lng: "en",
@@ -35,11 +33,11 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-const keycloakProviderInitOptions = {
-  onLoad: "login-required",
-  checkLoginIframe: false,
-  pkceMethod: "S256",
-};
+// const keycloakProviderInitOptions = {
+//   onLoad: "login-required",
+//   checkLoginIframe: false,
+//   pkceMethod: "S256",
+// };
 root.render(
   <Router>
     {/* <ReactKeycloakProvider

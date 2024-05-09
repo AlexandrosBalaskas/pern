@@ -1,6 +1,6 @@
 import { Autocomplete } from "@mui/lab";
 import { AutocompleteTagsProps, AutocompleteOption } from "./AutoComplete.d";
-import { TextField, Typography } from "@mui/material";
+import { TextField } from "@mui/material";
 import { useMemo } from "react";
 
 const AutoComplete = ({
@@ -18,20 +18,20 @@ const AutoComplete = ({
   disabled = false,
   renderBy = "label",
 }: AutocompleteTagsProps) => {
-  const isSelected = (option: AutocompleteOption, selected: any) => {
-    if (multiple) {
-      return (selected || []).indexOf(option.code) >= 0;
-    } else {
-      return selected === option.code;
-    }
-  };
+  // const isSelected = (option: AutocompleteOption, selected: any) => {
+  //   if (multiple) {
+  //     return (selected || []).indexOf(option.code) >= 0;
+  //   } else {
+  //     return selected === option.code;
+  //   }
+  // };
   const isDisabled = (option: AutocompleteOption, disabledOptions: any) => {
     return (disabledOptions || []).indexOf(option.code) >= 0;
   };
 
   const filteredOptions = useMemo(() => {
-    return options?.filter((option) => !isSelected(option, value));
-  }, [options, value]);
+    return options; //?.filter((option) => !isSelected(option, value)
+  }, [options]);
 
   const getOptionLabel = (option: AutocompleteOption) => {
     if (!option) {

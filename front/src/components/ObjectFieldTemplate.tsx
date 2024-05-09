@@ -1,25 +1,8 @@
-import { Grid, Theme } from "@mui/material";
+import { Grid } from "@mui/material";
 import { useMemo } from "react";
-import { makeStyles } from "@mui/styles";
-
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    padding: 0,
-    margin: 0,
-    marginBottom: theme.spacing(4),
-    width: "100%",
-  },
-  grid: {
-    padding: 0,
-    margin: 0,
-    width: "100%",
-  },
-}));
 
 export const ObjectFieldTemplate = function (props: any) {
-  const { idSchema, properties, formContext } = props;
-
-  const fieldId = idSchema.$id;
+  const { properties } = props;
 
   const groupings = [
     {

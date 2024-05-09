@@ -53,7 +53,6 @@ const AppIconButton = ({
           aria-hidden={true}
           className={classNames({
             [styles.button]: true,
-            ["Mui-disabled"]: disabled,
             [className]: className,
           })}
           size={size}

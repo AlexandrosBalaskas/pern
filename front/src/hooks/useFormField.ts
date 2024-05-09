@@ -15,7 +15,7 @@ const useFormField = (id: string) => {
 
   const setFieldValue = useCallback(
     (value: any) => dispatch(updateFormValue(fieldId, value, entityId)),
-    [dispatch, entityId, fieldId]
+    [dispatch, entityId, fieldId, updateFormValue]
   );
 
   return {

@@ -9,7 +9,6 @@ import {
   alpha,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import AppIconButton from "../AppIconButton/AppIconButton";
 

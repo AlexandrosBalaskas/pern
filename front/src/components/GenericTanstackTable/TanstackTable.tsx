@@ -50,7 +50,7 @@ const TanstackTable = ({ pageId, columns, filtering, rowButtons }: any) => {
 
   useEffect(() => {
     initTable({ loading: false });
-  }, [pageId]);
+  }, [pageId, initTable]);
 
   const sort = useMemo(() => {
     return sorting.length
@@ -75,7 +75,7 @@ const TanstackTable = ({ pageId, columns, filtering, rowButtons }: any) => {
       tableId: pageId,
       pageId,
     });
-  }, [sort, finalPagination, criteria, isCall]);
+  }, [sort, finalPagination, criteria, isCall, loadTable, pageId]);
 
   const table = useReactTable({
     data: data,

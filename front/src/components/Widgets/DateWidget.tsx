@@ -1,7 +1,6 @@
 import { useCallback } from "react";
 import useFormField from "../../hooks/useFormField";
 import DateCalendar from "../Calendar/Calendar";
-const dayjs = require("dayjs");
 
 const DateWidget = (props: any) => {
   const { label, id, disabled } = props;

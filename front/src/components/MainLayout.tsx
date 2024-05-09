@@ -2,7 +2,7 @@ import useMenu from "../store/menu/useMenu";
 import { Menu } from "./MainMenu";
 import { useNavigate } from "react-router";
 export const MainLayout = () => {
-  const { toggleMainMenu, expanded, menuItems } = useMenu();
+  const { toggleMainMenu, expanded } = useMenu();
   const navigate = useNavigate();
 
   const selected = [

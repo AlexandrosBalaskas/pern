@@ -11,10 +11,13 @@ const useEntity = (entityId: string) => {
     loading: useSelector(selectLoading(entityId), shallowEqual),
     formData: useSelector(selectFormData(entityId), shallowEqual),
     isNew: useSelector(selectIsNew(entityId), shallowEqual),
-    initEntity: useCallback(() => dispatch(InitEntity(entityId)), [dispatch]),
+    initEntity: useCallback(
+      () => dispatch(InitEntity(entityId)),
+      [dispatch, entityId]
+    ),
     setEntity: useCallback(
       (response: any) => dispatch(SetEntity({ entityId, response })),
-      [dispatch]
+      [dispatch, entityId]
     ),
     updateFormValue: useCallback(
       (fieldId: string, value: any, entityId: string) =>

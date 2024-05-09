@@ -17,7 +17,7 @@ const useTable = (id: string) => {
   return {
     initTable: useCallback(
       (initialState: any) => dispatch(InitTable({ tableId: id, initialState })),
-      [dispatch]
+      [dispatch, id]
     ),
     loadTable: useCallback(
       ({ pageId, url, params, data, method, headers, tableId }: any) =>

@@ -1,7 +1,6 @@
 import Form from "./Widgets/FieldRenderer";
 import validator from "@rjsf/validator-ajv8";
 import { RJSFSchema, UiSchema, WidgetProps } from "@rjsf/utils";
-import { CustomFieldTemplate } from "./CustomFieldTemplate";
 import React from "react";
 import { Grid, Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
@@ -20,8 +19,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const DynamicForm = function ({
   widget: Widget,
-  schema: schema,
-  uiSchema: uiSchema,
+  schema,
+  uiSchema,
   data,
   onSubmit,
   onClear,

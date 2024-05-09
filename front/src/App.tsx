@@ -1,8 +1,6 @@
 import "./App.css";
 import { MainLayout } from "./components/MainLayout";
-import useMenu from "./store/menu/useMenu";
 import AppRoutes from "./components/AppRoutes";
-import Logout from "./components/Logout/Logout";
 import { useState } from "react";
 import { BsArrowLeftShort, BsChevronDown, BsSearch } from "react-icons/bs";
 import {
@@ -13,11 +11,6 @@ import {
 import { RiDashboardFill } from "react-icons/ri";
 import { makeStyles } from "@mui/styles";
 import Headers from "./components/Headers";
-import { useNavigate } from "react-router";
-import PopoverMenu from "./components/Popover/Menu";
-import { useTranslation } from "react-i18next";
-import { useKeycloak } from "@react-keycloak/web";
-import { Assets } from "./components/Assets/Assets";
 const useStyles = makeStyles(() => ({
   toolbarContainer: {
     position: "absolute",
@@ -35,11 +28,7 @@ const useStyles = makeStyles(() => ({
 
 function App() {
   // const keycloak = useKeycloak();
-  const navigate = useNavigate();
-  const { t: translate } = useTranslation("common");
-  const navigateToHomePage = () => navigate("/");
   const classes = useStyles();
-  const { toggleMainMenu } = useMenu();
   const [open, setOpen] = useState(true);
   const [subMenuOpen, setSubMenuOpen] = useState(false);
 

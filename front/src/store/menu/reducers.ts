@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 // import axios from "axios";
 // import { AnyType } from "common/types";
 // import { API_URL } from "../../constants/envVariables";

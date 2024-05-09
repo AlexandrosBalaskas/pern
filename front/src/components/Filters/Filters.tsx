@@ -25,14 +25,14 @@ const Filters = ({
     }
     onClose && onClose();
     closeDrawer();
-  }, [formData, closeDrawer]);
+  }, [formData, closeDrawer, applyCriteria, onClose, triggerRefresh]);
 
   const clearFilters = useCallback(() => {
     setFormData({});
     clearCriteria();
     closeOnClear && onClose && onClose();
     closeOnClear && closeDrawer();
-  }, [closeDrawer]);
+  }, [closeDrawer, clearCriteria, closeOnClear, onClose]);
 
   return (
     <DynamicForm

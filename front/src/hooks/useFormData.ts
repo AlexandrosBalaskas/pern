@@ -8,7 +8,7 @@ const useFormData = (widgetId: string, source: any) => {
   const value = useMemo(() => {
     if (!source) return null;
     return resolveSourceData(widgetId, state, source);
-  }, [state, source]);
+  }, [state, source, widgetId]);
 
   return value;
 };

@@ -1,7 +1,7 @@
 import { DynamicForm } from "./DynamicForm";
 import { useSchemas } from "../hooks/useSchemas";
 import { FALLBACK_SCHEMAS } from "../forms/fallbackSchemas";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useParams } from "react-router";
 import useEntity from "../store/entity/useEntity";
 import api from "../axiosConfig";
@@ -29,7 +29,7 @@ export const DynamicPage = () => {
       api.get(`/${pageId}/${idKey}`).then((response: any) => {
         setEntity(response?.data);
       });
-  }, [pageId]);
+  }, [pageId, idKey, setEntity]);
 
   const onClick = useCallback(() => {
     const url = isNew ? `${pageId}` : `${pageId}/${idKey}`;
@@ -41,11 +41,11 @@ export const DynamicPage = () => {
     }).then((response: any) => {
       setEntity(response?.data);
     });
-  }, [formData]);
+  }, [formData, idKey, isNew, pageId, setEntity]);
 
   useEffect(() => {
     initEntity();
-  }, [schema]);
+  }, [schema, initEntity]);
 
   return (
     <DynamicForm
