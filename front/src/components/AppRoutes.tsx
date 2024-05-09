@@ -1,16 +1,28 @@
-import { Routes, Route } from "react-router-dom";
 import { Initial } from "./Initial";
 import { InitialTwo } from "./InitialTwo";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    path: "",
+    element: <Initial />,
+  },
+  {
+    path: "/",
+    element: <Initial />,
+  },
+  {
+    path: "/home",
+    element: <Initial />,
+  },
+  {
+    path: "/page/:category/list",
+    element: <InitialTwo />,
+  },
+]);
 
 function AppRoutes() {
-  return (
-    <Routes>
-      <Route path="" element={<Initial />} />
-      <Route path="/" element={<Initial />} />
-      <Route path="/home" element={<Initial />} />
-      <Route path="/page/:category/list" element={<InitialTwo />} />
-    </Routes>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default AppRoutes;
