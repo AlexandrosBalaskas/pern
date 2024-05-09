@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom";
+import { HashRouter as Router } from "react-router-dom";
 import { I18nextProvider } from "react-i18next";
 import i18next from "i18next";
 import { DEFAULT_TRANSLATIONS } from "./translations";
