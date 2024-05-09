@@ -4,7 +4,6 @@ import { makeStyles } from "@mui/styles";
 import AppIconButton from "../AppIconButton/AppIconButton";
 import { Assets } from "../Assets/Assets";
 import ActionButton from "./ActionButton";
-import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
   menu: {
@@ -13,12 +12,8 @@ const useStyles = makeStyles((theme: Theme) => ({
       paddingBottom: 0,
     },
     "& .MuiListItem-button": {
-      "&:hover": {
-        backgroundColor: theme.palette.primary.light,
-      },
-      "& .MuiListItemIcon-root": {
-        color: theme.palette.common.black,
-      },
+      "&:hover": {},
+      "& .MuiListItemIcon-root": {},
     },
   },
 }));
@@ -42,8 +37,6 @@ export default function MenuActionButton({
 }: any) {
   const styles = useStyles();
 
-  const { t: translate } = useTranslation(["common", "accessibility"]);
-
   const [anchor, setAnchor] = useState(null);
 
   const onMenuClick = (e: any) => {
@@ -54,7 +47,7 @@ export default function MenuActionButton({
     <>
       <AppIconButton
         id={`${id}-menuButton-${index}`}
-        label={translate("menuButton")}
+        label={"menuButton"}
         onClick={onMenuClick}
         icon={<Assets input="icons" name="MoreVert" />}
       />

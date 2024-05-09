@@ -16,7 +16,6 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import useTable from "../../store/table/useTable";
 import useDrawer from "../../store/drawer/useDrawer";
 import AppIconButton from "../AppIconButton/AppIconButton";
-import { useTranslation } from "react-i18next";
 import { Assets } from "../Assets/Assets";
 import MenuActionButton from "../ActionButtons/MenuButton";
 import FiltersContainer from "../Filters/FiltersContainer";
@@ -32,7 +31,6 @@ const TanstackTable = ({ pageId, columns, filtering, rowButtons }: any) => {
   });
   const [columnFilters, setColumnFilters] = useState(arr);
 
-  const { t: translate } = useTranslation("common");
   const parentId = "Tanstack";
 
   const { criteria, loadTable, initTable, data, count } = useTable(pageId);
@@ -120,7 +118,7 @@ const TanstackTable = ({ pageId, columns, filtering, rowButtons }: any) => {
       <TableContainer component={Paper}>
         <AppIconButton
           id={"Tanstack-filter-btn"}
-          label={translate("filter")}
+          label={"filter"}
           onClick={toggleFilters}
           icon={
             <Assets
@@ -139,9 +137,7 @@ const TanstackTable = ({ pageId, columns, filtering, rowButtons }: any) => {
                     <TableCell
                       sx={{
                         cursor: "pointer",
-                        "&:hover": {
-                          bgcolor: (theme) => theme.palette.grey[100],
-                        },
+                        "&:hover": {},
                       }}
                       key={header.id}
                       onClick={header.column.getToggleSortingHandler()}

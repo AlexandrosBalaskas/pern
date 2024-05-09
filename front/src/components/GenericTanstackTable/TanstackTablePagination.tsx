@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import AppIconButton from "../AppIconButton/AppIconButton";
 import { Assets } from "../Assets/Assets";
 
@@ -13,13 +12,12 @@ export const TanstackTablePagination = ({
   pagination: any;
   pageId: string;
 }) => {
-  const { t: translate } = useTranslation("common");
   return (
     <div
       className="flex items-center gap-2"
       style={{ display: "flex", marginTop: "10px", marginBottom: "10px" }}
     >
-      <div style={{ marginLeft: "25px" }}> {translate("rowsPerPages")}</div>
+      <div style={{ marginLeft: "25px" }}> {"rowsPerPages"}</div>
       <select
         style={{ marginRight: "35px", marginLeft: "5px" }}
         value={table.getState().pagination.pageSize}
@@ -39,7 +37,7 @@ export const TanstackTablePagination = ({
         className="flex items-center gap-1"
         style={{ display: "flex", height: "30px", marginRight: "35px" }}
       >
-        <div>{translate("page")} </div>
+        <div>{"page"} </div>
         <strong>
           {Math.ceil(table.getState().pagination.pageIndex + 1)} of{" "}
           {count ? Math.ceil(count / pagination.pageSize) : 0}
@@ -47,7 +45,7 @@ export const TanstackTablePagination = ({
       </span>
       <AppIconButton
         id={`${pageId}-first-page-btn`}
-        label={translate("goToFirstPage")}
+        label={"goToFirstPage"}
         className="border rounded p-1"
         onClick={() => table.firstPage()}
         disabled={!table.getCanPreviousPage()}
@@ -55,7 +53,7 @@ export const TanstackTablePagination = ({
       />
       <AppIconButton
         id={`${pageId}-previous-page-btn`}
-        label={translate("goToPreviousPage")}
+        label={"goToPreviousPage"}
         className="border rounded p-1"
         onClick={() => table.previousPage()}
         disabled={!table.getCanPreviousPage()}
@@ -63,7 +61,7 @@ export const TanstackTablePagination = ({
       />
       <AppIconButton
         id={`${pageId}-next-page-btn`}
-        label={translate("goToNextPage")}
+        label={"goToNextPage"}
         className="border rounded p-1"
         onClick={() => table.nextPage()}
         disabled={!table.getCanNextPage()}
@@ -71,7 +69,7 @@ export const TanstackTablePagination = ({
       />
       <AppIconButton
         id={`${pageId}-lase-page-btn`}
-        label={translate("goToLastPage")}
+        label={"goToLastPage"}
         className="border rounded p-1"
         onClick={() => table.lastPage()}
         disabled={!table.getCanNextPage()}

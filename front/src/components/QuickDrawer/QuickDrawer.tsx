@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { Box, Divider, Drawer, Theme, Typography } from "@mui/material";
-import { useTranslation } from "react-i18next";
 import useDrawer from "../../store/drawer/useDrawer";
 import AppIconButton from "../AppIconButton/AppIconButton";
 import { Assets } from "../Assets/Assets";
@@ -21,17 +20,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
-    padding: theme.spacing(1),
-    paddingLeft: theme.spacing(2),
     position: "absolute",
     zIndex: 9999,
-    backgroundColor: theme.palette.common.white,
-    borderBottom: `1px solid ${theme.palette.divider}`,
   },
-  content: {
-    padding: theme.spacing(2),
-    marginTop: theme.spacing(9),
-  },
+  content: {},
 }));
 
 const QuickDrawer = ({
@@ -50,7 +42,6 @@ const QuickDrawer = ({
   variant?: "persistent" | "permanent" | "temporary" | undefined;
 }) => {
   const styles = useStyles();
-  const { t: translate } = useTranslation(["common", "accessibility"]);
 
   const { open, closeDrawer } = useDrawer(drawerId);
 
@@ -74,11 +65,11 @@ const QuickDrawer = ({
       >
         <Box className={styles.header}>
           <Typography variant="h6" color="primary">
-            {translate(title)}
+            {title}
           </Typography>
           <AppIconButton
             id={closeButtonId}
-            label={translate("close")}
+            label={"close"}
             onClick={() => {
               closeDrawer();
               onClose && onClose();

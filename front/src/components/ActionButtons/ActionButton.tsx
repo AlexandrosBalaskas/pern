@@ -3,7 +3,6 @@ import { Theme, Typography } from "@mui/material";
 import { ActionButtonProps } from "./ActionButton.d";
 import { useNavigate } from "react-router-dom";
 import { Assets } from "../Assets/Assets";
-import { useTranslation } from "react-i18next";
 import ConfirmationDialog from "../ConfirmationDialog/ConfirmationDialog";
 import api from "../../axiosConfig";
 import { makeStyles } from "@mui/styles";
@@ -11,10 +10,7 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles((theme: Theme) => ({
   icon: { marginRight: 16, fontSize: 10 },
   menuItem: {
-    "&:hover": {
-      backgroundColor: theme.palette.primary.light,
-    },
-    padding: theme.spacing(1, 2),
+    "&:hover": {},
     cursor: "pointer",
     alignItems: "center",
     display: "flex",
@@ -54,8 +50,6 @@ const ActionButton = ({ id, action, onCall, pageId }: ActionButtonProps) => {
   };
 
   const onClose = useCallback(() => setOpenModal(false), []);
-
-  const { t: translate } = useTranslation(["common", "accessibility"]);
 
   const isMenu = useMemo(() => {
     return style === "menu";
@@ -105,12 +99,12 @@ const ActionButton = ({ id, action, onCall, pageId }: ActionButtonProps) => {
         <ConfirmationDialog
           open={openModal}
           onClose={onClose}
-          title={translate("confirm")}
-          message={translate("confirmationActionMessage")}
+          title={"confirm"}
+          message={"confirmationActionMessage"}
           choices={[
-            { label: translate("cancel"), variant: "outlined" },
+            { label: "cancel", variant: "outlined" },
             {
-              label: translate("confirm"),
+              label: "confirm",
               variant: "contained",
               action: onSubmit,
             },

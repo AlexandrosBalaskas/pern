@@ -6,37 +6,11 @@ import reportWebVitals from "./reportWebVitals";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import { I18nextProvider } from "react-i18next";
-import i18next from "i18next";
-import initTheme, {
-  getExternalBasicTheme,
-  getExternalTheme,
-  getExternalThemeOverrides,
-} from "./themes/theme";
-import { ThemeProvider } from "@mui/material";
-i18next.init({
-  interpolation: { escapeValue: false }, // React already does escaping
-  lng: "en",
-  resources: {
-    en: {}, // 'common' is our custom namespace
-  },
-});
 
-const theme: any = initTheme(
-  getExternalBasicTheme,
-  getExternalTheme,
-  getExternalThemeOverrides
-);
-console.log(theme, "theme");
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-const keycloakProviderInitOptions = {
-  onLoad: "login-required",
-  checkLoginIframe: false,
-  pkceMethod: "S256",
-};
 root.render(
   <Router>
     {/* <ReactKeycloakProvider
@@ -45,11 +19,7 @@ root.render(
       autoRefreshToken={false}
     > */}
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <I18nextProvider i18n={i18next}>
-          <App />
-        </I18nextProvider>
-      </ThemeProvider>
+      <App />
     </Provider>
     {/* </ReactKeycloakProvider> */}
   </Router>

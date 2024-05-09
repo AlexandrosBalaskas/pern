@@ -9,7 +9,6 @@ import { FALLBACK_SCHEMAS } from "../forms/fallbackSchemas";
 const useStyles = makeStyles((theme: Theme) => ({
   mainContent: {
     position: "relative",
-    marginTop: theme.spacing(3),
   },
 }));
 
