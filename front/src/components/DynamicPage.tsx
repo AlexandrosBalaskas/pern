@@ -22,7 +22,8 @@ export const DynamicPage = () => {
 
   const { schema, uiSchema } = useSchemas(pageId, FALLBACK_SCHEMAS);
 
-  const { initEntity, setEntity, formData, isNew } = useEntity(pageId);
+  const { saveEntity, initEntity, setEntity, formData, isNew } =
+    useEntity(pageId);
 
   console.log(isNew, "isNew");
 
@@ -33,17 +34,21 @@ export const DynamicPage = () => {
       });
   }, [pageId]);
 
+  // const onClick = useCallback(() => {
+  //   const url = isNew ? `${pageId}` : `${pageId}/${idKey}`;
+  //   console.log(formData, "fr");
+  //   api({
+  //     method: isNew ? "post" : "put",
+  //     url,
+  //     data: formData,
+  //   }).then((response: any) => {
+  //     setEntity(response?.data);
+  //   });
+  // }, [formData]);
+
   const onClick = useCallback(() => {
-    const url = isNew ? `${pageId}` : `${pageId}/${idKey}`;
-    console.log(formData, "fr");
-    api({
-      method: isNew ? "post" : "put",
-      url,
-      data: formData,
-    }).then((response: any) => {
-      setEntity(response?.data);
-    });
-  }, [formData]);
+    saveEntity();
+  }, [saveEntity]);
 
   useEffect(() => {
     initEntity();
