@@ -20,7 +20,6 @@ function App() {
 
   const setupone = () => {
     api.get("/setup").then((response) => {
-      console.log(response);
       return response;
     });
   };
@@ -34,7 +33,6 @@ function App() {
         "Content-Type": "application/json",
       },
     }).then((response) => {
-      console.log(response);
       return response;
     });
   };
