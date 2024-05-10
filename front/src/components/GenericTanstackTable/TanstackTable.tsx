@@ -36,7 +36,6 @@ const TanstackTable = ({ pageId, columns, filtering, rowButtons }: any) => {
   const parentId = "Tanstack";
 
   const { criteria, loadTable, initTable, data, count } = useTable(pageId);
-  console.log(data, "data");
 
   const { groups } = rowButtons;
 

@@ -17,7 +17,7 @@ const initialEntityState: EntityState = {
   loading: false,
   isNew: true,
 };
-
+console.log(initialEntityState, "initailEntityStare");
 export const entitySlice = createSlice({
   name: "Entities",
   initialState,
@@ -29,7 +29,6 @@ export const entitySlice = createSlice({
       };
     },
     SetEntity: (state, action) => {
-      console.log(action.payload, "action");
       return {
         ...state,
         [action.payload?.entityId]: {

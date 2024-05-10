@@ -24,6 +24,8 @@ export const DynamicPage = () => {
 
   const { initEntity, setEntity, formData, isNew } = useEntity(pageId);
 
+  console.log(isNew, "isNew");
+
   useEffect(() => {
     idKey &&
       api.get(`/${pageId}/${idKey}`).then((response: any) => {

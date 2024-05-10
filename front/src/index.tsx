@@ -30,7 +30,7 @@ const theme: any = initTheme(
   getExternalTheme,
   getExternalThemeOverrides
 );
-console.log(theme, "theme");
+console.log(store, "store");
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
