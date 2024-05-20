@@ -18,19 +18,48 @@ const initialEntityState: EntityState = {
   loading: false,
   isNew: true,
 };
-console.log(initialEntityState, "initailEntityStare");
+
+const settingEntities = (
+  state: any,
+  action: any,
+  tableReducer: (state: any, action: any) => {}
+) => {
+  const { payload, meta } = action;
+  const entityId = payload?.entityId || meta?.arg?.entityId;
+  if (!entityId) {
+    return state;
+  }
+  return {
+    ...state,
+    [entityId]: {
+      ...(state[entityId] || { id: entityId }),
+      ...tableReducer(state[entityId], action),
+    },
+  };
+};
 
 export const SaveEntity = createAsyncThunk(
   "Entities/SaveEntity",
-  (entityId: string, { getState }) => {
+  ({ entityId }: any, { getState }) => {
     const state: any = getState();
     const entitySlice = state?.Entities[entityId];
     const { formData, isNew } = entitySlice;
-    console.log(state, "STATEEEE", formData, "formData", isNew, "isNew");
     return api({
       method: isNew ? "post" : "put",
-      url: `${entityId}`,
+      url: isNew ? `${entityId}` : `${entityId}/${formData.id}`,
       data: formData,
+    }).then((response) => {
+      return { data: response.data, isNew };
+    });
+  }
+);
+
+export const LoadEntity = createAsyncThunk(
+  "Entities/LoadEntity",
+  ({ entityId, idKey }: any) => {
+    return api({
+      method: "get",
+      url: `/${entityId}/${idKey}`,
     }).then((response) => {
       return { data: response.data };
     });
@@ -72,9 +101,66 @@ export const entitySlice = createSlice({
         },
       };
     },
+    CloseSnackBar: (state, action) => {
+      return {
+        ...state,
+        [action.payload.entityId]: {
+          ...state[action.payload.entityId],
+          snackBarOpen: false,
+          snackBarMessage: "",
+        },
+      };
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(LoadEntity.pending, (state, action) => {
+      return settingEntities(state, action, (state, action) => ({
+        ...state,
+        loading: true,
+      }));
+    });
+    builder.addCase(LoadEntity.fulfilled, (state, action) => {
+      return settingEntities(state, action, (state, action) => ({
+        ...state,
+        loading: false,
+        isNew: false,
+        formData: { ...action.payload.data },
+      }));
+    });
+    builder.addCase(LoadEntity.rejected, (state, action) => {
+      return settingEntities(state, action, (state, action) => ({
+        ...state,
+        loading: false,
+        error: action.error.message,
+      }));
+    });
+    builder.addCase(SaveEntity.pending, (state, action) => {
+      return settingEntities(state, action, (state, action) => ({
+        ...state,
+        loading: true,
+      }));
+    });
+    builder.addCase(SaveEntity.fulfilled, (state, action) => {
+      return settingEntities(state, action, (state, action) => ({
+        ...state,
+        loading: false,
+        isNew: false,
+        formData: { ...action.payload.data },
+        snackBarOpen: true,
+        snackBarMessage: action.payload.isNew ? "create" : "update",
+      }));
+    });
+    builder.addCase(SaveEntity.rejected, (state, action) => {
+      return settingEntities(state, action, (state, action) => ({
+        ...state,
+        loading: false,
+        error: action.error.message,
+      }));
+    });
   },
 });
 
-export const { InitEntity, UpdateFormValue, SetEntity } = entitySlice.actions;
+export const { InitEntity, UpdateFormValue, SetEntity, CloseSnackBar } =
+  entitySlice.actions;
 
 export default entitySlice.reducer;

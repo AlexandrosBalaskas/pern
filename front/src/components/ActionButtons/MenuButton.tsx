@@ -37,7 +37,7 @@ export default function MenuActionButton({
   id,
   index,
   actions,
-  onCall,
+  // onCall,
   pageId,
 }: any) {
   const styles = useStyles();
@@ -78,7 +78,7 @@ export default function MenuActionButton({
             } || 'default'`}
             id={id}
             action={action}
-            onCall={onCall}
+            // onCall={onCall}
             pageId={pageId}
           />
         ))}

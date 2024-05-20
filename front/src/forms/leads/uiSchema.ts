@@ -1,15 +1,27 @@
 export const uiSchema = {
   salutation: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { required: true },
+    },
   },
-  firstName: {
+  firstname: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { required: true },
+    },
   },
-  lastName: {
+  lastname: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { required: true },
+    },
   },
   company: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { required: true },
+    },
   },
   title: {
     "ui:widget": "TextWidget",
@@ -20,10 +32,13 @@ export const uiSchema = {
   description: {
     "ui:widget": "TextWidget",
   },
-  leadStatus: {
+  leadstatus: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { required: true },
+    },
   },
-  leadOwner: {
+  leadowner: {
     "ui:widget": "TextWidget",
   },
   phone: {
@@ -35,7 +50,7 @@ export const uiSchema = {
   street: {
     "ui:widget": "TextWidget",
   },
-  postalCode: {
+  postalcode: {
     "ui:widget": "TextWidget",
   },
   city: {
@@ -47,13 +62,13 @@ export const uiSchema = {
   state: {
     "ui:widget": "TextWidget",
   },
-  employeesNumber: {
+  employeesnumber: {
     "ui:widget": "TextWidget",
   },
-  annualRevenue: {
+  annualrevenue: {
     "ui:widget": "TextWidget",
   },
-  leadSource: {
+  leadsource: {
     "ui:widget": "TextWidget",
   },
   industry: {

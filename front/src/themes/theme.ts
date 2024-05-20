@@ -214,6 +214,32 @@ export const getExternalTheme: any = (fade: any, BaseTheme: any) => {
 export const getExternalThemeOverrides: any = (fade: any, ReactTheme: any) => {
   return {
     overrides: {
+      MuiInputBase: {
+        styleOverrides: {
+          input: {
+            boxShadow: " 0 0 0 50px white inset;",
+          },
+          formControl: {
+            opacity: 1,
+            color: "grey",
+          },
+        },
+      },
+      MuiBackdrop: {
+        styleOverrides: {
+          root: {
+            zIndex: 2,
+          },
+        },
+      },
+      MuiPopover: {
+        styleOverrides: {
+          paper: {
+            boxShadow: " rgba(0, 0, 0, 0.16) 0px 0px 8px",
+            borderRadius: "8px",
+          },
+        },
+      },
       MuiInputLabel: {
         styleOverrides: {
           root: {
@@ -269,6 +295,9 @@ export const getExternalThemeOverrides: any = (fade: any, ReactTheme: any) => {
             "& span": {
               display: "none !important",
             },
+          },
+          input: {
+            boxSizing: "border-box",
           },
         },
       },

@@ -36,8 +36,9 @@ const Filters = ({
 
   return (
     <DynamicForm
-      id={`${id}-filters`}
+      id={`${id}_filters`}
       data={formData}
+      formContext={{ canChange: true }}
       schema={jsonSchema}
       uiSchema={uiSchema}
       onClear={clearFilters}

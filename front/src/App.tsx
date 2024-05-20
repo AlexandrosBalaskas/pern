@@ -17,6 +17,7 @@ import { useNavigate } from "react-router";
 import PopoverMenu from "./components/Popover/Menu";
 import { useTranslation } from "react-i18next";
 import { useKeycloak } from "@react-keycloak/web";
+import { AccountBalance, Group, FavoriteBorder } from "@mui/icons-material";
 import { Assets } from "./components/Assets/Assets";
 const useStyles = makeStyles(() => ({
   toolbarContainer: {
@@ -41,32 +42,46 @@ function App() {
   const classes = useStyles();
   const { toggleMainMenu } = useMenu();
   const [open, setOpen] = useState(true);
-  const [subMenuOpen, setSubMenuOpen] = useState(false);
+  const [subMenuOpen, setSubMenuOpen] = useState([false, false]);
 
   const Menus: any = [
-    { title: "Dashboard" },
-    { title: "Pages", icon: <AiOutlineFileText /> },
-    { title: "Media", spacing: true, icon: <AiOutlineBarChart /> },
+    { title: "contacts", icon: <Group />, entity: "contacts" },
+    { title: "accounts", icon: <AiOutlineFileText />, entity: "accounts" },
     {
-      title: "Projects",
+      title: "sales",
+      icon: <AiOutlineBarChart />,
       submenu: true,
+      index: 0,
       submenuItems: [
-        { title: "Submenu 1" },
-        { title: "Submenu 2" },
-        { title: "Submenu 3" },
+        { title: "leads", entity: "leads" },
+        { title: "oportunities", entity: "oportunities" },
+        { title: "products", entity: "products" },
+        { title: "priceBooks", entity: "priceBooks" },
       ],
     },
-    { title: "Analytics" },
-    { title: "Profile", spacing: true },
-    { title: "Setting" },
-    { title: "Logout" },
+    {
+      title: "service",
+      icon: <FavoriteBorder />,
+      submenu: true,
+      index: 1,
+      submenuItems: [
+        { title: "cases", entity: "cases" },
+        { title: "quickTexts", entity: "quickTexts" },
+      ],
+    },
   ];
+
+  const configSubMenu = (index: number) => {
+    const submenu = subMenuOpen.map((sub, i) => (i === index ? !sub : sub));
+    setSubMenuOpen(submenu);
+  };
   return (
     <div className={classes.menuContainer}>
       <div
         className={`bg-dark-purple h-screen p-5 pt-8 ${
           open ? "w-72" : "w-20"
         } duration-300 relative`}
+        style={{ height: "100vh" }}
       >
         <BsArrowLeftShort
           className={`bg-white text-dark-purple text-3xl rounded-full absolute -right-3 top-9 border border-dark-purple cursor-pointer ${
@@ -114,6 +129,10 @@ function App() {
                 className={`text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${
                   menu.spacing ? "mt-9" : "mt-2"
                 }`}
+                onClick={() => {
+                  menu?.entity && navigate(`page/${menu?.entity}/list`);
+                  menu.submenu && configSubMenu(menu.index);
+                }}
               >
                 <span className="text-2xl block float-left">
                   {menu.icon ? menu.icon : <RiDashboardFill />}
@@ -123,23 +142,26 @@ function App() {
                     !open && "hidden"
                   }`}
                 >
-                  {menu.title}
+                  {translate(menu.title)}
                 </span>
                 {menu.submenu && open && (
                   <BsChevronDown
-                    className={`${subMenuOpen && "rotate-180"}`}
-                    onClick={() => setSubMenuOpen(!subMenuOpen)}
+                    className={`${subMenuOpen[menu.index] && "rotate-180"}`}
                   />
                 )}
               </li>
-              {menu.submenu && subMenuOpen && open && (
+              {menu.submenu && subMenuOpen[menu.index] && open && (
                 <ul>
                   {menu.submenuItems.map((submenuItem: any, index: any) => (
                     <li
                       key={index}
                       className="text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 hover:bg-light-white rounded-md"
+                      onClick={() =>
+                        submenuItem?.entity &&
+                        navigate(`page/${submenuItem?.entity}/list`)
+                      }
                     >
-                      {submenuItem.title}
+                      {translate(submenuItem.title)}
                     </li>
                   ))}
                 </ul>

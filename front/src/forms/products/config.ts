@@ -1,9 +1,9 @@
 export const config = {
   columns: [
-    { accessorKey: "productname", header: "Product Name" },
-    { accessorKey: "productFamily", header: "Product Family" },
-    { accessorKey: "productCode", header: "Product Code" },
-    { accessorKey: "productDescription", header: "Product Description" },
+    { accessorKey: "productname", header: "productname" },
+    { accessorKey: "productfamily", header: "productfamily" },
+    { accessorKey: "productcode", header: "productcode" },
+    { accessorKey: "productdescription", header: "productdescription" },
     { accessorKey: "id", header: "Id" },
   ],
   rowButtons: {
@@ -31,11 +31,11 @@ export const config = {
     schema: {
       type: "object",
       properties: {
-        productName: { type: "string" },
-        productFamily: { type: "string" },
-        productCode: { type: "string" },
+        productname: { type: "string" },
+        productfamily: { type: "string" },
+        productcode: { type: "string" },
         active: { type: "boolean" },
-        productDescription: { type: "string" },
+        productdescription: { type: "string" },
       },
     },
     uiSchema: {},

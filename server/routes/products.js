@@ -42,16 +42,16 @@ router.get("/api/products/:id", async (req, res) => {
 router.put("/api/products/:id", async (req, res) => {
   const id = req.params.id;
   const {
-    productName,
-    productFamily,
-    productCode,
+    productname,
+    productfamily,
+    productcode,
     active,
-    productDescription,
+    productdescription,
   } = req.body;
   try {
     const results = await pool.query(
       `UPDATE products SET productName = $1 , productFamily = $2, productCode = $3, active = $4, productDescription = $5 WHERE id = ${id} returning *`,
-      [productName, productFamily, productCode, active, productDescription]
+      [productname, productfamily, productcode, active, productdescription]
     );
     res.status(200).send(results.rows[0]);
   } catch {
@@ -71,17 +71,17 @@ router.delete("/api/products/:id", async (req, res) => {
 
 router.post("/api/products", async (req, res) => {
   const {
-    productName,
-    productFamily,
-    productCode,
+    productname,
+    productfamily,
+    productcode,
     active,
-    productDescription,
+    productdescription,
   } = req.body;
   console.log(req.body, "boy");
   try {
     await pool.query(
       "INSERT INTO products (productName, productFamily, productCode, active, productDescription) VALUES ($1, $2, $3, $4, $5)",
-      [productName, productFamily, productCode, active, productDescription]
+      [productname, productfamily, productcode, active, productdescription]
     );
     res.status(200).send({ message: "Success" });
   } catch (err) {

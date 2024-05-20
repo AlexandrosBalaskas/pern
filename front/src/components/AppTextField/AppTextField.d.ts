@@ -6,6 +6,7 @@ export type AppTextFieldProps = {
   disabled?: boolean;
   readonly?: boolean;
   required?: boolean;
+  options?: any;
   autofocus?: boolean;
   rows?: string | number;
   labelAlignment?: "top" | "left";

@@ -1,10 +1,10 @@
 export const schema = {
   type: "object",
   properties: {
-    productName: { type: "string" },
-    productFamily: { type: "string" },
-    productCode: { type: "string" },
+    productname: { type: "string" },
+    productfamily: { type: "string" },
+    productcode: { type: "string" },
     active: { type: "boolean" },
-    productDescription: { type: "string" },
+    productdescription: { type: "string" },
   },
 };

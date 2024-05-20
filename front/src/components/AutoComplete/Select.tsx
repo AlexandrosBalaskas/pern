@@ -17,6 +17,9 @@ const GenericSelect = ({
   onFocus = () => void 0,
   valid = true,
   loading = false,
+  placeHolder = "",
+  className = "",
+  errors = null,
 }: GenericSelectProps) => {
   const transformToAutocompleteValue = (
     selectedValue: any,
@@ -25,7 +28,9 @@ const GenericSelect = ({
     if (!multiple) {
       return (
         (listOptions || []).find(
-          (option: any) => option.code === selectedValue
+          (option: any) =>
+            option.code === selectedValue ||
+            option.code === Number(selectedValue)
         ) || ""
       );
     } else {
@@ -34,37 +39,41 @@ const GenericSelect = ({
       );
     }
   };
-
   const onChangeCallback = React.useCallback(onChange, [onChange]);
 
   const onFocusCallback = useCallback(() => onFocus && onFocus(), []);
 
   return (
-    <AutoComplete
-      id={id}
-      multiple={multiple}
-      value={transformToAutocompleteValue(value, options)}
-      label={label || ""}
-      selectAll={selectAll}
-      loading={loading}
-      loadingText={"loading"}
-      disabled={disabled || readonly}
-      options={options}
-      disabledOptions={disabledOptions}
-      onChange={(selected) =>
-        onChangeCallback({
-          target: {
-            value: multiple
-              ? (selected as Array<AutocompleteOption>)?.map(
-                  (item) => item.code
-                )
-              : (selected as AutocompleteOption)?.code,
-          },
-        })
-      }
-      onFocus={onFocusCallback}
-      valid={valid}
-    />
+    <>
+      <AutoComplete
+        id={id}
+        multiple={multiple}
+        value={transformToAutocompleteValue(value, options)}
+        label={label || ""}
+        selectAll={selectAll}
+        loading={loading}
+        loadingText={"loading"}
+        disabled={disabled || readonly}
+        options={options}
+        className={className}
+        placeHolder={placeHolder}
+        disabledOptions={disabledOptions}
+        onChange={(selected) =>
+          onChangeCallback({
+            target: {
+              value: multiple
+                ? (selected as Array<AutocompleteOption>)?.map(
+                    (item) => item.code
+                  )
+                : (selected as AutocompleteOption)?.code,
+            },
+          })
+        }
+        onFocus={onFocusCallback}
+        valid={valid}
+      />
+      {errors}
+    </>
   );
 };
 

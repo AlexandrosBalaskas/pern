@@ -46,31 +46,31 @@ router.get("/api/oportunities/:id", async (req, res) => {
 router.put("/api/oportunities/:id", async (req, res) => {
   const id = req.params.id;
   const {
-    oportunityName,
-    accountName,
-    closeDate,
+    oportunityname,
+    accountname,
+    closedate,
     amount,
     description,
-    oportunityOwner,
+    oportunityowner,
     stage,
     probability,
-    forecastCategory,
-    nextStep,
+    forecastcategory,
+    nextstep,
   } = req.body;
   try {
     const results = await pool.query(
       `UPDATE oportunities SET oportunityName = $1 , accountName = $2, closeDate = $3, amount = $4, description = $5, oportunityOwner = $6, stage = $7, probability = $8, forecastCategory = $9, nextStep = $10 WHERE id = ${id} returning *`,
       [
-        oportunityName,
-        accountName,
-        closeDate,
+        oportunityname,
+        accountname,
+        closedate,
         amount,
         description,
-        oportunityOwner,
+        oportunityowner,
         stage,
         probability,
-        forecastCategory,
-        nextStep,
+        forecastcategory,
+        nextstep,
       ]
     );
     res.status(200).send(results.rows[0]);
@@ -93,32 +93,32 @@ router.delete("/api/oportunities/:id", async (req, res) => {
 
 router.post("/api/oportunities", async (req, res) => {
   const {
-    oportunityName,
-    accountName,
-    closeDate,
+    oportunityname,
+    accountname,
+    closedate,
     amount,
     description,
-    oportunityOwner,
+    oportunityowner,
     stage,
     probability,
-    forecastCategory,
-    nextStep,
+    forecastcategory,
+    nextstep,
   } = req.body;
   console.log(req.body, "boy");
   try {
     await pool.query(
       "INSERT INTO oportunities (oportunityName,accountName,closeDate,amount,description,oportunityOwner,stage,probability,forecastCategory,nextStep) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
       [
-        oportunityName,
-        accountName,
-        closeDate,
+        oportunityname,
+        accountname,
+        closedate,
         amount,
         description,
-        oportunityOwner,
+        oportunityowner,
         stage,
         probability,
-        forecastCategory,
-        nextStep,
+        forecastcategory,
+        nextstep,
       ]
     );
     res.status(200).send({ message: "Success" });

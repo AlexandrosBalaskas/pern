@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import ConfirmationDialog from "../ConfirmationDialog/ConfirmationDialog";
 import api from "../../axiosConfig";
 import { makeStyles } from "@mui/styles";
+import useTable from "../../store/table/useTable";
 
 const useStyles = makeStyles((theme: Theme) => ({
   icon: { marginRight: 16, fontSize: 10 },
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const ActionButton = ({ id, action, onCall, pageId }: ActionButtonProps) => {
+const ActionButton = ({ id, action, pageId }: ActionButtonProps) => {
   const styles = useStyles();
   const {
     style = "button",
@@ -39,6 +40,8 @@ const ActionButton = ({ id, action, onCall, pageId }: ActionButtonProps) => {
 
   const [openModal, setOpenModal] = useState(false);
 
+  const { deleteRow } = useTable(pageId);
+
   const onButtonClick = () => {
     if (confirm || warningOnClick) {
       setOpenModal(true);
@@ -48,9 +51,7 @@ const ActionButton = ({ id, action, onCall, pageId }: ActionButtonProps) => {
   };
 
   const onSubmit = () => {
-    api.delete(`${pageId}/${id}`).then((res) => {
-      onCall && onCall();
-    });
+    deleteRow(id);
   };
 
   const onClose = useCallback(() => setOpenModal(false), []);
@@ -97,7 +98,9 @@ const ActionButton = ({ id, action, onCall, pageId }: ActionButtonProps) => {
         >
           {icon && <div className={styles.icon}>{defaultIcon}</div>}
           {title && (
-            <Typography id={`${action.title}-action-btn`}>{title}</Typography>
+            <Typography id={`${action.title}-action-btn`}>
+              {translate(title)}
+            </Typography>
           )}
         </div>
       )}

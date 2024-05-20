@@ -6,6 +6,10 @@ import {
   TableCell,
   TableBody,
   Paper,
+  LinearProgress,
+  Button,
+  Theme,
+  Snackbar,
 } from "@mui/material";
 import {
   flexRender,
@@ -21,21 +25,51 @@ import { Assets } from "../Assets/Assets";
 import MenuActionButton from "../ActionButtons/MenuButton";
 import FiltersContainer from "../Filters/FiltersContainer";
 import { TanstackTablePagination } from "./TanstackTablePagination";
+import { makeStyles } from "@mui/styles";
+import SortButton from "../Sort/Sort";
+import { isUndefined } from "lodash";
 
-const TanstackTable = ({ pageId, columns, filtering, rowButtons }: any) => {
+const useStyles = makeStyles((theme: Theme) => ({
+  headerContainer: { display: "flex", flexDirection: "row", fontWeight: 600 },
+  filterContainer: {
+    position: "relative",
+    left: "calc(100% - 50px)",
+    top: "16px",
+    width: "fit-content",
+    height: "40px",
+  },
+  titleContainer: {
+    position: "absolute",
+    height: "50px",
+    padding: "16px 16px 0px",
+  },
+}));
+
+const TanstackTable = ({
+  pageId,
+  columns,
+  filtering,
+  rowButtons,
+}: {
+  pageId: string;
+  columns: any;
+  filtering: any;
+  rowButtons: any;
+}) => {
   const arr: any = [];
-  const [isCall, setIsCall] = useState(false);
+  const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [sorting, setSorting] = useState(arr);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
   });
   const [columnFilters, setColumnFilters] = useState(arr);
-
-  const { t: translate } = useTranslation("common");
+  const styles = useStyles();
+  const { t: translate } = useTranslation([pageId, "common"]);
   const parentId = "Tanstack";
 
-  const { criteria, loadTable, initTable, data, count } = useTable(pageId);
+  const { criteria, loadTable, initTable, data, count, loading, deleteSw } =
+    useTable(pageId);
 
   const { groups } = rowButtons;
 
@@ -65,16 +99,28 @@ const TanstackTable = ({ pageId, columns, filtering, rowButtons }: any) => {
   }, [pagination]);
 
   useEffect(() => {
-    loadTable({
-      params: {
-        ...sort,
-        ...finalPagination,
-        filters: JSON.stringify(criteria),
-      },
-      tableId: pageId,
-      pageId,
-    });
-  }, [sort, finalPagination, criteria, isCall]);
+    !loading &&
+      loadTable({
+        params: {
+          ...sort,
+          ...finalPagination,
+          filters: JSON.stringify(criteria),
+        },
+        tableId: pageId,
+        pageId,
+      });
+  }, [sort, finalPagination, criteria, deleteSw, pageId]);
+
+  useEffect(() => {
+    !isUndefined(deleteSw) && setSnackBarOpen(true);
+  }, [deleteSw]);
+
+  useEffect(() => {
+    snackBarOpen &&
+      setTimeout(() => {
+        setSnackBarOpen(false);
+      }, 6000);
+  }, [snackBarOpen]);
 
   const table = useReactTable({
     data: data,
@@ -104,9 +150,9 @@ const TanstackTable = ({ pageId, columns, filtering, rowButtons }: any) => {
     open ? closeDrawer() : openDrawer();
   }, [open, openDrawer, closeDrawer]);
 
-  const onCall = () => {
-    setIsCall(!isCall);
-  };
+  // const onCall = () => {
+  //   setIsCall(!isCall);
+  // };
 
   return (
     <>
@@ -117,45 +163,40 @@ const TanstackTable = ({ pageId, columns, filtering, rowButtons }: any) => {
         onClose={toggleFilters}
       />
       <TableContainer component={Paper}>
-        <AppIconButton
-          id={"Tanstack-filter-btn"}
-          label={translate("filter")}
-          onClick={toggleFilters}
-          icon={
-            <Assets
-              input="icons"
-              name="Search"
-              props={{ className: "primary" }}
-            />
-          }
-        />
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        {loading && <LinearProgress />}
+        <h1 className={styles.titleContainer}>{translate(pageId)}</h1>
+        <div className={styles.filterContainer}>
+          <AppIconButton
+            id={"Tanstack-filter-btn"}
+            label={translate("filter", { ns: "common" })}
+            onClick={toggleFilters}
+            icon={
+              <Assets
+                input="icons"
+                name="Search"
+                props={{ className: "primary" }}
+              />
+            }
+          />
+        </div>
+        <Table sx={{ minWidth: 350 }} aria-label="simple table">
           <TableHead>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableCell
-                      sx={{
-                        cursor: "pointer",
-                        "&:hover": {
-                          bgcolor: (theme) => theme.palette.grey[100],
-                        },
-                      }}
-                      key={header.id}
-                      onClick={header.column.getToggleSortingHandler()}
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                      {{
-                        asc: " 🔼",
-                        desc: " 🔽",
-                        nothing: "",
-                      }[header.column.getIsSorted() || "nothing"] ?? null}
+                    <TableCell key={header.id}>
+                      <div className={styles.headerContainer}>
+                        {header.isPlaceholder
+                          ? null
+                          : translate(
+                              `${flexRender(
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}`
+                            )}
+                        <SortButton header={header}></SortButton>
+                      </div>
                     </TableCell>
                   );
                 })}
@@ -183,7 +224,7 @@ const TanstackTable = ({ pageId, columns, filtering, rowButtons }: any) => {
                         .getAllCells()
                         .find((cell) => cell.column.id === "id")
                         ?.getValue()}
-                      onCall={onCall}
+                      // onCall={onCall}
                       pageId={pageId}
                     />
                   </TableCell>
@@ -199,6 +240,15 @@ const TanstackTable = ({ pageId, columns, filtering, rowButtons }: any) => {
           pageId={pageId}
         />
       </TableContainer>
+      <Snackbar
+        open={snackBarOpen}
+        autoHideDuration={6000}
+        color="dark"
+        message="delete"
+        onClose={() => {
+          setSnackBarOpen(false);
+        }}
+      />
     </>
   );
 };

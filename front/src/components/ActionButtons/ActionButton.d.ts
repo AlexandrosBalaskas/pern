@@ -5,6 +5,6 @@ export type ActionButtonProps = {
   id: string;
   action: ActionButtonType;
   style?: "menu" | "button" | "icon" | "link" | "simple";
-  onCall?: () => void;
+  // onCall?: () => void;
   pageId: string;
 };

@@ -1,6 +1,7 @@
 import { Grid, Theme } from "@mui/material";
 import { useMemo } from "react";
 import { makeStyles } from "@mui/styles";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -14,11 +15,26 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: 0,
     width: "100%",
   },
+  titleContainer: {
+    paddingLeft: "50px",
+    paddingRight: "50px",
+    paddingTop: "20px",
+    fontWeight: 600,
+  },
+  hrContainer: {
+    margin: "5px 50px 20px 50px",
+  },
 }));
 
 export const ObjectFieldTemplate = function (props: any) {
-  const { idSchema, properties, formContext } = props;
-
+  const {
+    idSchema,
+    properties,
+    formContext: { canChange },
+    uiSchema: { groups = [], id = "" },
+  } = props;
+  const styles = useStyles();
+  const { t: translate } = useTranslation(id);
   const fieldId = idSchema.$id;
 
   const groupings = [
@@ -41,8 +57,8 @@ export const ObjectFieldTemplate = function (props: any) {
         <Grid
           key={widgetElement?.content?.props?.idSchema?.$id}
           item
-          xs={6}
-          sm={6}
+          xs={12}
+          sm={12}
           md={6}
           lg={6}
           xl={6}
@@ -58,15 +74,36 @@ export const ObjectFieldTemplate = function (props: any) {
 
   return (
     <>
-      {groupings.map((group, index) => (
-        <Grid container alignItems="center" wrap="wrap" direction="row">
-          <Grid container alignItems="center" wrap="wrap" direction="row">
-            {(group.widgets || []).map((widget: any, index: any) =>
-              renderWidgetElement(widget, index)
-            )}
-          </Grid>
-        </Grid>
-      ))}
+      {!canChange &&
+        ((groups.length && groups) || groupings).map(
+          (group: any, index: number) => (
+            <>
+              <div className={styles.titleContainer}>
+                {translate(group.key)}
+              </div>
+              <hr className={styles.hrContainer}></hr>
+              <Grid container alignItems="center" wrap="wrap" direction="row">
+                <Grid container alignItems="center" wrap="wrap" direction="row">
+                  {(group.widgets || []).map((widget: any, index: any) =>
+                    renderWidgetElement(widget, index)
+                  )}
+                </Grid>
+              </Grid>
+            </>
+          )
+        )}
+      {canChange &&
+        ((groups.length && groups) || groupings).map(
+          (group: any, index: number) => (
+            <>
+              {(group.widgets || []).map(
+                (widget: any, index: any) =>
+                  (prop || []).find((element) => element.name === widget)
+                    .content
+              )}
+            </>
+          )
+        )}
     </>
   );
 };

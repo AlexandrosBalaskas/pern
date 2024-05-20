@@ -1,8 +1,8 @@
 export const config = {
   columns: [
-    { accessorKey: "priceBookName", header: "Price Book Name" },
-    { accessorKey: "description", header: "Description" },
-    { accessorKey: "active", header: "Active" },
+    { accessorKey: "pricebookname", header: "pricebookname" },
+    { accessorKey: "description", header: "description" },
+    { accessorKey: "active", header: "active" },
     { accessorKey: "id", header: "Id" },
   ],
   rowButtons: {
@@ -30,10 +30,10 @@ export const config = {
     schema: {
       type: "object",
       properties: {
-        priceBookName: { type: "string" },
+        pricebookname: { type: "string" },
         description: { type: "string" },
         active: { type: "boolean" },
-        isStandard: { type: "boolean" },
+        isstandard: { type: "boolean" },
       },
     },
     uiSchema: {},

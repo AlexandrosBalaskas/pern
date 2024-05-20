@@ -52,6 +52,7 @@ app.get("/api/schools", async (req, res) => {
 });
 
 app.get("/api/schools/:id", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 500));
   const id = req.params.id;
   try {
     const results = await pool.query(`SELECT * FROM schoolss WHERE id = ${id}`);

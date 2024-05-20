@@ -1,10 +1,10 @@
 export const config = {
   columns: [
-    { accessorKey: "firstName", header: "First Name" },
-    { accessorKey: "accountName", header: "Account Name" },
-    { accessorKey: "title", header: "Title" },
-    { accessorKey: "phone", header: "Phone" },
-    { accessorKey: "email", header: "Email" },
+    { accessorKey: "firstname", header: "firstname" },
+    { accessorKey: "accountname", header: "accountname" },
+    { accessorKey: "title", header: "title" },
+    { accessorKey: "phone", header: "phone" },
+    { accessorKey: "email", header: "email" },
     { accessorKey: "id", header: "Id" },
   ],
   rowButtons: {
@@ -32,13 +32,13 @@ export const config = {
     schema: {
       type: "object",
       properties: {
-        firstName: { type: "string" },
-        accountName: { type: "string" },
+        firstname: { type: "string" },
+        accountname: { type: "string" },
         title: { type: "string" },
         phone: { type: "string" },
         email: { type: "string" },
-        mailingStreet: { type: "string" },
-        mailingCountry: { type: "string" },
+        mailingstreet: { type: "string" },
+        mailingcountry: { type: "string" },
       },
     },
     uiSchema: {},

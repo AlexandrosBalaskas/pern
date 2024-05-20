@@ -44,10 +44,10 @@ router.put("/api/cases/:id", async (req, res) => {
   const {
     status,
     priority,
-    caseOrigin,
-    caseOwner,
-    contactName,
-    accountName,
+    caseorigin,
+    caseowner,
+    contactname,
+    accountname,
     subject,
     description,
   } = req.body;
@@ -57,10 +57,10 @@ router.put("/api/cases/:id", async (req, res) => {
       [
         status,
         priority,
-        caseOrigin,
-        caseOwner,
-        contactName,
-        accountName,
+        caseorigin,
+        caseowner,
+        contactname,
+        accountname,
         subject,
         description,
       ]
@@ -85,10 +85,10 @@ router.post("/api/cases", async (req, res) => {
   const {
     status,
     priority,
-    caseOrigin,
-    caseOwner,
-    contactName,
-    accountName,
+    caseorigin,
+    caseowner,
+    contactname,
+    accountname,
     subject,
     description,
   } = req.body;
@@ -99,10 +99,10 @@ router.post("/api/cases", async (req, res) => {
       [
         status,
         priority,
-        caseOrigin,
-        caseOwner,
-        contactName,
-        accountName,
+        caseorigin,
+        caseowner,
+        contactname,
+        accountname,
         subject,
         description,
       ]

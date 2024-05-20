@@ -1,6 +1,8 @@
 import React from "react";
 import { AppTextFieldProps } from "./AppTextField.d";
-import { TextField } from "@mui/material";
+import { Box, TextField, Theme, Typography } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import { useTranslation } from "react-i18next";
 
 export const AppTextField: React.FC<AppTextFieldProps> = ({
   id,
@@ -13,6 +15,7 @@ export const AppTextField: React.FC<AppTextFieldProps> = ({
   onClick,
   autofocus = false,
   rows,
+  errors,
   multiline,
   emptyValue,
   valid = true,
@@ -22,6 +25,7 @@ export const AppTextField: React.FC<AppTextFieldProps> = ({
   variant,
   placeHolder,
 }: AppTextFieldProps) => {
+  const { t: translate } = useTranslation("common");
   const onElementChange = ({ target: { value: fieldValue } }: any) => {
     if (!onChange) {
       return;
@@ -36,25 +40,28 @@ export const AppTextField: React.FC<AppTextFieldProps> = ({
   };
 
   return (
-    <TextField
-      placeholder={placeHolder}
-      id={id}
-      label={showLabel ? label || "" : null}
-      variant={variant || "outlined"}
-      color="primary"
-      value={value}
-      multiline={multiline}
-      minRows={rows}
-      maxRows={Number(rows) >= 5 ? rows : undefined}
-      autoFocus={autofocus}
-      required={required}
-      disabled={disabled || readonly}
-      onChange={onElementChange}
-      onClick={onClick}
-      error={!valid}
-      type={type}
-      helperText={description}
-    />
+    <>
+      <TextField
+        placeholder={placeHolder}
+        id={id}
+        label={showLabel ? label || "" : null}
+        variant={variant || "outlined"}
+        color="primary"
+        value={value}
+        multiline={multiline}
+        minRows={rows}
+        maxRows={Number(rows) >= 5 ? rows : undefined}
+        autoFocus={autofocus}
+        required={required}
+        disabled={disabled || readonly}
+        onChange={onElementChange}
+        onClick={onClick}
+        error={!valid}
+        type={type}
+        helperText={description}
+      />
+      {errors}
+    </>
   );
 };
 

@@ -1,53 +1,59 @@
 export const uiSchema = {
-  accountName: {
+  accountname: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { required: true },
+    },
   },
   website: {
     "ui:widget": "TextWidget",
   },
   type: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { required: true },
+    },
   },
   description: {
     "ui:widget": "TextWidget",
   },
-  parentAccount: {
+  parentaccount: {
     "ui:widget": "TextWidget",
   },
-  accountOwner: {
+  accountowner: {
     "ui:widget": "TextWidget",
   },
   phone: {
     "ui:widget": "TextWidget",
   },
-  billingStreet: {
+  billingstreet: {
     "ui:widget": "TextWidget",
   },
-  billingPostalCode: {
+  billingpostalcode: {
     "ui:widget": "TextWidget",
   },
-  billingCity: {
+  billingcity: {
     "ui:widget": "TextWidget",
   },
-  billingCountry: {
+  billingcountry: {
     "ui:widget": "TextWidget",
   },
-  billingState: {
+  billingstate: {
     "ui:widget": "TextWidget",
   },
-  shippingStreet: {
+  shippingstreet: {
     "ui:widget": "TextWidget",
   },
-  shippingPostalCode: {
+  shippingpostalcode: {
     "ui:widget": "TextWidget",
   },
-  shippingCity: {
+  shippingcity: {
     "ui:widget": "TextWidget",
   },
-  shippingCountry: {
+  shippingcountry: {
     "ui:widget": "TextWidget",
   },
-  shippingState: {
+  shippingstate: {
     "ui:widget": "TextWidget",
   },
 };

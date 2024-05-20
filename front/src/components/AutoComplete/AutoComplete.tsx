@@ -1,6 +1,6 @@
 import { Autocomplete } from "@mui/lab";
 import { AutocompleteTagsProps, AutocompleteOption } from "./AutoComplete.d";
-import { TextField, Typography } from "@mui/material";
+import { TextField } from "@mui/material";
 import { useMemo } from "react";
 
 const AutoComplete = ({
@@ -8,8 +8,10 @@ const AutoComplete = ({
   multiple = false,
   options,
   disabledOptions = [],
+  className = "",
   onChange,
   onFocus,
+  placeHolder = "",
   value,
   label = "",
   loading = false,
@@ -47,6 +49,7 @@ const AutoComplete = ({
     <Autocomplete
       id={id}
       value={value}
+      className={className}
       loading={loading}
       loadingText={loadingText}
       disabled={disabled}
@@ -64,12 +67,7 @@ const AutoComplete = ({
           multiline
           color="primary"
           variant="outlined"
-          inputProps={{
-            ...params.inputProps,
-          }}
-          InputProps={{
-            ...params.InputProps,
-          }}
+          placeholder={placeHolder}
           label={label}
           error={!valid}
           id={id}

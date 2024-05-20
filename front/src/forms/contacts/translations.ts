@@ -1,0 +1,20 @@
+export const CONTACTS_TRANSLATIONS = {
+  contacts: {
+    contacts: "Contacts",
+    salutation: "Salutation",
+    firstname: "First Name",
+    lastname: "Last Name",
+    accountname: "Account Name",
+    title: "Title",
+    reportsto: "Reports To",
+    description: "Description",
+    contactowner: "Contact Owner",
+    phone: "Phone",
+    email: "Email",
+    mailingstreet: "Mailing Street",
+    postalcode: "Postal Code",
+    mailingcity: "Mailing City",
+    mailingcountry: "Mailing Country",
+    mailingstate: "Mailing State",
+  },
+};

@@ -14,6 +14,7 @@ export type TableState = {
   count?: number;
   data?: Array<any>;
   loading: boolean;
+  deleteSw?: boolean;
   error: { [key: string]: any };
   criteria: { [key: string]: any };
   filterData: { [key: string]: any };
@@ -53,6 +54,18 @@ const settingTables = (
     },
   };
 };
+
+export const DeleteRow = createAsyncThunk(
+  "Entities/DeleteRow",
+  ({ tableId, rowId }: any, { getState }) => {
+    return api({
+      method: "delete",
+      url: `${tableId}/${rowId}`,
+    }).then((response) => {
+      return { response };
+    });
+  }
+);
 
 export const LoadTable = createAsyncThunk(
   "Tables/LoadTable",
@@ -133,7 +146,6 @@ export const entitySlice = createSlice({
     builder.addCase(LoadTable.pending, (state, action) => {
       return settingTables(state, action, (state, action) => ({
         ...state,
-        data: action.meta.arg?.dataValues,
         loading: true,
       }));
     });
@@ -145,6 +157,26 @@ export const entitySlice = createSlice({
       }));
     });
     builder.addCase(LoadTable.rejected, (state, action) => {
+      return settingTables(state, action, (state, action) => ({
+        ...state,
+        loading: false,
+        error: action.error.message,
+      }));
+    });
+    builder.addCase(DeleteRow.pending, (state, action) => {
+      return settingTables(state, action, (state, action) => ({
+        ...state,
+        loading: true,
+      }));
+    });
+    builder.addCase(DeleteRow.fulfilled, (state, action) => {
+      return settingTables(state, action, (state, action) => ({
+        ...state,
+        loading: false,
+        deleteSw: !state.deleteSw,
+      }));
+    });
+    builder.addCase(DeleteRow.rejected, (state, action) => {
       return settingTables(state, action, (state, action) => ({
         ...state,
         loading: false,

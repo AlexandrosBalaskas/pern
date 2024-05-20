@@ -8,6 +8,7 @@ import { makeStyles } from "@mui/styles";
 import AppButton from "./AppButton/AppButton";
 import { useTranslation } from "react-i18next";
 import { ObjectFieldTemplate } from "./ObjectFieldTemplate";
+import classNames from "classnames";
 
 const useStyles = makeStyles((theme: Theme) => ({
   filterButton: {
@@ -15,6 +16,16 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   formButtons: {
     marginTop: theme.spacing(4),
+  },
+  formContainer: {
+    boxShadow: "0 3px 6px rgba(0, 0, 0, 0.16)",
+    margin: "2%",
+  },
+  submitButton: {
+    position: "relative",
+    left: "50px",
+    marginBottom: "10px",
+    display: "inline-block",
   },
 }));
 
@@ -26,6 +37,7 @@ export const DynamicForm = function ({
   onSubmit,
   onClear,
   submitButton,
+  formContext,
   pageId,
   id,
   onChange,
@@ -37,13 +49,15 @@ export const DynamicForm = function ({
   pageId?: string;
   onSubmit?: any;
   onClear?: any;
+  formContext?: any;
   submitButton?: any;
-  onChange?: any;
+  onChange?: (data: any) => void;
   id?: string;
   widget?: any;
   props?: WidgetProps;
 }) {
   const { t: translate } = useTranslation("common");
+  const { canChange } = formContext || {};
 
   const styles = useStyles();
 
@@ -104,10 +118,15 @@ export const DynamicForm = function ({
   };
   return (
     <Form
+      className={classNames({
+        [styles.formContainer]: !canChange,
+      })}
       schema={schema}
       idPrefix={pageId || id}
       validator={validator}
+      formContext={formContext}
       uiSchema={uiSchema}
+      noHtml5Validate
       templates={{
         ObjectFieldTemplate: ObjectFieldTemplate,
       }}
@@ -115,7 +134,7 @@ export const DynamicForm = function ({
       formData={data}
       onSubmit={onFormSubmit}
     >
-      {renderFormButtons()}
+      <div className={styles.submitButton}>{renderFormButtons()}</div>
     </Form>
   );
 };

@@ -26,3 +26,9 @@ export const selectData = (id: string) => (state: ReduxTablesState) =>
 
 export const selectCount = (id: string) => (state: ReduxTablesState) =>
   selectSlice(id)(state)?.count || 0;
+
+export const selectLoading = (id: string) => (state: ReduxTablesState) =>
+  selectSlice(id)(state)?.loading;
+
+export const selectDelete = (id: string) => (state: ReduxTablesState) =>
+  selectSlice(id)(state)?.deleteSw;

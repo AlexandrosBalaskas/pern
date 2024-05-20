@@ -3,6 +3,8 @@ import MenuReducer from "./menu/reducers";
 import EntityReducer from "./entity/reducers";
 import TableReducer from "./table/reducers";
 import DrawerReducer from "./drawer/reducers";
+import CodelistReducer from "./codelist/reducers";
+import ValidationReducer from "./validations/reducers";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +12,8 @@ export const store = configureStore({
     Entities: EntityReducer,
     Tables: TableReducer,
     Drawer: DrawerReducer,
+    Codelists: CodelistReducer,
+    Validations: ValidationReducer,
   },
 });
 

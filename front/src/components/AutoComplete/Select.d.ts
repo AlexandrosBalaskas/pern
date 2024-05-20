@@ -9,8 +9,9 @@ export type GenericSelectProps = {
   required?: boolean;
   multiple?: boolean;
   selectAll?: boolean;
+  className?: any;
   autofocus?: boolean;
-  label: string;
+  label?: string;
   children?: Array<JSX.Element> | JSX.Element;
   inputProps?: any;
   onChange?: (string) => void;
@@ -18,6 +19,7 @@ export type GenericSelectProps = {
   onFocus?: () => void;
   errors?: null | JSX.Element;
   valid?: boolean;
+  placeHolder?: string;
   clearable?: boolean;
   widthSize?: "xs" | "sm" | "md" | "lg" | "xl";
   fullWidth?: boolean;

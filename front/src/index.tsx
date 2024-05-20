@@ -8,7 +8,8 @@ import { Provider } from "react-redux";
 import { HashRouter as Router } from "react-router-dom";
 import { I18nextProvider } from "react-i18next";
 import i18next from "i18next";
-import { DEFAULT_TRANSLATIONS } from "./translations";
+import { EN_DEFAULT_TRANSLATIONS } from "./translations/en/translations";
+import { GER_DEFAULT_TRANSLATIONS } from "./translations/ger/translations";
 import initTheme, {
   getExternalBasicTheme,
   getExternalTheme,
@@ -21,7 +22,8 @@ i18next.init({
   interpolation: { escapeValue: false }, // React already does escaping
   lng: "en",
   resources: {
-    en: DEFAULT_TRANSLATIONS, // 'common' is our custom namespace
+    en: EN_DEFAULT_TRANSLATIONS,
+    ger: GER_DEFAULT_TRANSLATIONS, // 'common' is our custom namespace
   },
 });
 
@@ -30,7 +32,6 @@ const theme: any = initTheme(
   getExternalTheme,
   getExternalThemeOverrides
 );
-console.log(store, "store");
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

@@ -7,6 +7,7 @@ export type AutocompleteTagsProps = {
   id: string;
   multiple?: boolean;
   selectAll?: boolean;
+  className?: any;
   options: Array<AutocompleteOption>;
   loading?: boolean;
   loadingText?: string;
@@ -19,6 +20,7 @@ export type AutocompleteTagsProps = {
   ariaDescribedBy?: string;
   label?: string;
   valid?: boolean;
+  placeHolder?: string;
   disabled?: boolean;
   fullWidth?: boolean;
   renderBy?: "label" | "code";

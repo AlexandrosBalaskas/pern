@@ -1,8 +1,8 @@
 export const uiSchema = {
-  quickTextName: {
+  quicktextname: {
     "ui:widget": "TextWidget",
   },
-  relatedTo: {
+  relatedto: {
     "ui:widget": "TextWidget",
   },
   field: {

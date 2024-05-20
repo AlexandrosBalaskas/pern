@@ -1,18 +1,33 @@
 export const uiSchema = {
   salutation: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { required: true },
+    },
   },
   firstName: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { required: true },
+    },
   },
   lastName: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { required: true },
+    },
   },
   accountName: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { required: true },
+    },
   },
   title: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { required: true },
+    },
   },
   reportsTo: {
     "ui:widget": "TextWidget",

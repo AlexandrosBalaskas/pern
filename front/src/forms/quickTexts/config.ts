@@ -1,9 +1,9 @@
 export const config = {
   columns: [
-    { accessorKey: "quickTextName", header: "Quick Text Name" },
-    { accessorKey: "relatedTo", header: "Related To" },
-    { accessorKey: "field", header: "Field" },
-    { accessorKey: "category", header: "Category" },
+    { accessorKey: "quicktextname", header: "quicktextname" },
+    { accessorKey: "relatedto", header: "relatedto" },
+    { accessorKey: "field", header: "field" },
+    { accessorKey: "category", header: "category" },
     { accessorKey: "id", header: "Id" },
   ],
   rowButtons: {
@@ -31,8 +31,8 @@ export const config = {
     schema: {
       type: "object",
       properties: {
-        quickTextName: { type: "string" },
-        relatedTo: { type: "string" },
+        quicktextname: { type: "string" },
+        relatedto: { type: "string" },
         field: { type: "string" },
         category: { type: "string" },
         message: { type: "string" },

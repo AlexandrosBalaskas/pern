@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LoadTable, InitTable } from "./reducers";
+import { LoadTable, InitTable, DeleteRow } from "./reducers";
 import { AppDispatch } from "../store";
 import {
   ApplyCriteria,
@@ -9,7 +9,14 @@ import {
   TriggerRefresh,
   ClearFilterData,
 } from "./reducers";
-import { selectCount, selectData, selectTableCriteria } from "./selectors";
+import {
+  selectCount,
+  selectData,
+  selectDelete,
+  selectLoading,
+  selectSlice,
+  selectTableCriteria,
+} from "./selectors";
 
 const useTable = (id: string) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -29,13 +36,22 @@ const useTable = (id: string) => {
     criteria: useSelector(selectTableCriteria(id), (left, right) => {
       return JSON.stringify(left || {}) === JSON.stringify(right || {});
     }),
+    deleteSw: useSelector(selectDelete(id), (left, right) => {
+      return JSON.stringify(left || {}) === JSON.stringify(right || {});
+    }),
     data: useSelector(selectData(id), (left, right) => {
       return JSON.stringify(left || {}) === JSON.stringify(right || {});
     }),
     count: useSelector(selectCount(id), (left, right) => {
       return JSON.stringify(left || {}) === JSON.stringify(right || {});
     }),
-
+    loading: useSelector(selectLoading(id), (left, right) => {
+      return JSON.stringify(left || {}) === JSON.stringify(right || {});
+    }),
+    deleteRow: useCallback(
+      (rowId: any) => dispatch(DeleteRow({ tableId: id, rowId })),
+      [dispatch]
+    ),
     applyCriteria: useCallback(
       (criteria: any) => dispatch(ApplyCriteria({ tableId: id, criteria })),
       [dispatch, id]

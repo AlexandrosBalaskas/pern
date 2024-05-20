@@ -1,21 +1,33 @@
 export const uiSchema = {
   status: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { required: true },
+    },
   },
   priority: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { required: true },
+    },
   },
-  caseOrigin: {
+  caseorigin: {
     "ui:widget": "TextWidget",
   },
-  caseOwner: {
+  caseowner: {
     "ui:widget": "TextWidget",
   },
-  contactName: {
+  contactname: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { required: true },
+    },
   },
-  accountName: {
+  accountname: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { required: true },
+    },
   },
   subject: {
     "ui:widget": "TextWidget",

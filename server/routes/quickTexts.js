@@ -45,11 +45,11 @@ router.get("/api/quickTexts/:id", async (req, res) => {
 
 router.put("/api/quickTexts/:id", async (req, res) => {
   const id = req.params.id;
-  const { quickTextName, relatedTo, field, message, category } = req.body;
+  const { quicktextname, relatedto, field, message, category } = req.body;
   try {
     const results = await pool.query(
       `UPDATE quickTexts SET quickTextName = $1 , relatedTo = $2, field = $3, message = $4, category = $5 WHERE id = ${id} returning *`,
-      [quickTextName, relatedTo, field, message, category]
+      [quicktextname, relatedto, field, message, category]
     );
     res.status(200).send(results.rows[0]);
   } catch {
@@ -68,12 +68,12 @@ router.delete("/api/quickTexts/:id", async (req, res) => {
 });
 
 router.post("/api/quickTexts", async (req, res) => {
-  const { quickTextName, relatedTo, field, message, category } = req.body;
+  const { quicktextname, relatedto, field, message, category } = req.body;
   console.log(req.body, "boy");
   try {
     await pool.query(
       "INSERT INTO quickTexts (quickTextName, relatedTo, field, message, category ) VALUES ($1, $2, $3, $4, $5)",
-      [quickTextName, relatedTo, field, message, category]
+      [quicktextname, relatedto, field, message, category]
     );
     res.status(200).send({ message: "Success" });
   } catch (err) {

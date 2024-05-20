@@ -1,11 +1,11 @@
 export const config = {
   columns: [
-    { accessorKey: "caseOrigin", header: "Case Origin" },
-    { accessorKey: "contactName", header: "Contact Name" },
-    { accessorKey: "subject", header: "Subject" },
-    { accessorKey: "status", header: "Status" },
-    { accessorKey: "priority", header: "Priority" },
-    { accessorKey: "caseOwner", header: "Case Owner" },
+    { accessorKey: "caseorigin", header: "caseorigin" },
+    { accessorKey: "contactname", header: "contactname" },
+    { accessorKey: "subject", header: "subject" },
+    { accessorKey: "status", header: "status" },
+    { accessorKey: "priority", header: "priority" },
+    { accessorKey: "caseowner", header: "caseowner" },
     { accessorKey: "id", header: "Id" },
   ],
   rowButtons: {
@@ -35,10 +35,10 @@ export const config = {
       properties: {
         status: { type: "string" },
         priority: { type: "string" },
-        caseOrigin: { type: "string" },
-        caseOwner: { type: "string" },
-        contactName: { type: "string" },
-        accountName: { type: "string" },
+        caseorigin: { type: "string" },
+        caseowner: { type: "string" },
+        contactname: { type: "string" },
+        accountname: { type: "string" },
         subject: { type: "string" },
         description: { type: "string" },
       },

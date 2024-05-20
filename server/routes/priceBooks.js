@@ -45,11 +45,11 @@ router.get("/api/priceBooks/:id", async (req, res) => {
 
 router.put("/api/priceBooks/:id", async (req, res) => {
   const id = req.params.id;
-  const { priceBookName, description, active, isStandard } = req.body;
+  const { pricebookname, description, active, isstandard } = req.body;
   try {
     const results = await pool.query(
       `UPDATE priceBooks SET priceBookName = $1 , description = $2, active = $3, isStandard = $4 WHERE id = ${id} returning *`,
-      [priceBookName, description, active, isStandard]
+      [pricebookname, description, active, isstandard]
     );
     res.status(200).send(results.rows[0]);
   } catch {
@@ -68,12 +68,12 @@ router.delete("/api/priceBooks/:id", async (req, res) => {
 });
 
 router.post("/api/priceBooks", async (req, res) => {
-  const { priceBookName, description, active, isStandard } = req.body;
+  const { pricebookname, description, active, isstandard } = req.body;
   console.log(req.body, "boy");
   try {
     await pool.query(
       "INSERT INTO priceBooks (priceBookName, description, active, isStandard ) VALUES ($1, $2, $3, $4)",
-      [priceBookName, description, active, isStandard]
+      [pricebookname, description, active, isstandard]
     );
     res.status(200).send({ message: "Success" });
   } catch (err) {
