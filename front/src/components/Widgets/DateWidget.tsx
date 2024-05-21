@@ -7,6 +7,7 @@ const DateWidget = (props: any) => {
   const { label, id, disabled } = props;
 
   const { value, setFieldValue } = useFormField(id);
+  console.log(value, "value");
 
   const onDateChange = useCallback(
     (date: any) => {
@@ -26,7 +27,7 @@ const DateWidget = (props: any) => {
   return (
     <DateCalendar
       label={label}
-      value={value || null}
+      value={dayjs(value) || null}
       disabled={disabled}
       onChange={onDateChange}
     />

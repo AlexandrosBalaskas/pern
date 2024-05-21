@@ -3,7 +3,12 @@ export const uiSchema = {
     "ui:widget": "TextWidget",
   },
   relatedto: {
-    "ui:widget": "TextWidget",
+    "ui:widget": "SelectCodeListWidget",
+    "ui:options": {
+      codelistUrl: "related_to",
+      codelistId: "related_to",
+      validations: { required: true },
+    },
   },
   field: {
     "ui:widget": "TextWidget",

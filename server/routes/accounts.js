@@ -16,6 +16,19 @@ router.get("/api/accountsCL", async (req, res) => {
   }
 });
 
+router.get("/api/account_typeCL", async (req, res) => {
+  try {
+    const data = await pool.query(`SELECT * FROM account_type`);
+    const result = (data.rows || []).map((acc) => {
+      return { code: acc.id, label: acc.type };
+    });
+    res.status(200).send({ items: result });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
 router.get("/api/accounts", async (req, res) => {
   await new Promise((resolve) => setTimeout(resolve, 500));
   const { current_page, pageSize } = req.query;
@@ -162,7 +175,6 @@ router.post("/api/accounts", async (req, res) => {
         shippingstate,
       ]
     );
-    console.log(results.rows[0], "ROWW");
     res.status(200).send(results.rows[0]);
   } catch (err) {
     console.log(err, "err");

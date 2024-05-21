@@ -1,7 +1,9 @@
 export const uiSchema = {
   salutation: {
-    "ui:widget": "TextWidget",
+    "ui:widget": "SelectCodeListWidget",
     "ui:options": {
+      codelistUrl: "salutation",
+      codelistId: "salutation",
       validations: { required: true },
     },
   },
@@ -33,8 +35,10 @@ export const uiSchema = {
     "ui:widget": "TextWidget",
   },
   leadstatus: {
-    "ui:widget": "TextWidget",
+    "ui:widget": "SelectCodeListWidget",
     "ui:options": {
+      codelistUrl: "lead_status",
+      codelistId: "lead_status",
       validations: { required: true },
     },
   },
@@ -69,9 +73,19 @@ export const uiSchema = {
     "ui:widget": "TextWidget",
   },
   leadsource: {
-    "ui:widget": "TextWidget",
+    "ui:widget": "SelectCodeListWidget",
+    "ui:options": {
+      codelistUrl: "lead_source",
+      codelistId: "lead_source",
+      validations: { required: true },
+    },
   },
   industry: {
-    "ui:widget": "TextWidget",
+    "ui:widget": "SelectCodeListWidget",
+    "ui:options": {
+      codelistUrl: "industry",
+      codelistId: "industry",
+      validations: { required: true },
+    },
   },
 };

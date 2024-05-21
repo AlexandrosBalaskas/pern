@@ -46,18 +46,33 @@ export const uiSchema = {
   type: {
     "ui:widget": "SelectCodeListWidget",
     "ui:options": {
-      defaultValues: {
-        enum: ["PERCENTAGE", "MAX_AMOUNT"],
-        enumNames: ["Percent", "Max. Amount"],
-      },
+      codelistUrl: "account_type",
+      codelistId: "account_type",
       validations: { required: true },
     },
   },
   description: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      multiline: true,
+      rows: 3,
+      columns: {
+        xs: 12,
+        sm: 12,
+        md: 6,
+        lg: 6,
+        xl: 6,
+      },
+    },
   },
   parentaccount: {
-    "ui:widget": "TextWidget",
+    "ui:widget": "SelectCodeListWidget",
+    "ui:options": {
+      codelistUrl: "accounts",
+      codelistId: "accounts",
+      hasPlaceHolder: true,
+      validations: { required: true },
+    },
   },
   accountowner: {
     "ui:widget": "TextWidget",

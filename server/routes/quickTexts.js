@@ -3,6 +3,19 @@ const Router = require("express");
 const router = Router();
 const pool = require("../db");
 
+router.get("/api/related_toCL", async (req, res) => {
+  try {
+    const data = await pool.query(`SELECT * FROM related_to`);
+    const result = (data.rows || []).map((acc) => {
+      return { code: acc.related_id, label: acc.related_type };
+    });
+    res.status(200).send({ items: result });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
 router.get("/api/quickTexts", async (req, res) => {
   const { current_page, pageSize } = req.query;
   const filters = (Object.keys(JSON.parse(req.query?.filters)) || [])
@@ -71,11 +84,11 @@ router.post("/api/quickTexts", async (req, res) => {
   const { quicktextname, relatedto, field, message, category } = req.body;
   console.log(req.body, "boy");
   try {
-    await pool.query(
-      "INSERT INTO quickTexts (quickTextName, relatedTo, field, message, category ) VALUES ($1, $2, $3, $4, $5)",
+    const results = await pool.query(
+      "INSERT INTO quickTexts (quickTextName, relatedTo, field, message, category ) VALUES ($1, $2, $3, $4, $5) returning *",
       [quicktextname, relatedto, field, message, category]
     );
-    res.status(200).send({ message: "Success" });
+    res.status(200).send(results.rows[0]);
   } catch (err) {
     console.log(err, "err");
     res.sendStatus(500);

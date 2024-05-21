@@ -15,7 +15,7 @@ const TextWidget = (props: any) => {
     options,
     idPrefix,
   } = props;
-  const { validations } = options;
+  const { validations, multiline, rows } = options;
 
   const entityId = useMemo(() => id?.split("_")[0], [id]);
 
@@ -42,6 +42,8 @@ const TextWidget = (props: any) => {
       onChange={canChange ? onChange : setFieldValue}
       type={props?.schema.type || "string"}
       showLabel={true}
+      multiline={multiline}
+      rows={rows}
       valid={valid}
       errors={<ValidationErrors clientErrors={errors} dirty={dirty} />}
     />

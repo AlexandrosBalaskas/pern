@@ -36,6 +36,9 @@ const useTable = (id: string) => {
     criteria: useSelector(selectTableCriteria(id), (left, right) => {
       return JSON.stringify(left || {}) === JSON.stringify(right || {});
     }),
+    // filterValue: useSelector(selectFilterDataValue(id), (left, right) => {
+    //   return JSON.stringify(left || {}) === JSON.stringify(right || {});
+    // }),
     deleteSw: useSelector(selectDelete(id), (left, right) => {
       return JSON.stringify(left || {}) === JSON.stringify(right || {});
     }),

@@ -9,6 +9,7 @@ export type GenericSelectProps = {
   required?: boolean;
   multiple?: boolean;
   selectAll?: boolean;
+  canChange?: boolean;
   className?: any;
   autofocus?: boolean;
   label?: string;

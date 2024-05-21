@@ -71,11 +71,11 @@ router.post("/api/priceBooks", async (req, res) => {
   const { pricebookname, description, active, isstandard } = req.body;
   console.log(req.body, "boy");
   try {
-    await pool.query(
-      "INSERT INTO priceBooks (priceBookName, description, active, isStandard ) VALUES ($1, $2, $3, $4)",
+    const results = await pool.query(
+      "INSERT INTO priceBooks (priceBookName, description, active, isStandard ) VALUES ($1, $2, $3, $4) returning *",
       [pricebookname, description, active, isstandard]
     );
-    res.status(200).send({ message: "Success" });
+    res.status(200).send(results.rows[0]);
   } catch (err) {
     console.log(err, "err");
     res.sendStatus(500);

@@ -12,6 +12,7 @@ import {
   Snackbar,
 } from "@mui/material";
 import {
+  createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
@@ -28,12 +29,14 @@ import { TanstackTablePagination } from "./TanstackTablePagination";
 import { makeStyles } from "@mui/styles";
 import SortButton from "../Sort/Sort";
 import { isUndefined } from "lodash";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 const useStyles = makeStyles((theme: Theme) => ({
   headerContainer: { display: "flex", flexDirection: "row", fontWeight: 600 },
   filterContainer: {
     position: "relative",
-    left: "calc(100% - 50px)",
+    left: "calc(100% - 85px)",
     top: "16px",
     width: "fit-content",
     height: "40px",
@@ -57,6 +60,43 @@ const TanstackTable = ({
   rowButtons: any;
 }) => {
   const arr: any = [];
+  const navigate = useNavigate();
+  const { t: translate } = useTranslation([pageId, "common", "codelist"]);
+  const columnHelper = createColumnHelper();
+
+  const codelists = useSelector((state: any) => state.Codelists);
+  console.log(codelists, "code");
+  const finalColumns = useMemo(
+    () =>
+      columns.map((column: any) =>
+        column.codelist
+          ? columnHelper.accessor(column.accessorKey, {
+              cell: (props: any) => {
+                const codelist =
+                  codelists &&
+                  codelists[column.codelist] &&
+                  codelists[column.codelist].data &&
+                  codelists[column.codelist].data.items;
+
+                const codelistItem = (codelist || []).find(
+                  (item: any) => item.code == props.getValue()
+                );
+                console.log(
+                  props.getValue(),
+                  "getvalue",
+                  codelist,
+                  "codelist",
+                  codelistItem,
+                  "codelistItem"
+                );
+                return translate(codelistItem?.label, { ns: "codelist" });
+              },
+              header: column.header,
+            })
+          : column
+      ),
+    [translate, columns, codelists]
+  );
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [sorting, setSorting] = useState(arr);
   const [pagination, setPagination] = useState({
@@ -65,7 +105,6 @@ const TanstackTable = ({
   });
   const [columnFilters, setColumnFilters] = useState(arr);
   const styles = useStyles();
-  const { t: translate } = useTranslation([pageId, "common"]);
   const parentId = "Tanstack";
 
   const { criteria, loadTable, initTable, data, count, loading, deleteSw } =
@@ -142,7 +181,7 @@ const TanstackTable = ({
     onPaginationChange: setPagination,
     manualFiltering: true,
     onColumnFiltersChange: setColumnFilters,
-    columns,
+    columns: finalColumns,
     getCoreRowModel: getCoreRowModel(),
   });
 
@@ -150,6 +189,9 @@ const TanstackTable = ({
     open ? closeDrawer() : openDrawer();
   }, [open, openDrawer, closeDrawer]);
 
+  const redirectToPage = useCallback(() => {
+    navigate(`/page/${pageId}`);
+  }, [pageId]);
   // const onCall = () => {
   //   setIsCall(!isCall);
   // };
@@ -166,6 +208,18 @@ const TanstackTable = ({
         {loading && <LinearProgress />}
         <h1 className={styles.titleContainer}>{translate(pageId)}</h1>
         <div className={styles.filterContainer}>
+          <AppIconButton
+            id={"Tanstack-add-btn"}
+            label={translate("add", { ns: "common" })}
+            onClick={redirectToPage}
+            icon={
+              <Assets
+                input="icons"
+                name="AddCircle"
+                props={{ className: "primary" }}
+              />
+            }
+          />
           <AppIconButton
             id={"Tanstack-filter-btn"}
             label={translate("filter", { ns: "common" })}

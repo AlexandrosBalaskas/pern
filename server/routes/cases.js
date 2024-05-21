@@ -3,6 +3,45 @@ const Router = require("express");
 const router = Router();
 const pool = require("../db");
 
+router.get("/api/priorityCL", async (req, res) => {
+  try {
+    const data = await pool.query(`SELECT * FROM priority`);
+    const result = (data.rows || []).map((acc) => {
+      return { code: acc.priority_id, label: acc.priority_type };
+    });
+    res.status(200).send({ items: result });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
+router.get("/api/case_statusCL", async (req, res) => {
+  try {
+    const data = await pool.query(`SELECT * FROM case_status`);
+    const result = (data.rows || []).map((acc) => {
+      return { code: acc.status_id, label: acc.status_type };
+    });
+    res.status(200).send({ items: result });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
+router.get("/api/case_originCL", async (req, res) => {
+  try {
+    const data = await pool.query(`SELECT * FROM case_origin`);
+    const result = (data.rows || []).map((acc) => {
+      return { code: acc.origin_id, label: acc.origin_type };
+    });
+    res.status(200).send({ items: result });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
 router.get("/api/cases", async (req, res) => {
   const { current_page, pageSize } = req.query;
   const filters = (Object.keys(JSON.parse(req.query?.filters)) || [])
@@ -94,8 +133,8 @@ router.post("/api/cases", async (req, res) => {
   } = req.body;
   console.log(req.body, "boy");
   try {
-    await pool.query(
-      "INSERT INTO cases ( status,priority,caseOrigin,caseOwner,contactName,accountName,subject,description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
+    const results = await pool.query(
+      "INSERT INTO cases ( status,priority,caseOrigin,caseOwner,contactName,accountName,subject,description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) returning *",
       [
         status,
         priority,
@@ -107,7 +146,7 @@ router.post("/api/cases", async (req, res) => {
         description,
       ]
     );
-    res.status(200).send({ message: "Success" });
+    res.status(200).send(results.rows[0]);
   } catch (err) {
     console.log(err, "err");
     res.sendStatus(500);

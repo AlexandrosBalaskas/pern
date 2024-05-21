@@ -1,7 +1,7 @@
 export const config = {
   columns: [
     { accessorKey: "firstname", header: "firstname" },
-    { accessorKey: "accountname", header: "accountname" },
+    { accessorKey: "accountname", header: "accountname", codelist: "accounts" },
     { accessorKey: "title", header: "title" },
     { accessorKey: "phone", header: "phone" },
     { accessorKey: "email", header: "email" },
@@ -37,10 +37,34 @@ export const config = {
         title: { type: "string" },
         phone: { type: "string" },
         email: { type: "string" },
+        salutation: { type: "string" },
         mailingstreet: { type: "string" },
+        reportsto: { type: "string" },
         mailingcountry: { type: "string" },
       },
     },
-    uiSchema: {},
+    uiSchema: {
+      accountname: {
+        "ui:widget": "SelectCodeListWidget",
+        "ui:options": {
+          codelistUrl: "accounts",
+          codelistId: "accounts",
+        },
+      },
+      salutation: {
+        "ui:widget": "SelectCodeListWidget",
+        "ui:options": {
+          codelistUrl: "salutation",
+          codelistId: "salutation",
+        },
+      },
+      reportsto: {
+        "ui:widget": "SelectCodeListWidget",
+        "ui:options": {
+          codelistUrl: "contacts",
+          codelistId: "contacts",
+        },
+      },
+    },
   },
 };

@@ -3,6 +3,35 @@ const Router = require("express");
 const router = Router();
 const pool = require("../db");
 
+router.get("/api/stageCL", async (req, res) => {
+  try {
+    const data = await pool.query(`SELECT * FROM stage`);
+    const result = (data.rows || []).map((acc) => {
+      return { code: acc.stage_id, label: acc.stage_type };
+    });
+    res.status(200).send({ items: result });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
+router.get("/api/forecast_categoryCL", async (req, res) => {
+  try {
+    const data = await pool.query(`SELECT * FROM forecast_category`);
+    const result = (data.rows || []).map((acc) => {
+      return {
+        code: acc.forecast_category_id,
+        label: acc.forecast_category_type,
+      };
+    });
+    res.status(200).send({ items: result });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
 router.get("/api/oportunities", async (req, res) => {
   const { current_page, pageSize } = req.query;
   const filters = (Object.keys(JSON.parse(req.query?.filters)) || [])
@@ -106,8 +135,8 @@ router.post("/api/oportunities", async (req, res) => {
   } = req.body;
   console.log(req.body, "boy");
   try {
-    await pool.query(
-      "INSERT INTO oportunities (oportunityName,accountName,closeDate,amount,description,oportunityOwner,stage,probability,forecastCategory,nextStep) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
+    const results = await pool.query(
+      "INSERT INTO oportunities (oportunityName,accountName,closeDate,amount,description,oportunityOwner,stage,probability,forecastCategory,nextStep) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) returning *",
       [
         oportunityname,
         accountname,
@@ -121,7 +150,7 @@ router.post("/api/oportunities", async (req, res) => {
         nextstep,
       ]
     );
-    res.status(200).send({ message: "Success" });
+    res.status(200).send(results.rows[0]);
   } catch (err) {
     console.log(err, "err");
     res.sendStatus(500);

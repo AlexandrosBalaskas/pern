@@ -3,6 +3,45 @@ const Router = require("express");
 const router = Router();
 const pool = require("../db");
 
+router.get("/api/lead_statusCL", async (req, res) => {
+  try {
+    const data = await pool.query(`SELECT * FROM lead_status`);
+    const result = (data.rows || []).map((acc) => {
+      return { code: acc.status_id, label: acc.status_type };
+    });
+    res.status(200).send({ items: result });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
+router.get("/api/lead_sourceCL", async (req, res) => {
+  try {
+    const data = await pool.query(`SELECT * FROM lead_source`);
+    const result = (data.rows || []).map((acc) => {
+      return { code: acc.source_id, label: acc.source_type };
+    });
+    res.status(200).send({ items: result });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
+router.get("/api/industryCL", async (req, res) => {
+  try {
+    const data = await pool.query(`SELECT * FROM industry`);
+    const result = (data.rows || []).map((acc) => {
+      return { code: acc.industry_id, label: acc.industry_type };
+    });
+    res.status(200).send({ items: result });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
 router.get("/api/leads", async (req, res) => {
   const { current_page, pageSize } = req.query;
   const filters = (Object.keys(JSON.parse(req.query?.filters)) || [])
@@ -130,8 +169,8 @@ router.post("/api/leads", async (req, res) => {
   } = req.body;
   console.log(req.body, "boy");
   try {
-    await pool.query(
-      "INSERT INTO leads (salutation,firstName,lastName,company,title,website,description,leadStatus,leadOwner,phone,email,street,postalCode,city,country,state,employeesNumber,annualRevenue,leadSource,industry) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)",
+    const results = await pool.query(
+      "INSERT INTO leads (salutation,firstName,lastName,company,title,website,description,leadStatus,leadOwner,phone,email,street,postalCode,city,country,state,employeesNumber,annualRevenue,leadSource,industry) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20) returning *",
       [
         salutation,
         firstname,
@@ -155,7 +194,7 @@ router.post("/api/leads", async (req, res) => {
         industry,
       ]
     );
-    res.status(200).send({ message: "Success" });
+    res.status(200).send(results.rows[0]);
   } catch (err) {
     console.log(err, "err");
     res.sendStatus(500);

@@ -5,7 +5,11 @@ export const config = {
     { accessorKey: "state", header: "state" },
     { accessorKey: "phone", header: "phone" },
     { accessorKey: "email", header: "email" },
-    { accessorKey: "leadstatus", header: "leadstatus" },
+    {
+      accessorKey: "leadstatus",
+      header: "leadstatus",
+      codelist: "lead_status",
+    },
     { accessorKey: "leadowner", header: "leadowner" },
     { accessorKey: "id", header: "Id" },
   ],
@@ -56,6 +60,35 @@ export const config = {
         industry: { type: "string" },
       },
     },
-    uiSchema: {},
+    uiSchema: {
+      leadstatus: {
+        "ui:widget": "SelectCodeListWidget",
+        "ui:options": {
+          codelistUrl: "lead_status",
+          codelistId: "lead_status",
+        },
+      },
+      salutation: {
+        "ui:widget": "SelectCodeListWidget",
+        "ui:options": {
+          codelistUrl: "salutation",
+          codelistId: "salutation",
+        },
+      },
+      industry: {
+        "ui:widget": "SelectCodeListWidget",
+        "ui:options": {
+          codelistUrl: "industry",
+          codelistId: "industry",
+        },
+      },
+      leadsource: {
+        "ui:widget": "SelectCodeListWidget",
+        "ui:options": {
+          codelistUrl: "lead_source",
+          codelistId: "lead_source",
+        },
+      },
+    },
   },
 };

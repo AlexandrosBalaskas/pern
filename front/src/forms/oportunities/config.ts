@@ -1,10 +1,17 @@
+import { createColumnHelper } from "@tanstack/react-table";
+import moment from "moment";
+const columnHelper = createColumnHelper();
+
 export const config = {
   columns: [
     { accessorKey: "oportunityname", header: "oportunityname" },
-    { accessorKey: "accountname", header: "accountname" },
+    { accessorKey: "accountname", header: "accountname", codelist: "accounts" },
     { accessorKey: "amount", header: "amount" },
-    { accessorKey: "closedate", header: "closedate" },
-    { accessorKey: "stage", header: "stage" },
+    columnHelper.accessor("closedate", {
+      cell: (props) => moment(props.getValue()).format("DD/MM/yyyy"),
+      header: "closedate",
+    }),
+    { accessorKey: "stage", header: "stage", codelist: "stage" },
     { accessorKey: "oportunityowner", header: "oportunityowner" },
     { accessorKey: "id", header: "Id" },
   ],
@@ -45,6 +52,28 @@ export const config = {
         nextstep: { type: "string" },
       },
     },
-    uiSchema: {},
+    uiSchema: {
+      stage: {
+        "ui:widget": "SelectCodeListWidget",
+        "ui:options": {
+          codelistUrl: "stage",
+          codelistId: "stage",
+        },
+      },
+      forecastcategory: {
+        "ui:widget": "SelectCodeListWidget",
+        "ui:options": {
+          codelistUrl: "forecast_category",
+          codelistId: "forecast_category",
+        },
+      },
+      accountname: {
+        "ui:widget": "SelectCodeListWidget",
+        "ui:options": {
+          codelistUrl: "accounts",
+          codelistId: "accounts",
+        },
+      },
+    },
   },
 };

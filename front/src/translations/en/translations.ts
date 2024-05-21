@@ -38,10 +38,17 @@ export const EN_DEFAULT_TRANSLATIONS = {
     submit: "Submit",
     close: "Close",
     apply: "Apply",
+    add: "Create",
   },
   validations: {},
   accessibility: {},
   menu: {},
+  codelist: {
+    select_parentaccount: "Select From Accounts",
+    select_accountname: "Select From Accounts",
+    select_reportsto: "Select From Contacts",
+    select_contactname: "Select From Contacts",
+  },
   accounts: {
     accounts: "Accounts",
     accountname: "Account Name",

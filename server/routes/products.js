@@ -3,6 +3,19 @@ const Router = require("express");
 const router = Router();
 const pool = require("../db");
 
+router.get("/api/product_familiesCL", async (req, res) => {
+  try {
+    const data = await pool.query(`SELECT * FROM product_families`);
+    const result = (data.rows || []).map((acc) => {
+      return { code: acc.family_id, label: acc.family_type };
+    });
+    res.status(200).send({ items: result });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
 router.get("/api/products", async (req, res) => {
   const { current_page, pageSize } = req.query;
   const filters = (Object.keys(JSON.parse(req.query?.filters)) || [])
@@ -79,11 +92,11 @@ router.post("/api/products", async (req, res) => {
   } = req.body;
   console.log(req.body, "boy");
   try {
-    await pool.query(
-      "INSERT INTO products (productName, productFamily, productCode, active, productDescription) VALUES ($1, $2, $3, $4, $5)",
+    const results = await pool.query(
+      "INSERT INTO products (productName, productFamily, productCode, active, productDescription) VALUES ($1, $2, $3, $4, $5) returning *",
       [productname, productfamily, productcode, active, productdescription]
     );
-    res.status(200).send({ message: "Success" });
+    res.status(200).send(results.rows[0]);
   } catch (err) {
     console.log(err, "err");
     res.sendStatus(500);

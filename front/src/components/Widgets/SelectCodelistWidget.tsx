@@ -14,6 +14,8 @@ const SelectCodeListWidget = ({
   disabled,
   readonly,
   autofocus,
+  onChange,
+  formContext,
   onBlur,
   warnOnChange,
 }: FormWidgetProps) => {
@@ -24,19 +26,33 @@ const SelectCodeListWidget = ({
     fullWidth,
     widthSize = "sm",
     defaultValues,
+    codelistUrl,
+    codelistId,
+    hasPlaceHolder = false,
   } = options;
+
+  const { canChange } = formContext;
 
   const entityId = useMemo(() => id?.split("_")[0], [id]);
 
-  const { t: translate } = useTranslation(entityId);
+  const { t: translate } = useTranslation([entityId, "codelist"]);
 
   const { value, setFieldValue } = useFormField(id);
 
-  const { loadCodelist, items } = useCodelist("accounts");
+  const { loadCodelist, items } = useCodelist(codelistId);
+
+  const translatedOptions = useMemo(() => {
+    return (items || []).map((item: any) => {
+      return {
+        code: item.code,
+        label: translate(item.label, { ns: "codelist" }),
+      };
+    });
+  }, [items, translate]);
 
   useEffect(() => {
-    loadCodelist({ url: "accounts", codelistId: "accounts" });
-  }, []);
+    loadCodelist({ url: codelistUrl, codelistId });
+  }, [codelistUrl, codelistId, loadCodelist]);
   const optionsFromEnum = defaultValues?.enumNames?.map(
     (name: string, index: number) => ({
       code: defaultValues?.enum?.[index].toString(),
@@ -53,7 +69,7 @@ const SelectCodeListWidget = ({
   }, [label, validations, translate]);
 
   const placeHolder = useMemo(
-    () => translate(`select_${label}`),
+    () => translate(`select_${label}`, { ns: "codelist" }),
     [translate, label]
   );
 
@@ -68,16 +84,15 @@ const SelectCodeListWidget = ({
       autofocus={autofocus}
       selectAll={selectAll}
       multiple={multiple}
-      placeHolder={placeHolder}
+      placeHolder={hasPlaceHolder ? placeHolder : ""}
       widthSize={widthSize}
       onChange={(e: any) =>
-        warnOnChange
-          ? warnOnChange(e.target.value)
-          : setFieldValue(e.target.value)
+        canChange ? onChange(e.target?.value) : setFieldValue(e.target.value)
       }
       onBlur={(e: any) => onBlur && onBlur(e.target.value)}
-      options={items}
+      options={translatedOptions}
       fullWidth={fullWidth}
+      canChange={canChange}
       valid={valid}
       errors={<ValidationErrors clientErrors={errors} dirty={dirty} />}
     />

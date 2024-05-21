@@ -1,7 +1,9 @@
 export const uiSchema = {
   salutation: {
-    "ui:widget": "TextWidget",
+    "ui:widget": "SelectCodeListWidget",
     "ui:options": {
+      codelistUrl: "salutation",
+      codelistId: "salutation",
       validations: { required: true },
     },
   },
@@ -17,9 +19,12 @@ export const uiSchema = {
       validations: { required: true },
     },
   },
-  accountName: {
-    "ui:widget": "TextWidget",
+  accountname: {
+    "ui:widget": "SelectCodeListWidget",
     "ui:options": {
+      codelistUrl: "accounts",
+      codelistId: "accounts",
+      hasPlaceHolder: true,
       validations: { required: true },
     },
   },
@@ -29,8 +34,14 @@ export const uiSchema = {
       validations: { required: true },
     },
   },
-  reportsTo: {
-    "ui:widget": "TextWidget",
+  reportsto: {
+    "ui:widget": "SelectCodeListWidget",
+    "ui:options": {
+      codelistUrl: "contacts",
+      codelistId: "contacts",
+      hasPlaceHolder: true,
+      validations: { required: true },
+    },
   },
   description: {
     "ui:widget": "TextWidget",

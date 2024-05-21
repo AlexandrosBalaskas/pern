@@ -38,7 +38,6 @@ export const AppTextField: React.FC<AppTextFieldProps> = ({
       onChange(fieldValue === "" ? emptyValue : fieldValue);
     }
   };
-
   return (
     <>
       <TextField
@@ -50,7 +49,7 @@ export const AppTextField: React.FC<AppTextFieldProps> = ({
         value={value}
         multiline={multiline}
         minRows={rows}
-        maxRows={Number(rows) >= 5 ? rows : undefined}
+        maxRows={3}
         autoFocus={autofocus}
         required={required}
         disabled={disabled || readonly}

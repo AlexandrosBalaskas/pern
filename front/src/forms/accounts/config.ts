@@ -51,6 +51,22 @@ export const config = {
         shippingstate: { type: "string" },
       },
     },
-    uiSchema: { id: "accounts" },
+    uiSchema: {
+      id: "accounts",
+      accountname: {
+        "ui:widget": "SelectCodeListWidget",
+        "ui:options": {
+          codelistUrl: "accounts",
+          codelistId: "accounts",
+        },
+      },
+      type: {
+        "ui:widget": "SelectCodeListWidget",
+        "ui:options": {
+          codelistUrl: "account_type",
+          codelistId: "account_type",
+        },
+      },
+    },
   },
 };

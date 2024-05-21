@@ -38,6 +38,14 @@ export const config = {
         productdescription: { type: "string" },
       },
     },
-    uiSchema: {},
+    uiSchema: {
+      productfamily: {
+        "ui:widget": "SelectCodeListWidget",
+        "ui:options": {
+          codelistUrl: "product_families",
+          codelistId: "product_families",
+        },
+      },
+    },
   },
 };

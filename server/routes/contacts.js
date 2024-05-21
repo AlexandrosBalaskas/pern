@@ -3,6 +3,32 @@ const Router = require("express");
 const router = Router();
 const pool = require("../db");
 
+router.get("/api/salutationCL", async (req, res) => {
+  try {
+    const data = await pool.query(`SELECT * FROM salutation`);
+    const result = (data.rows || []).map((acc) => {
+      return { code: acc.salutation_id, label: acc.salutation_type };
+    });
+    res.status(200).send({ items: result });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
+router.get("/api/contactsCL", async (req, res) => {
+  try {
+    const data = await pool.query(`SELECT * FROM contacts`);
+    const result = (data.rows || []).map((acc) => {
+      return { code: acc.id, label: acc.firstname };
+    });
+    res.status(200).send({ items: result });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
 router.get("/api/contacts", async (req, res) => {
   const { current_page, pageSize } = req.query;
   const filters = (Object.keys(JSON.parse(req.query?.filters)) || [])
@@ -114,8 +140,8 @@ router.post("/api/contacts", async (req, res) => {
     mailingstate,
   } = req.body;
   try {
-    await pool.query(
-      "INSERT INTO contacts (salutation, firstName, lastName, accountName, title, reportsTo , description, contactOwner, phone, email , mailingStreet, postalCode, mailingCity, mailingCountry, mailingState) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)",
+    const results = await pool.query(
+      "INSERT INTO contacts (salutation, firstName, lastName, accountName, title, reportsTo , description, contactOwner, phone, email , mailingStreet, postalCode, mailingCity, mailingCountry, mailingState) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) returning *",
       [
         salutation,
         firstname,
@@ -134,7 +160,7 @@ router.post("/api/contacts", async (req, res) => {
         mailingstate,
       ]
     );
-    res.status(200).send({ message: "Success" });
+    res.status(200).send(results.rows[0]);
   } catch (err) {
     res.sendStatus(500);
   }

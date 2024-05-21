@@ -288,7 +288,7 @@ export const getExternalThemeOverrides: any = (fade: any, ReactTheme: any) => {
             "& .MuiAutocomplete-input": {
               padding: "0px 4px !important",
             },
-            height: "35px",
+            height: "max-content",
             width: "70%",
           },
           notchedOutline: {

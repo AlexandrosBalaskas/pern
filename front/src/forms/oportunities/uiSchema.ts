@@ -1,59 +1,48 @@
 export const uiSchema = {
+  oportunityname: {
+    "ui:widget": "TextWidget",
+  },
   accountname: {
-    "ui:widget": "TextWidget",
+    "ui:widget": "SelectCodeListWidget",
     "ui:options": {
+      codelistUrl: "accounts",
+      codelistId: "accounts",
+      hasPlaceHolder: true,
       validations: { required: true },
     },
   },
-  website: {
-    "ui:widget": "TextWidget",
+  closedate: {
+    "ui:widget": "DateWidget",
   },
-  type: {
+  amount: {
     "ui:widget": "TextWidget",
-    "ui:options": {
-      validations: { required: true },
-    },
   },
   description: {
     "ui:widget": "TextWidget",
   },
-  parentaccount: {
+  oportunityowner: {
     "ui:widget": "TextWidget",
   },
-  accountowner: {
+  stage: {
+    "ui:widget": "SelectCodeListWidget",
+    "ui:options": {
+      codelistUrl: "stage",
+      codelistId: "stage",
+      validations: { required: true },
+    },
+  },
+  probability: {
     "ui:widget": "TextWidget",
   },
-  phone: {
-    "ui:widget": "TextWidget",
+  forecastcategory: {
+    "ui:widget": "SelectCodeListWidget",
+    "ui:options": {
+      codelistUrl: "forecast_category",
+      codelistId: "forecast_category",
+      validations: { required: true },
+    },
   },
-  billingstreet: {
-    "ui:widget": "TextWidget",
-  },
-  billingpostalcode: {
-    "ui:widget": "TextWidget",
-  },
-  billingcity: {
-    "ui:widget": "TextWidget",
-  },
-  billingcountry: {
-    "ui:widget": "TextWidget",
-  },
-  billingstate: {
-    "ui:widget": "TextWidget",
-  },
-  shippingstreet: {
-    "ui:widget": "TextWidget",
-  },
-  shippingpostalcode: {
-    "ui:widget": "TextWidget",
-  },
-  shippingcity: {
-    "ui:widget": "TextWidget",
-  },
-  shippingcountry: {
-    "ui:widget": "TextWidget",
-  },
-  shippingstate: {
+  nextstep: {
     "ui:widget": "TextWidget",
   },
 };

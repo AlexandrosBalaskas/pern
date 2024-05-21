@@ -32,6 +32,7 @@ export const ObjectFieldTemplate = function (props: any) {
     properties,
     formContext: { canChange },
     uiSchema: { groups = [], id = "" },
+    options,
   } = props;
   const styles = useStyles();
   const { t: translate } = useTranslation(id);
@@ -51,17 +52,21 @@ export const ObjectFieldTemplate = function (props: any) {
 
   const renderWidgetElement = (code: any, index: any) => {
     const widgetElement = (prop || []).find((element) => element.name === code);
+    const uiSchema = widgetElement?.content.props.uiSchema;
+    const options = uiSchema && uiSchema["ui:options"];
+    const { columns } = options || {};
+    const { xs, sm, md, lg, xl } = columns || {};
 
     if (widgetElement) {
       return (
         <Grid
           key={widgetElement?.content?.props?.idSchema?.$id}
           item
-          xs={12}
-          sm={12}
-          md={6}
-          lg={6}
-          xl={6}
+          xs={xs || 12}
+          sm={sm || 12}
+          md={md || 6}
+          lg={lg || 6}
+          xl={xl || 6}
           style={{ paddingRight: "50px", paddingLeft: "50px" }}
         >
           {widgetElement.content}

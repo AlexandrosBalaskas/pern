@@ -1,7 +1,7 @@
 export const config = {
   columns: [
     { accessorKey: "quicktextname", header: "quicktextname" },
-    { accessorKey: "relatedto", header: "relatedto" },
+    { accessorKey: "relatedto", header: "relatedto", codelist: "related_to" },
     { accessorKey: "field", header: "field" },
     { accessorKey: "category", header: "category" },
     { accessorKey: "id", header: "Id" },
@@ -38,6 +38,14 @@ export const config = {
         message: { type: "string" },
       },
     },
-    uiSchema: {},
+    uiSchema: {
+      relatedto: {
+        "ui:widget": "SelectCodeListWidget",
+        "ui:options": {
+          codelistUrl: "related_to",
+          codelistId: "related_to",
+        },
+      },
+    },
   },
 };

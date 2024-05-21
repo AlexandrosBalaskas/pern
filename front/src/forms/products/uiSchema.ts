@@ -1,20 +1,28 @@
 export const uiSchema = {
-  productName: {
+  productname: {
     "ui:widget": "TextWidget",
     "ui:options": {
       validations: { required: true },
     },
   },
-  productFamily: {
-    "ui:widget": "TextWidget",
+  productfamily: {
+    "ui:widget": "SelectCodeListWidget",
+    "ui:options": {
+      codelistUrl: "product_families",
+      codelistId: "product_families",
+      validations: { required: true },
+    },
   },
-  productCode: {
+  productcode: {
     "ui:widget": "TextWidget",
     "ui:options": {
       validations: { required: true },
     },
   },
-  productDescription: {
+  productdescription: {
     "ui:widget": "TextWidget",
+  },
+  active: {
+    "ui:widget": "BooleanWidget",
   },
 };
