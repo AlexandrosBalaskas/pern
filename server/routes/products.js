@@ -16,7 +16,45 @@ router.get("/api/product_familiesCL", async (req, res) => {
   }
 });
 
+router.get("/api/productsByFamily", async (req, res) => {
+  try {
+    const result = await pool.query(
+      `SELECT 
+      productFamily, 
+         COUNT(*) as count 
+       FROM products 
+       WHERE productFamily IN ('1', '2', '3', '4', '5') 
+       GROUP BY productFamily`
+    );
+    const counts = {
+      Electronics: 0,
+      Apparel: 0,
+      Automobiles: 0,
+      Furniture: 0,
+      "Home Appliances": 0,
+    };
+
+    result.rows.forEach((row) => {
+      if (row.productfamily === "1") {
+        counts.Electronics = row.count;
+      } else if (row.productfamily === "2") {
+        counts.Apparel = row.count;
+      } else if (row.productfamily === "3") {
+        counts.Automobiles = row.count;
+      } else if (row.productfamily === "4") {
+        counts.Furniture = row.count;
+      } else if (row.productfamily === "5") {
+        counts["Home Appliances"] = row.count;
+      }
+    });
+    res.status(200).send(counts);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 router.get("/api/products", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const { current_page, pageSize } = req.query;
   const filters = (Object.keys(JSON.parse(req.query?.filters)) || [])
     .map((key, index) => {
@@ -43,6 +81,7 @@ router.get("/api/products", async (req, res) => {
 });
 
 router.get("/api/products/:id", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const id = req.params.id;
   try {
     const results = await pool.query(`SELECT * FROM products WHERE id = ${id}`);
@@ -53,6 +92,7 @@ router.get("/api/products/:id", async (req, res) => {
 });
 
 router.put("/api/products/:id", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const id = req.params.id;
   const {
     productname,
@@ -73,6 +113,7 @@ router.put("/api/products/:id", async (req, res) => {
 });
 
 router.delete("/api/products/:id", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const id = req.params.id;
   try {
     const results = await pool.query(`DELETE FROM products WHERE id = ${id}`);
@@ -83,6 +124,7 @@ router.delete("/api/products/:id", async (req, res) => {
 });
 
 router.post("/api/products", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const {
     productname,
     productfamily,

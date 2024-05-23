@@ -32,8 +32,6 @@ export const config = {
       properties: {
         pricebookname: { type: "string" },
         description: { type: "string" },
-        active: { type: "boolean" },
-        isstandard: { type: "boolean" },
       },
     },
     uiSchema: {},

@@ -42,7 +42,45 @@ router.get("/api/industryCL", async (req, res) => {
   }
 });
 
+router.get("/api/leadsByStatus", async (req, res) => {
+  try {
+    const result = await pool.query(
+      `SELECT 
+      leadStatus, 
+         COUNT(*) as count 
+       FROM leads 
+       WHERE leadStatus IN ('1', '2', '3', '4', '5') 
+       GROUP BY leadStatus`
+    );
+    const counts = {
+      Unqualified: 0,
+      Qualified: 0,
+      Nurturing: 0,
+      Contracted: 0,
+      New: 0,
+    };
+
+    result.rows.forEach((row) => {
+      if (row.leadstatus === "5") {
+        counts.Unqualified = row.count;
+      } else if (row.leadstatus === "4") {
+        counts.Qualified = row.count;
+      } else if (row.leadstatus === "3") {
+        counts.Nurturing = row.count;
+      } else if (row.leadstatus === "2") {
+        counts.Contracted = row.count;
+      } else if (row.leadstatus === "1") {
+        counts.New = row.count;
+      }
+    });
+    res.status(200).send(counts);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 router.get("/api/leads", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const { current_page, pageSize } = req.query;
   const filters = (Object.keys(JSON.parse(req.query?.filters)) || [])
     .map((key, index) => {
@@ -69,6 +107,7 @@ router.get("/api/leads", async (req, res) => {
 });
 
 router.get("/api/leads/:id", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const id = req.params.id;
   try {
     const results = await pool.query(`SELECT * FROM leads WHERE id = ${id}`);
@@ -79,6 +118,7 @@ router.get("/api/leads/:id", async (req, res) => {
 });
 
 router.put("/api/leads/:id", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const id = req.params.id;
   const {
     salutation,
@@ -135,6 +175,7 @@ router.put("/api/leads/:id", async (req, res) => {
 });
 
 router.delete("/api/leads/:id", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const id = req.params.id;
   try {
     const results = await pool.query(`DELETE FROM leads WHERE id = ${id}`);
@@ -145,6 +186,7 @@ router.delete("/api/leads/:id", async (req, res) => {
 });
 
 router.post("/api/leads", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const {
     salutation,
     firstname,

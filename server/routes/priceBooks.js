@@ -4,6 +4,7 @@ const router = Router();
 const pool = require("../db");
 
 router.get("/api/priceBooks", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const { current_page, pageSize } = req.query;
   const filters = (Object.keys(JSON.parse(req.query?.filters)) || [])
     .map((key, index) => {
@@ -32,6 +33,7 @@ router.get("/api/priceBooks", async (req, res) => {
 });
 
 router.get("/api/priceBooks/:id", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const id = req.params.id;
   try {
     const results = await pool.query(
@@ -44,6 +46,7 @@ router.get("/api/priceBooks/:id", async (req, res) => {
 });
 
 router.put("/api/priceBooks/:id", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const id = req.params.id;
   const { pricebookname, description, active, isstandard } = req.body;
   try {
@@ -58,6 +61,7 @@ router.put("/api/priceBooks/:id", async (req, res) => {
 });
 
 router.delete("/api/priceBooks/:id", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const id = req.params.id;
   try {
     const results = await pool.query(`DELETE FROM priceBooks WHERE id = ${id}`);
@@ -68,6 +72,7 @@ router.delete("/api/priceBooks/:id", async (req, res) => {
 });
 
 router.post("/api/priceBooks", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const { pricebookname, description, active, isstandard } = req.body;
   console.log(req.body, "boy");
   try {

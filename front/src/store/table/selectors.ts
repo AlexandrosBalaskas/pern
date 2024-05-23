@@ -30,5 +30,12 @@ export const selectCount = (id: string) => (state: ReduxTablesState) =>
 export const selectLoading = (id: string) => (state: ReduxTablesState) =>
   selectSlice(id)(state)?.loading;
 
+export const selectPaginationIndex =
+  (id: string) => (state: ReduxTablesState) =>
+    selectSlice(id)(state)?.paginationIndex;
+
+export const selectPaginationSize = (id: string) => (state: ReduxTablesState) =>
+  selectSlice(id)(state)?.paginationSize;
+
 export const selectDelete = (id: string) => (state: ReduxTablesState) =>
   selectSlice(id)(state)?.deleteSw;

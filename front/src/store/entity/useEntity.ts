@@ -15,6 +15,7 @@ import {
   SetEntity,
   LoadEntity,
   CloseSnackBar,
+  ClearEntities,
 } from "./reducers";
 import { AppDispatch } from "../store";
 
@@ -31,6 +32,10 @@ const useEntity = (entityId: string) => {
     initEntity: useCallback(() => dispatch(InitEntity(entityId)), [dispatch]),
     saveEntity: useCallback(
       () => dispatch(SaveEntity({ entityId })),
+      [dispatch]
+    ),
+    clearEntities: useCallback(
+      () => dispatch(ClearEntities({ entityId })),
       [dispatch]
     ),
     closeSnackBar: useCallback(

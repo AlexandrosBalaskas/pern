@@ -4,7 +4,7 @@ import { FALLBACK_SCHEMAS } from "../forms/fallbackSchemas";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import useEntity from "../store/entity/useEntity";
-import { Backdrop, Grid, Snackbar, Tooltip } from "@mui/material";
+import { Alert, Backdrop, Grid, Snackbar, Tooltip } from "@mui/material";
 import AppButton from "./AppButton/AppButton";
 import { useTranslation } from "react-i18next";
 import useValidations from "../store/validations/useValidations";
@@ -36,6 +36,7 @@ export const DynamicPage = () => {
 
   const { setFormDirty } = useValidations(pageId);
   const { isFormValid } = useFormValidity(pageId);
+  const { clearEntities } = useEntity(pageId);
 
   const {
     saveEntity,
@@ -73,6 +74,7 @@ export const DynamicPage = () => {
   }, [saveEntity, isFormValid]);
 
   const onClickBack = useCallback(() => {
+    clearEntities();
     navigate(`/page/${pageId}/list`);
   }, [navigate, pageId]);
 
@@ -107,11 +109,21 @@ export const DynamicPage = () => {
       <Snackbar
         open={snackBarOpen}
         autoHideDuration={6000}
-        message={snackBarMessage}
         onClose={() => {
           closeSnackBar();
         }}
-      />
+      >
+        <Alert
+          onClose={() => {
+            closeSnackBar();
+          }}
+          severity="success"
+          variant="filled"
+          sx={{ width: "max-content" }}
+        >
+          {translate(snackBarMessage)}
+        </Alert>
+      </Snackbar>
     </>
   );
 };

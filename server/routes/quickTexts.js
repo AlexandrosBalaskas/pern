@@ -17,6 +17,7 @@ router.get("/api/related_toCL", async (req, res) => {
 });
 
 router.get("/api/quickTexts", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const { current_page, pageSize } = req.query;
   const filters = (Object.keys(JSON.parse(req.query?.filters)) || [])
     .map((key, index) => {
@@ -45,6 +46,7 @@ router.get("/api/quickTexts", async (req, res) => {
 });
 
 router.get("/api/quickTexts/:id", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const id = req.params.id;
   try {
     const results = await pool.query(
@@ -57,6 +59,7 @@ router.get("/api/quickTexts/:id", async (req, res) => {
 });
 
 router.put("/api/quickTexts/:id", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const id = req.params.id;
   const { quicktextname, relatedto, field, message, category } = req.body;
   try {
@@ -71,6 +74,7 @@ router.put("/api/quickTexts/:id", async (req, res) => {
 });
 
 router.delete("/api/quickTexts/:id", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const id = req.params.id;
   try {
     const results = await pool.query(`DELETE FROM quickTexts WHERE id = ${id}`);
@@ -81,6 +85,7 @@ router.delete("/api/quickTexts/:id", async (req, res) => {
 });
 
 router.post("/api/quickTexts", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const { quicktextname, relatedto, field, message, category } = req.body;
   console.log(req.body, "boy");
   try {

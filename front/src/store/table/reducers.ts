@@ -15,6 +15,8 @@ export type TableState = {
   data?: Array<any>;
   loading: boolean;
   deleteSw?: boolean;
+  paginationIndex?: any;
+  paginationSize?: any;
   error: { [key: string]: any };
   criteria: { [key: string]: any };
   filterData: { [key: string]: any };
@@ -88,6 +90,8 @@ export const entitySlice = createSlice({
       return settingTables(state, action, (state, action) => ({
         ...state,
         ...action.payload.initialState,
+        paginationIndex: 0,
+        paginationSize: 10,
       }));
     },
     ApplyCriteria: (state, action) => {
@@ -121,6 +125,13 @@ export const entitySlice = createSlice({
       return settingTables(state, action, (state, action) => ({
         ...state,
         filterData: { ...action.payload.filterData },
+      }));
+    },
+    SetPaginationIndex: (state, action) => {
+      return settingTables(state, action, (state, action) => ({
+        ...state,
+        paginationIndex: { ...action.payload.index },
+        paginationSize: { ...action.payload.size },
       }));
     },
     ClearFilterData: (state, action) => {
@@ -193,6 +204,7 @@ export const {
   TriggerRefresh,
   ClearFilterData,
   InitTable,
+  SetPaginationIndex,
 } = entitySlice.actions;
 
 export default entitySlice.reducer;

@@ -10,6 +10,7 @@ import {
   Button,
   Theme,
   Snackbar,
+  Alert,
 } from "@mui/material";
 import {
   createColumnHelper,
@@ -65,7 +66,6 @@ const TanstackTable = ({
   const columnHelper = createColumnHelper();
 
   const codelists = useSelector((state: any) => state.Codelists);
-  console.log(codelists, "code");
   const finalColumns = useMemo(
     () =>
       columns.map((column: any) =>
@@ -80,14 +80,6 @@ const TanstackTable = ({
 
                 const codelistItem = (codelist || []).find(
                   (item: any) => item.code == props.getValue()
-                );
-                console.log(
-                  props.getValue(),
-                  "getvalue",
-                  codelist,
-                  "codelist",
-                  codelistItem,
-                  "codelistItem"
                 );
                 return translate(codelistItem?.label, { ns: "codelist" });
               },
@@ -294,15 +286,18 @@ const TanstackTable = ({
           pageId={pageId}
         />
       </TableContainer>
-      <Snackbar
-        open={snackBarOpen}
-        autoHideDuration={6000}
-        color="dark"
-        message="delete"
-        onClose={() => {
-          setSnackBarOpen(false);
-        }}
-      />
+      <Snackbar open={snackBarOpen} autoHideDuration={6000} color="dark">
+        <Alert
+          onClose={() => {
+            setSnackBarOpen(false);
+          }}
+          severity="success"
+          variant="filled"
+          sx={{ width: "max-content" }}
+        >
+          {translate("deleted", { ns: "common" })}
+        </Alert>
+      </Snackbar>
     </>
   );
 };

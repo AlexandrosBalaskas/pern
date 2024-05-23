@@ -30,6 +30,7 @@ router.get("/api/contactsCL", async (req, res) => {
 });
 
 router.get("/api/contacts", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const { current_page, pageSize } = req.query;
   const filters = (Object.keys(JSON.parse(req.query?.filters)) || [])
     .map((key, index) => {
@@ -56,6 +57,7 @@ router.get("/api/contacts", async (req, res) => {
 });
 
 router.get("/api/contacts/:id", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const id = req.params.id;
   try {
     const results = await pool.query(`SELECT * FROM contacts WHERE id = ${id}`);
@@ -66,6 +68,7 @@ router.get("/api/contacts/:id", async (req, res) => {
 });
 
 router.put("/api/contacts/:id", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const id = req.params.id;
   const {
     salutation,
@@ -112,6 +115,7 @@ router.put("/api/contacts/:id", async (req, res) => {
 });
 
 router.delete("/api/contacts/:id", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const id = req.params.id;
   try {
     const results = await pool.query(`DELETE FROM contacts WHERE id = ${id}`);
@@ -122,6 +126,7 @@ router.delete("/api/contacts/:id", async (req, res) => {
 });
 
 router.post("/api/contacts", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const {
     salutation,
     firstname,

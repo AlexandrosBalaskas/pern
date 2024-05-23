@@ -38,7 +38,6 @@ export const config = {
         phone: { type: "string" },
         email: { type: "string" },
         salutation: { type: "string" },
-        mailingstreet: { type: "string" },
         reportsto: { type: "string" },
         mailingcountry: { type: "string" },
       },

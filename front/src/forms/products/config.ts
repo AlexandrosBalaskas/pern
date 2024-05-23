@@ -1,9 +1,14 @@
 export const config = {
   columns: [
     { accessorKey: "productname", header: "productname" },
-    { accessorKey: "productfamily", header: "productfamily" },
+    {
+      accessorKey: "productfamily",
+      header: "productfamily",
+      codelist: "product_families",
+    },
     { accessorKey: "productcode", header: "productcode" },
     { accessorKey: "productdescription", header: "productdescription" },
+    { accessorKey: "active", header: "active" },
     { accessorKey: "id", header: "Id" },
   ],
   rowButtons: {
@@ -34,7 +39,6 @@ export const config = {
         productname: { type: "string" },
         productfamily: { type: "string" },
         productcode: { type: "string" },
-        active: { type: "boolean" },
         productdescription: { type: "string" },
       },
     },

@@ -499,7 +499,7 @@ export const getExternalThemeOverrides: any = (fade: any, ReactTheme: any) => {
         styleOverrides: {
           root: {
             cursor: "pointer",
-            borderRadius: ReactTheme.spacing(2.25),
+            borderRadius: ReactTheme.spacing(1.25),
             boxShadow: `0 0 16px ${fade(
               ReactTheme.palette.common.black,
               0.12
@@ -517,8 +517,8 @@ export const getExternalThemeOverrides: any = (fade: any, ReactTheme: any) => {
         styleOverrides: {
           root: {
             margin: 0,
-            paddingLeft: ReactTheme.spacing(3),
-            paddingRight: ReactTheme.spacing(3),
+            paddingLeft: ReactTheme.spacing(2),
+            paddingRight: ReactTheme.spacing(2),
           },
           title: {
             fontSize: ReactTheme.typography.h6.fontSize,
@@ -535,7 +535,8 @@ export const getExternalThemeOverrides: any = (fade: any, ReactTheme: any) => {
       MuiCardContent: {
         styleOverrides: {
           root: {
-            padding: ReactTheme.spacing(2, 3),
+            padding: "0 !important",
+            paddingLeft: "10px !important",
             minHeight: 40,
             overflow: "auto",
           },

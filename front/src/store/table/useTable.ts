@@ -1,6 +1,11 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LoadTable, InitTable, DeleteRow } from "./reducers";
+import {
+  LoadTable,
+  InitTable,
+  DeleteRow,
+  SetPaginationIndex,
+} from "./reducers";
 import { AppDispatch } from "../store";
 import {
   ApplyCriteria,
@@ -14,6 +19,8 @@ import {
   selectData,
   selectDelete,
   selectLoading,
+  selectPaginationIndex,
+  selectPaginationSize,
   selectSlice,
   selectTableCriteria,
 } from "./selectors";
@@ -51,6 +58,17 @@ const useTable = (id: string) => {
     loading: useSelector(selectLoading(id), (left, right) => {
       return JSON.stringify(left || {}) === JSON.stringify(right || {});
     }),
+    paginationIndex: useSelector(selectPaginationIndex(id), (left, right) => {
+      return JSON.stringify(left || {}) === JSON.stringify(right || {});
+    }),
+    paginationSize: useSelector(selectPaginationSize(id), (left, right) => {
+      return JSON.stringify(left || {}) === JSON.stringify(right || {});
+    }),
+    setPagination: useCallback(
+      ({ index, size }: { index: any; size: any }) =>
+        dispatch(SetPaginationIndex({ tableId: id, index, size })),
+      [dispatch]
+    ),
     deleteRow: useCallback(
       (rowId: any) => dispatch(DeleteRow({ tableId: id, rowId })),
       [dispatch]

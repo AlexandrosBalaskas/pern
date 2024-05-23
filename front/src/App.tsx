@@ -31,6 +31,7 @@ const useStyles = makeStyles(() => ({
   menuContainer: {
     height: "initial",
     display: "flex",
+    flexDirection: "row",
   },
 }));
 
@@ -81,7 +82,7 @@ function App() {
         className={`bg-dark-purple h-screen p-5 pt-8 ${
           open ? "w-72" : "w-20"
         } duration-300 relative`}
-        style={{ height: "100vh" }}
+        style={{ height: "inherit", minHeight: "100vh" }}
       >
         <BsArrowLeftShort
           className={`bg-white text-dark-purple text-3xl rounded-full absolute -right-3 top-9 border border-dark-purple cursor-pointer ${
@@ -100,10 +101,11 @@ function App() {
               !open && "scale-0"
             }`}
           >
-            Tailwind
+            Interactica
           </h1>
         </div>
         <div
+          style={{ display: "none" }}
           className={`flex items-center rounded-md bg-light-white mt-6 ${
             !open ? "px-2.5" : "px-4"
           } py-2`}
@@ -170,28 +172,6 @@ function App() {
           ))}
         </ul>
       </div>
-      {/* <div className={classes.toolbarContainer}>
-        {
-          <Header
-            logo={AiOutlineFileText}
-            onClickLogo={navigateToHomePage}
-            headerActions={
-              <>
-                {/* {<Notifications />} */}
-      {/* <PopoverMenu
-                  dataTestId={"profile-menu-IRM"}
-                  isTransparent={false}
-                  icon={<Avatar alt="Avatar" src={"AiOutlineFileText"} />}
-                  actions={actions}
-                  label={translate("profilePicture")}
-                  ariaLabel={translate("profilePicture")}
-                  ariaDescription={translate("profilePictureAriaDescription")}
-                />
-              </> */}
-      {/* }
-          />
-        }
-      </div> */}
       <div className={classes.container}>
         <Headers></Headers>
         <AppRoutes />

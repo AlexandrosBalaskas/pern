@@ -5,4 +5,10 @@ export const uiSchema = {
   descriptionproductName: {
     "ui:widget": "TextWidget",
   },
+  active: {
+    "ui:widget": "BooleanWidget",
+  },
+  isstandard: {
+    "ui:widget": "BooleanWidget",
+  },
 };

@@ -4,14 +4,21 @@ import DateCalendar from "../Calendar/Calendar";
 const dayjs = require("dayjs");
 
 const DateWidget = (props: any) => {
-  const { label, id, disabled } = props;
+  const {
+    label,
+    id,
+    disabled,
+    onChange,
+    formContext: { canChange },
+  } = props;
 
   const { value, setFieldValue } = useFormField(id);
-  console.log(value, "value");
 
   const onDateChange = useCallback(
     (date: any) => {
-      console.log(date.format("YYYY-MM-DD"), "date");
+      if (canChange) {
+        onChange(date.format("YYYY-MM-DD"));
+      }
       if (date === null) {
         setFieldValue(null);
       } else {

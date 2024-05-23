@@ -42,7 +42,40 @@ router.get("/api/case_originCL", async (req, res) => {
   }
 });
 
+router.get("/api/casesByPriority", async (req, res) => {
+  try {
+    const result = await pool.query(
+      `SELECT 
+         priority, 
+         COUNT(*) as count 
+       FROM cases 
+       WHERE priority IN ('1', '2', '3') 
+       GROUP BY priority`
+    );
+
+    const counts = {
+      Low: 0,
+      Medium: 0,
+      High: 0,
+    };
+
+    result.rows.forEach((row) => {
+      if (row.priority === "1") {
+        counts.Low = row.count;
+      } else if (row.priority === "2") {
+        counts.Medium = row.count;
+      } else if (row.priority === "3") {
+        counts.High = row.count;
+      }
+    });
+    res.status(200).send(counts);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 router.get("/api/cases", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const { current_page, pageSize } = req.query;
   const filters = (Object.keys(JSON.parse(req.query?.filters)) || [])
     .map((key, index) => {
@@ -69,6 +102,7 @@ router.get("/api/cases", async (req, res) => {
 });
 
 router.get("/api/cases/:id", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const id = req.params.id;
   try {
     const results = await pool.query(`SELECT * FROM cases WHERE id = ${id}`);
@@ -79,6 +113,7 @@ router.get("/api/cases/:id", async (req, res) => {
 });
 
 router.put("/api/cases/:id", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const id = req.params.id;
   const {
     status,
@@ -111,6 +146,7 @@ router.put("/api/cases/:id", async (req, res) => {
 });
 
 router.delete("/api/cases/:id", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const id = req.params.id;
   try {
     const results = await pool.query(`DELETE FROM cases WHERE id = ${id}`);
@@ -121,6 +157,7 @@ router.delete("/api/cases/:id", async (req, res) => {
 });
 
 router.post("/api/cases", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const {
     status,
     priority,

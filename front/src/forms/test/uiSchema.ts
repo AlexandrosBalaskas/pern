@@ -30,4 +30,27 @@ export const uiSchema = {
   date: {
     "ui:widget": "DateWidget",
   },
+  interest: {
+    "ui:widget": "HorizontalBarChart",
+    "ui:options": {
+      data: [
+        { label: "UNDERSTATEMENT PENALTY", value: 5 },
+        { label: "UPAYMENT ESTMD TAX PENALTY", value: 18 },
+        { label: "LATE FILLING PENALTY", value: 24 },
+        { label: "UNDERSTATEMENT PENALTY", value: 12 },
+        { label: "NOT AVAILABLE", value: 22 },
+      ],
+    },
+  },
+  overdueDebtByRevenueType: {
+    "ui:widget": "FilledPieChart",
+    "ui:options": {
+      data: [
+        { name: "Excise Tax", value: 11.88 },
+        { name: "Value Added Tax", value: 34.81 },
+        { name: "Income Tax", value: 36.9 },
+        { name: "Wage Withholding Tax", value: 16.41 },
+      ],
+    },
+  },
 };

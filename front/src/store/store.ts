@@ -5,6 +5,7 @@ import TableReducer from "./table/reducers";
 import DrawerReducer from "./drawer/reducers";
 import CodelistReducer from "./codelist/reducers";
 import ValidationReducer from "./validations/reducers";
+import ChartReducer from "./charts/reducers";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     Drawer: DrawerReducer,
     Codelists: CodelistReducer,
     Validations: ValidationReducer,
+    Charts: ChartReducer,
   },
 });
 

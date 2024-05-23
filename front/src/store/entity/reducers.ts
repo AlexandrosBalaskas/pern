@@ -70,6 +70,9 @@ export const entitySlice = createSlice({
   name: "Entities",
   initialState,
   reducers: {
+    ClearEntities: (state, action) => {
+      return {};
+    },
     InitEntity: (state, action) => {
       return {
         ...state,
@@ -160,7 +163,12 @@ export const entitySlice = createSlice({
   },
 });
 
-export const { InitEntity, UpdateFormValue, SetEntity, CloseSnackBar } =
-  entitySlice.actions;
+export const {
+  InitEntity,
+  UpdateFormValue,
+  SetEntity,
+  CloseSnackBar,
+  ClearEntities,
+} = entitySlice.actions;
 
 export default entitySlice.reducer;

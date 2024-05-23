@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Initial } from "./Initial";
+import Initial from "./Initial";
 import { DynamicPage } from "./DynamicPage";
 import { DynamicTable } from "./DynamicTable";
 

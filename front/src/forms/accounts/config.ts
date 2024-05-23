@@ -35,36 +35,27 @@ export const config = {
         accountname: { type: "string" },
         website: { type: "string" },
         type: { type: "string" },
-        description: { type: "string" },
         parentaccount: { type: "string" },
-        accountowner: { type: "string" },
         phone: { type: "string" },
-        billingstreet: { type: "string" },
-        billingpostalcode: { type: "string" },
         billingcity: { type: "string" },
-        billingcountry: { type: "string" },
         billingstate: { type: "string" },
-        shippingstreet: { type: "string" },
-        shippingpostalcode: { type: "string" },
-        shippingcity: { type: "string" },
-        shippingcountry: { type: "string" },
         shippingstate: { type: "string" },
       },
     },
     uiSchema: {
       id: "accounts",
-      accountname: {
-        "ui:widget": "SelectCodeListWidget",
-        "ui:options": {
-          codelistUrl: "accounts",
-          codelistId: "accounts",
-        },
-      },
       type: {
         "ui:widget": "SelectCodeListWidget",
         "ui:options": {
           codelistUrl: "account_type",
           codelistId: "account_type",
+        },
+      },
+      parentaccount: {
+        "ui:widget": "SelectCodeListWidget",
+        "ui:options": {
+          codelistUrl: "accounts",
+          codelistId: "accounts",
         },
       },
     },
