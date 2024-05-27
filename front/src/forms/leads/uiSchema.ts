@@ -1,4 +1,33 @@
 export const uiSchema = {
+  id: "leads",
+  groups: [
+    {
+      key: "details",
+      widgets: [
+        "salutation",
+        "firstname",
+        "lastname",
+        "company",
+        "title",
+        "website",
+        "leadowner",
+        "leadstatus",
+        "description",
+      ],
+    },
+    {
+      key: "getInTouch",
+      widgets: ["phone", "email"],
+    },
+    {
+      key: "address",
+      widgets: ["street", "postalcode", "city", "country", "state"],
+    },
+    {
+      key: "segment",
+      widgets: ["employeesnumber", "annualrevenue", "leadsource", "industry"],
+    },
+  ],
   salutation: {
     "ui:widget": "SelectCodeListWidget",
     "ui:options": {
@@ -33,6 +62,10 @@ export const uiSchema = {
   },
   description: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      multiline: true,
+      rows: 2,
+    },
   },
   leadstatus: {
     "ui:widget": "SelectCodeListWidget",
@@ -47,6 +80,11 @@ export const uiSchema = {
   },
   phone: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: {
+        regex: "^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$",
+      },
+    },
   },
   email: {
     "ui:widget": "TextWidget",
@@ -56,6 +94,9 @@ export const uiSchema = {
   },
   postalcode: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { regex: "^\\+?([1-9]\\d*)$" },
+    },
   },
   city: {
     "ui:widget": "TextWidget",
@@ -68,9 +109,15 @@ export const uiSchema = {
   },
   employeesnumber: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { regex: "^\\+?([1-9]\\d*)$" },
+    },
   },
   annualrevenue: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { regex: "^\\+?([1-9]\\d*)$" },
+    },
   },
   leadsource: {
     "ui:widget": "SelectCodeListWidget",
@@ -79,6 +126,9 @@ export const uiSchema = {
       codelistId: "lead_source",
       validations: { required: true },
     },
+    disabledFrom: {
+      source: { jsonPath: ["id"] },
+    },
   },
   industry: {
     "ui:widget": "SelectCodeListWidget",
@@ -86,6 +136,9 @@ export const uiSchema = {
       codelistUrl: "industry",
       codelistId: "industry",
       validations: { required: true },
+    },
+    disabledFrom: {
+      source: { jsonPath: ["id"] },
     },
   },
 };

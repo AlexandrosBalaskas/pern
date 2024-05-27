@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import useFormData from "./useFormData";
 import { isValueCorrect } from "./utils";
 
-const useCheckFrom = (widgetId: string, from: any) => {
+const useCheckFrom = (widgetId: string, from: any, defaultValue: boolean) => {
   const { checkWhen, operator, source } = from || {};
 
   const value = useFormData(widgetId, source);
@@ -10,7 +10,7 @@ const useCheckFrom = (widgetId: string, from: any) => {
     return isValueCorrect(value, checkWhen, operator);
   }, [value]);
 
-  return { check };
+  return { check: from ? check : defaultValue };
 };
 
 export default useCheckFrom;

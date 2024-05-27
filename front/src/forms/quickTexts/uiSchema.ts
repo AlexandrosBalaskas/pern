@@ -1,6 +1,19 @@
 export const uiSchema = {
+  id: "quickTexts",
+  groups: [
+    {
+      key: "details",
+      widgets: ["quicktextname", "relatedto", "field", "category", "message"],
+    },
+  ],
   quicktextname: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { required: true },
+    },
+    disabledFrom: {
+      source: { jsonPath: ["id"] },
+    },
   },
   relatedto: {
     "ui:widget": "SelectCodeListWidget",
@@ -18,5 +31,9 @@ export const uiSchema = {
   },
   message: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      multiline: true,
+      rows: 2,
+    },
   },
 };

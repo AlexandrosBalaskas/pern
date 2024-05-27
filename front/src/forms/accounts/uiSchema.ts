@@ -7,9 +7,9 @@ export const uiSchema = {
         "accountname",
         "website",
         "type",
-        "description",
-        "parentaccount",
         "accountowner",
+        "parentaccount",
+        "description",
         "phone",
       ],
     },
@@ -39,9 +39,13 @@ export const uiSchema = {
     "ui:options": {
       validations: { required: true },
     },
+    disabledFrom: {
+      source: { jsonPath: ["id"] },
+    },
   },
   website: {
     "ui:widget": "TextWidget",
+    "ui:options": {},
   },
   type: {
     "ui:widget": "SelectCodeListWidget",
@@ -55,14 +59,7 @@ export const uiSchema = {
     "ui:widget": "TextWidget",
     "ui:options": {
       multiline: true,
-      rows: 3,
-      columns: {
-        xs: 12,
-        sm: 12,
-        md: 6,
-        lg: 6,
-        xl: 6,
-      },
+      rows: 2,
     },
   },
   parentaccount: {
@@ -71,7 +68,6 @@ export const uiSchema = {
       codelistUrl: "accounts",
       codelistId: "accounts",
       hasPlaceHolder: true,
-      validations: { required: true },
     },
   },
   accountowner: {
@@ -80,7 +76,13 @@ export const uiSchema = {
   phone: {
     "ui:widget": "TextWidget",
     "ui:options": {
-      validations: { required: true },
+      validations: {
+        required: true,
+        regex: "^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$",
+      },
+    },
+    visibilityFrom: {
+      source: { jsonPath: ["parentaccount"] },
     },
   },
   billingstreet: {

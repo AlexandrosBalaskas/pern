@@ -3,7 +3,7 @@ import { selectFieldValue } from "../store/entity/selectors";
 import { useCallback } from "react";
 import useEntity from "../store/entity/useEntity";
 
-const useFormField = (id: string) => {
+const useFormField = (id: string, innerValue?: any) => {
   const dispatch = useDispatch();
   const entityId = id?.split("_")[0];
   const fieldId = id?.split("_")[1];
@@ -19,7 +19,7 @@ const useFormField = (id: string) => {
   );
 
   return {
-    value: fieldValue,
+    value: innerValue || fieldValue,
     setFieldValue: setFieldValue,
   };
 };

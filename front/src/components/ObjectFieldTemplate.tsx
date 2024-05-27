@@ -64,7 +64,7 @@ export const ObjectFieldTemplate = function (props: any) {
           item
           xs={xs || 12}
           sm={sm || 12}
-          md={md || 6}
+          md={md || 12}
           lg={lg || 6}
           xl={xl || 6}
           style={{ paddingRight: "50px", paddingLeft: "50px" }}
@@ -79,6 +79,11 @@ export const ObjectFieldTemplate = function (props: any) {
 
   return (
     <>
+      {!canChange && (
+        <div style={{ position: "relative", left: "50px" }}>
+          {translate(id)}
+        </div>
+      )}
       {!canChange &&
         ((groups.length && groups) || groupings).map(
           (group: any, index: number) => (

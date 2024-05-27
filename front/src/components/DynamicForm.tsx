@@ -12,10 +12,13 @@ import classNames from "classnames";
 
 const useStyles = makeStyles((theme: Theme) => ({
   filterButton: {
-    marginLeft: theme.spacing(1),
+    marginLeft: "100px",
   },
   formButtons: {
     marginTop: theme.spacing(4),
+    position: "relative",
+    left: "-50px",
+    top: "20px",
   },
   formContainer: {
     boxShadow: "0 3px 6px rgba(0, 0, 0, 0.16)",
@@ -92,26 +95,30 @@ export const DynamicForm = function ({
         className={styles.formButtons}
       >
         <Grid item xs={12}>
-          {onClear && (
-            <AppButton
-              id={`${id}-clear-btn`}
-              label={translate("clear")}
-              variant="outlined"
-              onClick={onFormClear}
-            />
-          )}
-          {onSubmit && (
-            <AppButton
-              id={`${id}-apply-btn`}
-              label={translate("apply")}
-              styles={styles.filterButton}
-              type="button"
-              onClick={(e: any) => {
-                e.preventDefault();
-                onSubmit(data);
-              }}
-            />
-          )}
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            {onClear && (
+              <AppButton
+                id={`${id}-clear-btn`}
+                label={translate("clear")}
+                variant="outlined"
+                onClick={onFormClear}
+              />
+            )}
+            {onSubmit && (
+              <div style={{ marginLeft: "10px" }}>
+                <AppButton
+                  id={`${id}-apply-btn`}
+                  label={translate("apply")}
+                  styles={styles.filterButton}
+                  type="button"
+                  onClick={(e: any) => {
+                    e.preventDefault();
+                    onSubmit(data);
+                  }}
+                />
+              </div>
+            )}
+          </div>
         </Grid>
       </Grid>
     );

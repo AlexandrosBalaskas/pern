@@ -6,6 +6,7 @@ import { FormWidgetProps } from "../AutoComplete/Select.d";
 import { useTranslation } from "react-i18next";
 import useFieldValidations from "../../hooks/useFieldValidations";
 import ValidationErrors from "../ValidationErrors/ValidationErrors";
+import { hasValue } from "../../hooks/utils";
 
 const SelectCodeListWidget = ({
   id,
@@ -17,6 +18,7 @@ const SelectCodeListWidget = ({
   onChange,
   formContext,
   onBlur,
+  value: innerValue,
   warnOnChange,
 }: FormWidgetProps) => {
   const {
@@ -37,7 +39,10 @@ const SelectCodeListWidget = ({
 
   const { t: translate } = useTranslation([entityId, "codelist"]);
 
-  const { value, setFieldValue } = useFormField(id);
+  const { value, setFieldValue } = useFormField(
+    id,
+    canChange ? innerValue : undefined
+  );
 
   const { loadCodelist, items } = useCodelist(codelistId);
 
@@ -77,7 +82,7 @@ const SelectCodeListWidget = ({
     <GenericSelect
       id={id}
       label={finalLabel}
-      value={value}
+      value={hasValue(value) ? value : ""}
       readonly={readonly}
       required={(validations || {}).required || false}
       disabled={disabled || readonly}

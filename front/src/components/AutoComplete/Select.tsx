@@ -49,9 +49,7 @@ const GenericSelect = ({
       <AutoComplete
         id={id}
         multiple={multiple}
-        value={
-          canChange ? undefined : transformToAutocompleteValue(value, options)
-        }
+        value={transformToAutocompleteValue(value, options)}
         label={label || ""}
         selectAll={selectAll}
         loading={loading}

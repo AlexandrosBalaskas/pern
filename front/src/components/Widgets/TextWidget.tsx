@@ -4,17 +4,20 @@ import useFieldValidations from "../../hooks/useFieldValidations";
 import ValidationErrors from "../ValidationErrors/ValidationErrors";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { hasValue } from "../../hooks/utils";
 
-const TextWidget = (props: any) => {
-  const {
-    label,
-    id,
-    disabled,
-    onChange,
-    formContext: { canChange },
-    options,
-    idPrefix,
-  } = props;
+const TextWidget = ({
+  id,
+  readonly = false,
+  disabled = false,
+  schema,
+  options,
+  formContext,
+  label,
+  value: innerValue,
+  onChange,
+}: any) => {
+  const { canChange } = formContext || {};
   const { validations, multiline, rows } = options;
 
   const entityId = useMemo(() => id?.split("_")[0], [id]);
@@ -27,20 +30,22 @@ const TextWidget = (props: any) => {
     return translate(label);
   }, [label, validations, translate]);
 
-  const { value, setFieldValue } = useFormField(id);
+  const { value, setFieldValue } = useFormField(
+    id,
+    canChange ? innerValue : undefined
+  );
 
   const { errors, dirty, valid } = useFieldValidations(id, value, validations);
 
   return (
     <AppTextField
-      id={props?.id}
+      id={id}
       label={finalLabel}
-      value={value}
-      readonly={props?.readonly}
+      value={hasValue(value) ? value : ""}
+      readonly={disabled}
       disabled={disabled}
-      autofocus={props?.autofocus}
       onChange={canChange ? onChange : setFieldValue}
-      type={props?.schema.type || "string"}
+      type={schema.type || "string"}
       showLabel={true}
       multiline={multiline}
       rows={rows}

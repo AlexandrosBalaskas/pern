@@ -70,7 +70,7 @@ const QuickDrawer = ({
     >
       <Box
         className={styles.container}
-        style={{ minWidth: "30vw", maxWidth: "30vw" }}
+        style={{ minWidth: "35vw", maxWidth: "45vw" }}
       >
         <Box className={styles.header}>
           <Typography variant="h6" color="primary">

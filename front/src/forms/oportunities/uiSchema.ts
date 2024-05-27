@@ -1,6 +1,30 @@
 export const uiSchema = {
+  id: "oportunities",
+  groups: [
+    {
+      key: "details",
+      widgets: [
+        "oportunityname",
+        "accountname",
+        "closedate",
+        "amount",
+        "oportunityowner",
+        "description",
+      ],
+    },
+    {
+      key: "status",
+      widgets: ["stage", "probability", "forecastcategory", "nextstep"],
+    },
+  ],
   oportunityname: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { required: true },
+    },
+    disabledFrom: {
+      source: { jsonPath: ["id"] },
+    },
   },
   accountname: {
     "ui:widget": "SelectCodeListWidget",
@@ -9,6 +33,9 @@ export const uiSchema = {
       codelistId: "accounts",
       hasPlaceHolder: true,
       validations: { required: true },
+    },
+    visibilityFrom: {
+      source: { jsonPath: ["oportunityname"] },
     },
   },
   closedate: {
@@ -19,6 +46,10 @@ export const uiSchema = {
   },
   description: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      multiline: true,
+      rows: 2,
+    },
   },
   oportunityowner: {
     "ui:widget": "TextWidget",
@@ -44,5 +75,9 @@ export const uiSchema = {
   },
   nextstep: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      multiline: true,
+      rows: 2,
+    },
   },
 };

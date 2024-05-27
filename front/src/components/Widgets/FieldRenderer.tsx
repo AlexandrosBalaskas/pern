@@ -10,14 +10,15 @@ export type AnyType = any;
 
 const FieldRenderer = function ({ widget: Widget, ...props }: AnyType) {
   const { id: widgetId, uiSchema } = props;
-  const { visibilityFrom } = uiSchema;
-  const { check: disabled } = useCheckFrom(widgetId, visibilityFrom || {});
+  const { disabledFrom, visibilityFrom } = uiSchema;
+  const { check: disabled } = useCheckFrom(widgetId, disabledFrom, false);
+  const { check: visible } = useCheckFrom(widgetId, visibilityFrom, true);
   const widgetProps = { ...props, disabled };
-  return (
+  return visible ? (
     <div style={{ marginBottom: 16, width: "100%" }}>
       <Widget {...widgetProps} />
     </div>
-  );
+  ) : null;
 };
 
 const customWidgets = {

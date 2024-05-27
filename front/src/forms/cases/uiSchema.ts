@@ -1,4 +1,19 @@
 export const uiSchema = {
+  id: "cases",
+  groups: [
+    {
+      key: "details",
+      widgets: ["status", "priority", "caseorigin", "caseowner", "leadowner"],
+    },
+    {
+      key: "contactInfo",
+      widgets: ["contactname", "accountname"],
+    },
+    {
+      key: "descript",
+      widgets: ["subject", "description"],
+    },
+  ],
   status: {
     "ui:widget": "SelectCodeListWidget",
     "ui:options": {
@@ -34,6 +49,9 @@ export const uiSchema = {
       hasPlaceHolder: true,
       validations: { required: true },
     },
+    disabledFrom: {
+      source: { jsonPath: ["id"] },
+    },
   },
   accountname: {
     "ui:widget": "SelectCodeListWidget",
@@ -43,11 +61,28 @@ export const uiSchema = {
       hasPlaceHolder: true,
       validations: { required: true },
     },
+    disabledFrom: {
+      source: { jsonPath: ["id"] },
+    },
   },
   subject: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: { required: true },
+    },
+    disabledFrom: {
+      source: { jsonPath: ["id"] },
+    },
   },
   description: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      multiline: true,
+      rows: 2,
+      validations: { required: true },
+    },
+    visibilityFrom: {
+      source: { jsonPath: ["subject"] },
+    },
   },
 };

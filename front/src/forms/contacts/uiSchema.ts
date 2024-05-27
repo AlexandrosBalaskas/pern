@@ -1,4 +1,34 @@
 export const uiSchema = {
+  id: "contacts",
+  groups: [
+    {
+      key: "about",
+      widgets: [
+        "salutation",
+        "firstname",
+        "lastname",
+        "accountname",
+        "title",
+        "reportsto",
+        "contactowner",
+        "description",
+      ],
+    },
+    {
+      key: "getInTouch",
+      widgets: ["phone", "email"],
+    },
+    {
+      key: "mailing",
+      widgets: [
+        "mailingstreet",
+        "mailingpostalcode",
+        "mailingcity",
+        "mailingcountry",
+        "mailingstate",
+      ],
+    },
+  ],
   salutation: {
     "ui:widget": "SelectCodeListWidget",
     "ui:options": {
@@ -7,13 +37,13 @@ export const uiSchema = {
       validations: { required: true },
     },
   },
-  firstName: {
+  firstname: {
     "ui:widget": "TextWidget",
     "ui:options": {
       validations: { required: true },
     },
   },
-  lastName: {
+  lastname: {
     "ui:widget": "TextWidget",
     "ui:options": {
       validations: { required: true },
@@ -45,29 +75,39 @@ export const uiSchema = {
   },
   description: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      multiline: true,
+      rows: 2,
+    },
   },
-  contactOwner: {
+  contactowner: {
     "ui:widget": "TextWidget",
   },
   phone: {
     "ui:widget": "TextWidget",
+    "ui:options": {
+      validations: {
+        required: true,
+        regex: "^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$",
+      },
+    },
   },
   email: {
     "ui:widget": "TextWidget",
   },
-  mailingStreet: {
+  mailingstreet: {
     "ui:widget": "TextWidget",
   },
-  postalCode: {
+  postalcode: {
     "ui:widget": "TextWidget",
   },
-  mailingCity: {
+  mailingcity: {
     "ui:widget": "TextWidget",
   },
-  mailingCountry: {
+  mailingcountry: {
     "ui:widget": "TextWidget",
   },
-  mailingState: {
+  mailingstate: {
     "ui:widget": "TextWidget",
   },
 };

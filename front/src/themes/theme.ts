@@ -223,6 +223,13 @@ export const getExternalThemeOverrides: any = (fade: any, ReactTheme: any) => {
             opacity: 1,
             color: "grey",
           },
+          root: {
+            "&-MuiOutlinedInput-root.Mui-disabled": {
+              "&. MuiOutlinedInput-notchedOutline": {
+                border: 0,
+              },
+            },
+          },
         },
       },
       MuiBackdrop: {
@@ -243,6 +250,7 @@ export const getExternalThemeOverrides: any = (fade: any, ReactTheme: any) => {
       MuiInputLabel: {
         styleOverrides: {
           root: {
+            width: "200px",
             left: ReactTheme.spacing(-2),
             "& + .MuiInput-formControl": {
               marginTop: ReactTheme.spacing(0.5),
@@ -254,6 +262,7 @@ export const getExternalThemeOverrides: any = (fade: any, ReactTheme: any) => {
           outlined: {
             "&.MuiInputLabel-shrink": {
               transform: "translate(14px, 16px)",
+              width: "200px",
               transition: "none !important",
             },
           },
@@ -278,6 +287,21 @@ export const getExternalThemeOverrides: any = (fade: any, ReactTheme: any) => {
           inputRoot: {
             "& .MuiAutocomplete-input": {
               padding: "0px 4px !important",
+            },
+          },
+          root: {
+            "& .MuiInputBase-root": {
+              padding: "6px",
+              paddingLeft: "12px",
+            },
+          },
+        },
+      },
+      Mui: {
+        styleOverrides: {
+          disabled: {
+            "& .MuiOutlinedInput-notchedOutline": {
+              border: 0,
             },
           },
         },
@@ -326,6 +350,13 @@ export const getExternalThemeOverrides: any = (fade: any, ReactTheme: any) => {
             "& .MuiSvgIcon-root": {
               fontSize: ReactTheme.spacing(3),
             },
+          },
+        },
+      },
+      MuiChip: {
+        styleOverrides: {
+          root: {
+            margin: "5px",
           },
         },
       },
@@ -598,6 +629,10 @@ export const getExternalThemeOverrides: any = (fade: any, ReactTheme: any) => {
       MuiFormLabel: {
         styleOverrides: {
           root: {
+            "&.Mui-disabled": {
+              border: 0,
+              color: "black",
+            },
             "&.Mui-focused": {
               color: ReactTheme.palette.primary.main,
               "&.Mui-error": {

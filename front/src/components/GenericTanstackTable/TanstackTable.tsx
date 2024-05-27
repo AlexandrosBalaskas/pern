@@ -32,6 +32,8 @@ import SortButton from "../Sort/Sort";
 import { isUndefined } from "lodash";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import usePrevious from "../../hooks/usePrevious";
+import TableFiltersSummary from "./TanstackTableFilterSummary";
 
 const useStyles = makeStyles((theme: Theme) => ({
   headerContainer: { display: "flex", flexDirection: "row", fontWeight: 600 },
@@ -64,6 +66,8 @@ const TanstackTable = ({
   const navigate = useNavigate();
   const { t: translate } = useTranslation([pageId, "common", "codelist"]);
   const columnHelper = createColumnHelper();
+  const page = useMemo(() => pageId, [pageId]);
+  const prevPageId = usePrevious(page);
 
   const codelists = useSelector((state: any) => state.Codelists);
   const finalColumns = useMemo(
@@ -102,6 +106,8 @@ const TanstackTable = ({
   const { criteria, loadTable, initTable, data, count, loading, deleteSw } =
     useTable(pageId);
 
+  const prevCriteria = usePrevious(criteria);
+
   const { groups } = rowButtons;
 
   const { open, openDrawer, closeDrawer } = useDrawer(
@@ -130,17 +136,35 @@ const TanstackTable = ({
   }, [pagination]);
 
   useEffect(() => {
+    table.firstPage();
+  }, [criteria, pageId]);
+
+  useEffect(() => {
     !loading &&
       loadTable({
         params: {
           ...sort,
-          ...finalPagination,
+          current_page:
+            pageId !== prevPageId ||
+            Object.keys(criteria).length !==
+              Object.keys(prevCriteria || {}).length
+              ? 0
+              : Math.ceil(pagination.pageIndex),
+          pageSize: pagination.pageSize,
           filters: JSON.stringify(criteria),
         },
         tableId: pageId,
         pageId,
       });
-  }, [sort, finalPagination, criteria, deleteSw, pageId]);
+  }, [
+    sort,
+    finalPagination,
+    criteria,
+    deleteSw,
+    pageId,
+    prevPageId,
+    prevCriteria,
+  ]);
 
   useEffect(() => {
     !isUndefined(deleteSw) && setSnackBarOpen(true);
@@ -199,6 +223,7 @@ const TanstackTable = ({
       <TableContainer component={Paper}>
         {loading && <LinearProgress />}
         <h1 className={styles.titleContainer}>{translate(pageId)}</h1>
+        <TableFiltersSummary tableId={pageId} />
         <div className={styles.filterContainer}>
           <AppIconButton
             id={"Tanstack-add-btn"}

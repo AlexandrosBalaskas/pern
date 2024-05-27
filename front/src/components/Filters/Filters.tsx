@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FiltersProps } from "./Filters.d";
 import useTable from "../../store/table/useTable";
 import useDrawer from "../../store/drawer/useDrawer";
@@ -33,6 +33,10 @@ const Filters = ({
     closeOnClear && onClose && onClose();
     closeOnClear && closeDrawer();
   }, [closeDrawer]);
+
+  useEffect(() => {
+    setFormData({});
+  }, [id]);
 
   return (
     <DynamicForm

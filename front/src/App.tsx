@@ -19,6 +19,8 @@ import { useTranslation } from "react-i18next";
 import { useKeycloak } from "@react-keycloak/web";
 import { AccountBalance, Group, FavoriteBorder } from "@mui/icons-material";
 import { Assets } from "./components/Assets/Assets";
+import useEntity from "./store/entity/useEntity";
+import i18next from "i18next";
 const useStyles = makeStyles(() => ({
   toolbarContainer: {
     position: "absolute",
@@ -44,8 +46,11 @@ function App() {
   const { toggleMainMenu } = useMenu();
   const [open, setOpen] = useState(true);
   const [subMenuOpen, setSubMenuOpen] = useState([false, false]);
+  const { clearEntities } = useEntity("");
+  console.log(i18next, "i19");
 
   const Menus: any = [
+    { title: "home", icon: <Group />, entity: "home" },
     { title: "contacts", icon: <Group />, entity: "contacts" },
     { title: "accounts", icon: <AiOutlineFileText />, entity: "accounts" },
     {
@@ -90,7 +95,13 @@ function App() {
           }`}
           onClick={() => setOpen(!open)}
         />
-        <div className="inline-flex">
+        <div
+          style={{ cursor: "pointer" }}
+          className="inline-flex"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           <AiFillEnvironment
             className={`bg-amber-300 text-4xl rounded cursor-pointer block float-left mr-2 duration-500 ${
               open && "rotate-[360deg]"
@@ -132,7 +143,10 @@ function App() {
                   menu.spacing ? "mt-9" : "mt-2"
                 }`}
                 onClick={() => {
-                  menu?.entity && navigate(`page/${menu?.entity}/list`);
+                  menu?.entity && clearEntities();
+                  menu?.entity && menu?.entity !== "home"
+                    ? navigate(`page/${menu?.entity}/list`)
+                    : navigate("/");
                   menu.submenu && configSubMenu(menu.index);
                 }}
               >
@@ -158,10 +172,11 @@ function App() {
                     <li
                       key={index}
                       className="text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 hover:bg-light-white rounded-md"
-                      onClick={() =>
+                      onClick={() => {
+                        submenuItem?.entity && clearEntities();
                         submenuItem?.entity &&
-                        navigate(`page/${submenuItem?.entity}/list`)
-                      }
+                          navigate(`page/${submenuItem?.entity}/list`);
+                      }}
                     >
                       {translate(submenuItem.title)}
                     </li>
@@ -174,6 +189,18 @@ function App() {
       </div>
       <div className={classes.container}>
         <Headers></Headers>
+        {i18next.language === "ger" && (
+          <div
+            style={{
+              fontSize: "12px",
+              position: "absolute",
+              right: "20px",
+              display: "inline-block",
+            }}
+          >
+            {translate("gerTranslations")}
+          </div>
+        )}
         <AppRoutes />
         <MainLayout></MainLayout>
       </div>
