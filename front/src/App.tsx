@@ -144,9 +144,9 @@ function App() {
                 }`}
                 onClick={() => {
                   menu?.entity && clearEntities();
-                  menu?.entity && menu?.entity !== "home"
-                    ? navigate(`page/${menu?.entity}/list`)
-                    : navigate("/");
+                  menu?.entity === "home"
+                    ? navigate("/")
+                    : menu?.entity && navigate(`page/${menu?.entity}/list`);
                   menu.submenu && configSubMenu(menu.index);
                 }}
               >
