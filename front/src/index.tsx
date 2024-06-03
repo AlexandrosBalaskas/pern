@@ -43,19 +43,19 @@ const keycloakProviderInitOptions = {
 };
 root.render(
   <Router>
-    {/* <ReactKeycloakProvider
+    <ReactKeycloakProvider
       authClient={keycloak}
       initOptions={keycloakProviderInitOptions}
       autoRefreshToken={false}
-    > */}
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <I18nextProvider i18n={i18next}>
-          <App />
-        </I18nextProvider>
-      </ThemeProvider>
-    </Provider>
-    {/* </ReactKeycloakProvider> */}
+    >
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <I18nextProvider i18n={i18next}>
+            <App />
+          </I18nextProvider>
+        </ThemeProvider>
+      </Provider>
+    </ReactKeycloakProvider>
   </Router>
 );
 
