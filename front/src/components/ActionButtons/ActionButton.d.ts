@@ -5,6 +5,7 @@ export type ActionButtonProps = {
   id: string;
   action: ActionButtonType;
   style?: "menu" | "button" | "icon" | "link" | "simple";
+  setSnackbarOpen?: (arg: any) => void;
   // onCall?: () => void;
   pageId: string;
 };

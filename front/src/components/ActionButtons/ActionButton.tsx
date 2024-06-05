@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { Assets } from "../Assets/Assets";
 import { useTranslation } from "react-i18next";
 import ConfirmationDialog from "../ConfirmationDialog/ConfirmationDialog";
-import api from "../../axiosConfig";
 import { makeStyles } from "@mui/styles";
 import useTable from "../../store/table/useTable";
+import { useKeycloak } from "@react-keycloak/web";
 
 const useStyles = makeStyles((theme: Theme) => ({
   icon: { marginRight: 16, fontSize: 10 },
@@ -23,7 +23,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const ActionButton = ({ id, action, pageId }: ActionButtonProps) => {
+const ActionButton = ({
+  id,
+  action,
+  pageId,
+  setSnackbarOpen,
+}: ActionButtonProps) => {
   const styles = useStyles();
   const {
     style = "button",
@@ -39,6 +44,7 @@ const ActionButton = ({ id, action, pageId }: ActionButtonProps) => {
   const navigate = useNavigate();
 
   const [openModal, setOpenModal] = useState(false);
+  const { keycloak } = useKeycloak();
 
   const { deleteRow } = useTable(pageId);
 
@@ -50,9 +56,17 @@ const ActionButton = ({ id, action, pageId }: ActionButtonProps) => {
     }
   };
 
-  const onSubmit = () => {
-    deleteRow(id);
-  };
+  const onSubmit = useCallback(() => {
+    if (
+      keycloak.hasRealmRole("hasDeleteRole") ||
+      pageId === "priceBooks" ||
+      pageId === "quickTexts"
+    ) {
+      deleteRow(id);
+    } else {
+      setSnackbarOpen && setSnackbarOpen(true);
+    }
+  }, [id, setSnackbarOpen, pageId]);
 
   const onClose = useCallback(() => setOpenModal(false), []);
 

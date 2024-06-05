@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Menu, Theme, PopoverOrigin } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Menu, Theme, PopoverOrigin, Snackbar, Alert } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import AppIconButton from "../AppIconButton/AppIconButton";
 import { Assets } from "../Assets/Assets";
@@ -43,6 +43,13 @@ export default function MenuActionButton({
   const styles = useStyles();
 
   const { t: translate } = useTranslation(["common", "accessibility"]);
+  const [snackBarOpen, setSnackBarOpen] = useState(false);
+  useEffect(() => {
+    snackBarOpen &&
+      setTimeout(() => {
+        setSnackBarOpen(false);
+      }, 6000);
+  }, [snackBarOpen]);
 
   const [anchor, setAnchor] = useState(null);
 
@@ -71,6 +78,7 @@ export default function MenuActionButton({
       >
         {actions?.map((action: any, index: any) => (
           <ActionButton
+            setSnackbarOpen={setSnackBarOpen}
             key={`${action.title}-${index}-${
               action?.source?.id ||
               action?.source?.code ||
@@ -83,6 +91,18 @@ export default function MenuActionButton({
           />
         ))}
       </Menu>
+      <Snackbar open={snackBarOpen} autoHideDuration={6000} color="dark">
+        <Alert
+          onClose={() => {
+            setSnackBarOpen(false);
+          }}
+          severity="error"
+          variant="filled"
+          sx={{ width: "max-content" }}
+        >
+          {translate("hasnotpermission", { ns: "common" })}
+        </Alert>
+      </Snackbar>
     </>
   );
 }

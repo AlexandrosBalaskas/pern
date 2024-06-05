@@ -41,6 +41,8 @@ export const GER_DEFAULT_TRANSLATIONS = {
     home: "Startseite",
     gerTranslations:
       "Deutsche Übersetzungen werden von KI generiert und sind möglicherweise nicht genau.",
+    hasnotpermission:
+      "Dieser Benutzer kann nur Preislisten und Schnelltexte löschen",
   },
   validations: {},
   accessibility: {},

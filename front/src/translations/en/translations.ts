@@ -50,6 +50,7 @@ export const EN_DEFAULT_TRANSLATIONS = {
     home: "Home",
     gerTranslations:
       "German translations are AI generated and may be not accurate",
+    hasnotpermission: "This user can only delete price books and quick texts",
   },
   validations: {},
   accessibility: {},

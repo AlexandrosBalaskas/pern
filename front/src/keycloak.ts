@@ -19,10 +19,19 @@ const doLogout = keycloak.logout;
 
 const getToken = () => keycloak.token;
 
+const hasDeleteRole = () => keycloak.hasRealmRole("hasDeleteRole");
+
 const isAuthenticated = () => !!keycloak.token;
 
 // @ts-ignore
 const getUsername = () => keycloak.tokenParsed?.preferred_username;
 
-export { doLogin, doLogout, getToken, isAuthenticated, getUsername };
+export {
+  doLogin,
+  doLogout,
+  getToken,
+  isAuthenticated,
+  getUsername,
+  hasDeleteRole,
+};
 export default keycloak;
