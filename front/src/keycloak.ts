@@ -8,7 +8,7 @@ const minValidity = 5;
 // Setup Keycloak instance as needed
 // Pass initialization options as required or leave blank to load from 'keycloak.json'
 const keycloak = new Keycloak({
-  url: "https://alexanderbalaskas.xyz:8443/",
+  url: "https://alexanderbalaskas.site:8443/",
   realm: "master",
   clientId: "react-client",
 });
