@@ -24,7 +24,7 @@ router.get("/api/productsByFamily", async (req, res) => {
          COUNT(*) as count 
        FROM products 
        WHERE productFamily IN ('1', '2', '3', '4', '5') 
-       GROUP BY productFamily`
+       GROUP BY productFamily`,
     );
     const counts = {
       Electronics: 0,
@@ -35,15 +35,15 @@ router.get("/api/productsByFamily", async (req, res) => {
     };
 
     result.rows.forEach((row) => {
-      if (row.productfamily === "1") {
+      if (row.productfamily == "1") {
         counts.Electronics = row.count;
-      } else if (row.productfamily === "2") {
+      } else if (row.productfamily == "2") {
         counts.Apparel = row.count;
-      } else if (row.productfamily === "3") {
+      } else if (row.productfamily == "3") {
         counts.Automobiles = row.count;
-      } else if (row.productfamily === "4") {
+      } else if (row.productfamily == "4") {
         counts.Furniture = row.count;
-      } else if (row.productfamily === "5") {
+      } else if (row.productfamily == "5") {
         counts["Home Appliances"] = row.count;
       }
     });
@@ -70,7 +70,7 @@ router.get("/api/products", async (req, res) => {
       `SELECT * FROM products ${filters} ${order} LIMIT ${
         pageSize || 10
       } OFFSET (${pageSize || 10} * ($1))`,
-      [current_page]
+      [current_page],
     );
     const count = await pool.query(`SELECT COUNT(*) FROM products ${filters} `);
     res.status(200).send({ data: data.rows, count: count.rows[0].count });
@@ -104,7 +104,7 @@ router.put("/api/products/:id", async (req, res) => {
   try {
     const results = await pool.query(
       `UPDATE products SET productName = $1 , productFamily = $2, productCode = $3, active = $4, productDescription = $5 WHERE id = ${id} returning *`,
-      [productname, productfamily, productcode, active, productdescription]
+      [productname, productfamily, productcode, active, productdescription],
     );
     res.status(200).send(results.rows[0]);
   } catch {
@@ -136,7 +136,7 @@ router.post("/api/products", async (req, res) => {
   try {
     const results = await pool.query(
       "INSERT INTO products (productName, productFamily, productCode, active, productDescription) VALUES ($1, $2, $3, $4, $5) returning *",
-      [productname, productfamily, productcode, active, productdescription]
+      [productname, productfamily, productcode, active, productdescription],
     );
     res.status(200).send(results.rows[0]);
   } catch (err) {

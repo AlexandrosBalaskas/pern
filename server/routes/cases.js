@@ -50,7 +50,7 @@ router.get("/api/casesByPriority", async (req, res) => {
          COUNT(*) as count 
        FROM cases 
        WHERE priority IN ('1', '2', '3') 
-       GROUP BY priority`
+       GROUP BY priority`,
     );
 
     const counts = {
@@ -60,11 +60,11 @@ router.get("/api/casesByPriority", async (req, res) => {
     };
 
     result.rows.forEach((row) => {
-      if (row.priority === "1") {
+      if (row.priority == "1") {
         counts.Low = row.count;
-      } else if (row.priority === "2") {
+      } else if (row.priority == "2") {
         counts.Medium = row.count;
-      } else if (row.priority === "3") {
+      } else if (row.priority == "3") {
         counts.High = row.count;
       }
     });
@@ -91,7 +91,7 @@ router.get("/api/cases", async (req, res) => {
       `SELECT * FROM cases ${filters} ${order} LIMIT ${
         pageSize || 10
       } OFFSET (${pageSize || 10} * ($1))`,
-      [current_page]
+      [current_page],
     );
     const count = await pool.query(`SELECT COUNT(*) FROM cases ${filters} `);
     res.status(200).send({ data: data.rows, count: count.rows[0].count });
@@ -137,7 +137,7 @@ router.put("/api/cases/:id", async (req, res) => {
         accountname,
         subject,
         description,
-      ]
+      ],
     );
     res.status(200).send(results.rows[0]);
   } catch {
@@ -181,7 +181,7 @@ router.post("/api/cases", async (req, res) => {
         accountname,
         subject,
         description,
-      ]
+      ],
     );
     res.status(200).send(results.rows[0]);
   } catch (err) {

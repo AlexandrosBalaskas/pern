@@ -50,7 +50,7 @@ router.get("/api/leadsByStatus", async (req, res) => {
          COUNT(*) as count 
        FROM leads 
        WHERE leadStatus IN ('1', '2', '3', '4', '5') 
-       GROUP BY leadStatus`
+       GROUP BY leadStatus`,
     );
     const counts = {
       Unqualified: 0,
@@ -61,15 +61,15 @@ router.get("/api/leadsByStatus", async (req, res) => {
     };
 
     result.rows.forEach((row) => {
-      if (row.leadstatus === "5") {
+      if (row.leadstatus == "5") {
         counts.Unqualified = row.count;
-      } else if (row.leadstatus === "4") {
+      } else if (row.leadstatus == "4") {
         counts.Qualified = row.count;
-      } else if (row.leadstatus === "3") {
+      } else if (row.leadstatus == "3") {
         counts.Nurturing = row.count;
-      } else if (row.leadstatus === "2") {
+      } else if (row.leadstatus == "2") {
         counts.Contracted = row.count;
-      } else if (row.leadstatus === "1") {
+      } else if (row.leadstatus == "1") {
         counts.New = row.count;
       }
     });
@@ -96,7 +96,7 @@ router.get("/api/leads", async (req, res) => {
       `SELECT * FROM leads ${filters} ${order} LIMIT ${
         pageSize || 10
       } OFFSET (${pageSize || 10} * ($1))`,
-      [current_page]
+      [current_page],
     );
     const count = await pool.query(`SELECT COUNT(*) FROM leads ${filters} `);
     res.status(200).send({ data: data.rows, count: count.rows[0].count });
@@ -166,7 +166,7 @@ router.put("/api/leads/:id", async (req, res) => {
         annualrevenue,
         leadsource,
         industry,
-      ]
+      ],
     );
     res.status(200).send(results.rows[0]);
   } catch {
@@ -234,7 +234,7 @@ router.post("/api/leads", async (req, res) => {
         annualrevenue,
         leadsource,
         industry,
-      ]
+      ],
     );
     res.status(200).send(results.rows[0]);
   } catch (err) {

@@ -40,7 +40,7 @@ router.get("/api/oportunitiesByStage", async (req, res) => {
          COUNT(*) as count 
        FROM oportunities 
        WHERE stage IN ('1', '2', '3', '4', '5', '6') 
-       GROUP BY stage`
+       GROUP BY stage`,
     );
     const counts = {
       Qualify: 0,
@@ -52,17 +52,17 @@ router.get("/api/oportunitiesByStage", async (req, res) => {
     };
 
     result.rows.forEach((row) => {
-      if (row.stage === "1") {
+      if (row.stage == "1") {
         counts.Qualify = row.count;
-      } else if (row.stage === "2") {
+      } else if (row.stage == "2") {
         counts["Meet & Present"] = row.count;
-      } else if (row.stage === "3") {
+      } else if (row.stage == "3") {
         counts.Propose = row.count;
-      } else if (row.stage === "4") {
+      } else if (row.stage == "4") {
         counts.Negotiate = row.count;
-      } else if (row.stage === "5") {
+      } else if (row.stage == "5") {
         counts["Closed Won"] = row.count;
-      } else if (row.stage === "6") {
+      } else if (row.stage == "6") {
         counts["Closed Lost"] = row.count;
       }
     });
@@ -89,10 +89,10 @@ router.get("/api/oportunities", async (req, res) => {
       `SELECT * FROM oportunities ${filters} ${order} LIMIT ${
         pageSize || 10
       } OFFSET (${pageSize || 10} * ($1))`,
-      [current_page]
+      [current_page],
     );
     const count = await pool.query(
-      `SELECT COUNT(*) FROM oportunities ${filters} `
+      `SELECT COUNT(*) FROM oportunities ${filters} `,
     );
     res.status(200).send({ data: data.rows, count: count.rows[0].count });
   } catch (err) {
@@ -106,7 +106,7 @@ router.get("/api/oportunities/:id", async (req, res) => {
   const id = req.params.id;
   try {
     const results = await pool.query(
-      `SELECT * FROM oportunities WHERE id = ${id}`
+      `SELECT * FROM oportunities WHERE id = ${id}`,
     );
     res.status(200).send(results.rows[0]);
   } catch {
@@ -143,7 +143,7 @@ router.put("/api/oportunities/:id", async (req, res) => {
         probability,
         forecastcategory,
         nextstep,
-      ]
+      ],
     );
     res.status(200).send(results.rows[0]);
   } catch {
@@ -156,7 +156,7 @@ router.delete("/api/oportunities/:id", async (req, res) => {
   const id = req.params.id;
   try {
     const results = await pool.query(
-      `DELETE FROM oportunities WHERE id = ${id}`
+      `DELETE FROM oportunities WHERE id = ${id}`,
     );
     res.status(204).json({ status: "success" });
   } catch {
@@ -193,7 +193,7 @@ router.post("/api/oportunities", async (req, res) => {
         probability,
         forecastcategory,
         nextstep,
-      ]
+      ],
     );
     res.status(200).send(results.rows[0]);
   } catch (err) {
