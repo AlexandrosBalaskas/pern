@@ -1,15 +1,13 @@
 const pool = require("..server/db");
 
 module.exports = async (req, res) => {
-  if (req.method !== "GET") {
-    return res.status(405).end();
-  }
+  if (req.method !== "GET") return res.status(405).end();
 
   try {
-    const data = await pool.query("SELECT * FROM stage");
+    const data = await pool.query(`SELECT * FROM related_to`);
     const items = data.rows.map((acc) => ({
-      code: acc.stage_id,
-      label: acc.stage_type,
+      code: acc.related_id,
+      label: acc.related_type,
     }));
 
     res.status(200).json({ items });

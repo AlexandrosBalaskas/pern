@@ -1,15 +1,13 @@
 const pool = require("..server/db");
 
 module.exports = async (req, res) => {
-  if (req.method !== "GET") {
-    return res.status(405).end();
-  }
+  if (req.method !== "GET") return res.status(405).end();
 
   try {
-    const data = await pool.query("SELECT * FROM stage");
+    const data = await pool.query(`SELECT * FROM product_families`);
     const items = data.rows.map((acc) => ({
-      code: acc.stage_id,
-      label: acc.stage_type,
+      code: acc.family_id,
+      label: acc.family_type,
     }));
 
     res.status(200).json({ items });

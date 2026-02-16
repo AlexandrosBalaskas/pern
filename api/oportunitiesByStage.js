@@ -23,12 +23,12 @@ module.exports = async (req, res) => {
     };
 
     result.rows.forEach((row) => {
-      if (row.stage === "1") counts.Qualify = row.count;
-      if (row.stage === "2") counts["Meet & Present"] = row.count;
-      if (row.stage === "3") counts.Propose = row.count;
-      if (row.stage === "4") counts.Negotiate = row.count;
-      if (row.stage === "5") counts["Closed Won"] = row.count;
-      if (row.stage === "6") counts["Closed Lost"] = row.count;
+      if (row.stage == "1") counts.Qualify = row.count;
+      if (row.stage == "2") counts["Meet & Present"] = row.count;
+      if (row.stage == "3") counts.Propose = row.count;
+      if (row.stage == "4") counts.Negotiate = row.count;
+      if (row.stage == "5") counts["Closed Won"] = row.count;
+      if (row.stage == "6") counts["Closed Lost"] = row.count;
     });
 
     res.status(200).json(counts);
