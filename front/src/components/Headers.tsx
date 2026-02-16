@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Assets } from "./Assets/Assets";
 import { deepOrange } from "@mui/material/colors";
 import GenericSelect from "./AutoComplete/Select";
-import { doLogout } from "../keycloak";
+// import { doLogout } from "../keycloak";
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -44,7 +44,7 @@ function Headers() {
       icon: <Assets input="icons" name="ExitToApp" />,
       label: `${translate("logout")}`,
       onClick: () => {
-        doLogout();
+        // doLogout();
       },
     },
   ];

@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import ConfirmationDialog from "../ConfirmationDialog/ConfirmationDialog";
 import { makeStyles } from "@mui/styles";
 import useTable from "../../store/table/useTable";
-import { useKeycloak } from "@react-keycloak/web";
+// import { useKeycloak } from "@react-keycloak/web";
 
 const useStyles = makeStyles((theme: Theme) => ({
   icon: { marginRight: 16, fontSize: 10 },
@@ -44,7 +44,7 @@ const ActionButton = ({
   const navigate = useNavigate();
 
   const [openModal, setOpenModal] = useState(false);
-  const { keycloak } = useKeycloak();
+  // const { keycloak } = useKeycloak();
 
   const { deleteRow } = useTable(pageId);
 
@@ -58,7 +58,7 @@ const ActionButton = ({
 
   const onSubmit = useCallback(() => {
     if (
-      keycloak.hasRealmRole("hasDeleteRole") ||
+      // keycloak.hasRealmRole("hasDeleteRole") ||
       pageId === "priceBooks" ||
       pageId === "quickTexts"
     ) {
