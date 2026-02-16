@@ -1,4 +1,4 @@
-const pool = require("../../db");
+const pool = require("../../../server/db");
 
 module.exports = async (req, res) => {
   await new Promise((r) => setTimeout(r, 300));

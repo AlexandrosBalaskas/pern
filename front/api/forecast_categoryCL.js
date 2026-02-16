@@ -1,4 +1,4 @@
-const pool = require("../db");
+const pool = require("../../server/db");
 
 module.exports = async (req, res) => {
   if (req.method !== "GET") {
@@ -6,10 +6,10 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const data = await pool.query("SELECT * FROM stage");
+    const data = await pool.query("SELECT * FROM forecast_category");
     const items = data.rows.map((acc) => ({
-      code: acc.stage_id,
-      label: acc.stage_type,
+      code: acc.forecast_category_id,
+      label: acc.forecast_category_type,
     }));
 
     res.status(200).json({ items });
