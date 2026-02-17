@@ -20,10 +20,10 @@ router.get("/api/priceBooks", async (req, res) => {
       `SELECT * FROM priceBooks ${filters} ${order} LIMIT ${
         pageSize || 10
       } OFFSET (${pageSize || 10} * ($1))`,
-      [current_page]
+      [current_page],
     );
     const count = await pool.query(
-      `SELECT COUNT(*) FROM priceBooks ${filters} `
+      `SELECT COUNT(*) FROM priceBooks ${filters} `,
     );
     res.status(200).send({ data: data.rows, count: count.rows[0].count });
   } catch (err) {
@@ -37,7 +37,7 @@ router.get("/api/priceBooks/:id", async (req, res) => {
   const id = req.params.id;
   try {
     const results = await pool.query(
-      `SELECT * FROM priceBooks WHERE id = ${id}`
+      `SELECT * FROM priceBooks WHERE id = ${id}`,
     );
     res.status(200).send(results.rows[0]);
   } catch {
@@ -52,7 +52,7 @@ router.put("/api/priceBooks/:id", async (req, res) => {
   try {
     const results = await pool.query(
       `UPDATE priceBooks SET priceBookName = $1 , description = $2, active = $3, isStandard = $4 WHERE id = ${id} returning *`,
-      [pricebookname, description, active, isstandard]
+      [pricebookname, description, active, isstandard],
     );
     res.status(200).send(results.rows[0]);
   } catch {
@@ -78,8 +78,9 @@ router.post("/api/priceBooks", async (req, res) => {
   try {
     const results = await pool.query(
       "INSERT INTO priceBooks (priceBookName, description, active, isStandard ) VALUES ($1, $2, $3, $4) returning *",
-      [pricebookname, description, active, isstandard]
+      [pricebookname, description, active, isstandard],
     );
+    console.log(results.rows[0], "results.rows[0]");
     res.status(200).send(results.rows[0]);
   } catch (err) {
     console.log(err, "err");

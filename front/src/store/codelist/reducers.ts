@@ -35,7 +35,7 @@ export const LoadCodelist = createAsyncThunk(
   ({ codelistId, url, params, data, method, headers, tableId }: any) => {
     return api({
       method: "get",
-      url: `lookups?type=${codelistId}CL`,
+      url: `${codelistId}CL`,
       params: "",
     }).then((response) => {
       return { data: response.data };

@@ -35,7 +35,7 @@ export const LoadChart = createAsyncThunk(
   ({ chartId }: any) => {
     return api({
       method: "get",
-      url: `charts?type=${chartId}`,
+      url: chartId,
       params: "",
     }).then((response) => {
       return { data: response.data };

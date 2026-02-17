@@ -62,7 +62,7 @@ export const DeleteRow = createAsyncThunk(
   ({ tableId, rowId }: any, { getState }) => {
     return api({
       method: "delete",
-      url: `${tableId}?id=${rowId}`,
+      url: `${tableId}/${rowId}`,
     }).then((response) => {
       return { response };
     });
