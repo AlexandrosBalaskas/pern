@@ -22,7 +22,7 @@ const initialEntityState: EntityState = {
 const settingEntities = (
   state: any,
   action: any,
-  tableReducer: (state: any, action: any) => {}
+  tableReducer: (state: any, action: any) => {},
 ) => {
   const { payload, meta } = action;
   const entityId = payload?.entityId || meta?.arg?.entityId;
@@ -46,12 +46,12 @@ export const SaveEntity = createAsyncThunk(
     const { formData, isNew } = entitySlice;
     return api({
       method: isNew ? "post" : "put",
-      url: isNew ? `${entityId}` : `${entityId}/${formData.id}`,
+      url: isNew ? `${entityId}` : `${entityId}?id=${formData.id}`,
       data: formData,
     }).then((response) => {
       return { data: response.data, isNew };
     });
-  }
+  },
 );
 
 export const LoadEntity = createAsyncThunk(
@@ -59,11 +59,11 @@ export const LoadEntity = createAsyncThunk(
   ({ entityId, idKey }: any) => {
     return api({
       method: "get",
-      url: `/${entityId}/${idKey}`,
+      url: `/${entityId}?id=${idKey}`,
     }).then((response) => {
       return { data: response.data };
     });
-  }
+  },
 );
 
 export const entitySlice = createSlice({

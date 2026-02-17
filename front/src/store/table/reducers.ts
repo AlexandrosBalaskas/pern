@@ -41,7 +41,7 @@ const getPredefinedCriteria = (all: any = {}, predefined: any = {}) => {
 const settingTables = (
   state: any,
   action: any,
-  tableReducer: (state: any, action: any) => {}
+  tableReducer: (state: any, action: any) => {},
 ) => {
   const { payload, meta } = action;
   const tableId = payload?.tableId || meta?.arg?.tableId;
@@ -62,11 +62,11 @@ export const DeleteRow = createAsyncThunk(
   ({ tableId, rowId }: any, { getState }) => {
     return api({
       method: "delete",
-      url: `${tableId}/${rowId}`,
+      url: `${tableId}?id=${rowId}`,
     }).then((response) => {
       return { response };
     });
-  }
+  },
 );
 
 export const LoadTable = createAsyncThunk(
@@ -79,7 +79,7 @@ export const LoadTable = createAsyncThunk(
     }).then((response) => {
       return { data: response.data };
     });
-  }
+  },
 );
 
 export const entitySlice = createSlice({
@@ -101,7 +101,7 @@ export const entitySlice = createSlice({
         filterData: { ...action.payload.criteria },
         predefinedCriteria: getPredefinedCriteria(
           action.payload.criteria,
-          state.predefinedCriteria
+          state.predefinedCriteria,
         ),
         pagination: {
           ...state.pagination,
