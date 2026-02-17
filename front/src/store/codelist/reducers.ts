@@ -14,7 +14,7 @@ const initialState: CodelistState = {};
 const settingCodelists = (
   state: any,
   action: any,
-  tableReducer: (state: any, action: any) => {}
+  tableReducer: (state: any, action: any) => {},
 ) => {
   const { payload, meta } = action;
   const codelistId = payload?.codelistId || meta?.arg?.codelistId;
@@ -35,12 +35,12 @@ export const LoadCodelist = createAsyncThunk(
   ({ codelistId, url, params, data, method, headers, tableId }: any) => {
     return api({
       method: "get",
-      url: `${codelistId}CL`,
+      url: `lookups?type=${codelistId}CL`,
       params: "",
     }).then((response) => {
       return { data: response.data };
     });
-  }
+  },
 );
 
 export const entitySlice = createSlice({

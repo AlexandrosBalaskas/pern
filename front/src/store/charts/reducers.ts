@@ -14,7 +14,7 @@ const initialState: ChartState = {};
 const settingCharts = (
   state: any,
   action: any,
-  tableReducer: (state: any, action: any) => {}
+  tableReducer: (state: any, action: any) => {},
 ) => {
   const { payload, meta } = action;
   const chartId = payload?.chartId || meta?.arg?.chartId;
@@ -35,12 +35,12 @@ export const LoadChart = createAsyncThunk(
   ({ chartId }: any) => {
     return api({
       method: "get",
-      url: chartId,
+      url: `charts?type=${chartId}`,
       params: "",
     }).then((response) => {
       return { data: response.data };
     });
-  }
+  },
 );
 
 export const entitySlice = createSlice({
